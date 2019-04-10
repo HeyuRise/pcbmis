@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pcbwx.pcbmis.dao.SizeAndWarpingDegreeMapper" >
+  <resultMap id="BaseResultMap" type="com.pcbwx.pcbmis.model.SizeAndWarpingDegree" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="check_num" property="checkNum" jdbcType="VARCHAR" />
+    <result column="order_num" property="orderNum" jdbcType="VARCHAR" />
+    <result column="board_num" property="boardNum" jdbcType="VARCHAR" />
+    <result column="board_long" property="boardLong" jdbcType="DECIMAL" />
+    <result column="board_wide" property="boardWide" jdbcType="DECIMAL" />
+    <result column="board_ply" property="boardPly" jdbcType="DOUBLE" />
+    <result column="lay_height" property="layHeight" jdbcType="VARCHAR" />
+    <result column="warp_height" property="warpHeight" jdbcType="VARCHAR" />
+    <result column="warping_degree" property="warpingDegree" jdbcType="VARCHAR" />
+    <result column="judge" property="judge" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, check_num, order_num, board_num, board_long, board_wide, board_ply, lay_height, 
+    warp_height, warping_degree, judge, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from size_and_warping_degree
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from size_and_warping_degree
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcbwx.pcbmis.model.SizeAndWarpingDegree" >
+    insert into size_and_warping_degree (id, check_num, order_num, 
+      board_num, board_long, board_wide, 
+      board_ply, lay_height, warp_height, 
+      warping_degree, judge, create_time, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{checkNum,jdbcType=VARCHAR}, #{orderNum,jdbcType=VARCHAR}, 
+      #{boardNum,jdbcType=VARCHAR}, #{boardLong,jdbcType=DECIMAL}, #{boardWide,jdbcType=DECIMAL}, 
+      #{boardPly,jdbcType=DOUBLE}, #{layHeight,jdbcType=VARCHAR}, #{warpHeight,jdbcType=VARCHAR}, 
+      #{warpingDegree,jdbcType=VARCHAR}, #{judge,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcbwx.pcbmis.model.SizeAndWarpingDegree" >
+    insert into size_and_warping_degree
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="checkNum != null" >
+        check_num,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="boardNum != null" >
+        board_num,
+      </if>
+      <if test="boardLong != null" >
+        board_long,
+      </if>
+      <if test="boardWide != null" >
+        board_wide,
+      </if>
+      <if test="boardPly != null" >
+        board_ply,
+      </if>
+      <if test="layHeight != null" >
+        lay_height,
+      </if>
+      <if test="warpHeight != null" >
+        warp_height,
+      </if>
+      <if test="warpingDegree != null" >
+        warping_degree,
+      </if>
+      <if test="judge != null" >
+        judge,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="checkNum != null" >
+        #{checkNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="boardNum != null" >
+        #{boardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="boardLong != null" >
+        #{boardLong,jdbcType=DECIMAL},
+      </if>
+      <if test="boardWide != null" >
+        #{boardWide,jdbcType=DECIMAL},
+      </if>
+      <if test="boardPly != null" >
+        #{boardPly,jdbcType=DOUBLE},
+      </if>
+      <if test="layHeight != null" >
+        #{layHeight,jdbcType=VARCHAR},
+      </if>
+      <if test="warpHeight != null" >
+        #{warpHeight,jdbcType=VARCHAR},
+      </if>
+      <if test="warpingDegree != null" >
+        #{warpingDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="judge != null" >
+        #{judge,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcbwx.pcbmis.model.SizeAndWarpingDegree" >
+    update size_and_warping_degree
+    <set >
+      <if test="checkNum != null" >
+        check_num = #{checkNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="boardNum != null" >
+        board_num = #{boardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="boardLong != null" >
+        board_long = #{boardLong,jdbcType=DECIMAL},
+      </if>
+      <if test="boardWide != null" >
+        board_wide = #{boardWide,jdbcType=DECIMAL},
+      </if>
+      <if test="boardPly != null" >
+        board_ply = #{boardPly,jdbcType=DOUBLE},
+      </if>
+      <if test="layHeight != null" >
+        lay_height = #{layHeight,jdbcType=VARCHAR},
+      </if>
+      <if test="warpHeight != null" >
+        warp_height = #{warpHeight,jdbcType=VARCHAR},
+      </if>
+      <if test="warpingDegree != null" >
+        warping_degree = #{warpingDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="judge != null" >
+        judge = #{judge,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcbwx.pcbmis.model.SizeAndWarpingDegree" >
+    update size_and_warping_degree
+    set check_num = #{checkNum,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=VARCHAR},
+      board_num = #{boardNum,jdbcType=VARCHAR},
+      board_long = #{boardLong,jdbcType=DECIMAL},
+      board_wide = #{boardWide,jdbcType=DECIMAL},
+      board_ply = #{boardPly,jdbcType=DOUBLE},
+      lay_height = #{layHeight,jdbcType=VARCHAR},
+      warp_height = #{warpHeight,jdbcType=VARCHAR},
+      warping_degree = #{warpingDegree,jdbcType=VARCHAR},
+      judge = #{judge,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+   <!-- 以下为自定义接口 -->
+  <select id="selectByCheckNum" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from size_and_warping_degree
+    where check_num = #{checkNum,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByCheckNum" parameterType="map">
+  	delete from size_and_warping_degree
+    where check_num = #{checkNum,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectUnJudgeByCheckNum" resultType="java.lang.Integer" parameterType="map" >
+    select count(*)
+    from size_and_warping_degree
+    where judge = 0
+    and check_num = #{checkNum,jdbcType=VARCHAR}
+  </select>
+</mapper>

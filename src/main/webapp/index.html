@@ -1,0 +1,49 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="script/js/jquery-easyui-1.3.3/jquery.min.js" type="text/javascript"></script>
+    <title>PCB检验检测系统</title>
+</head>
+<body>
+
+
+<script type="text/javascript"> 
+$(function(){
+	$.ajax({  
+	    type: "get",  
+	    url: "/pcbmis/roleAuth/getUserDetail",  
+	    contentType: 'application/json', 
+	    success: function (data) {  
+			var roles = data.roles;
+			user(roles);
+		}
+	})
+})
+function user(role){
+	if (role==undefined) {
+		window.location.href="html/index.html?type=0"
+	} else if (role=="系统管理员") {
+		window.location.href="html/user.html"
+	}else if(judgeUserRole(role,"检验员")==1){
+		window.location.href="html/index.html"
+	}else if(judgeUserRole(role,"审核员")==1){
+		window.location.href="html/review-index.html"
+	}else{
+	   window.location.href="html/list.html"
+	}
+	
+} 
+function judgeUserRole(roles, theRole) {
+	for(var i =0;i<roles.length;i++) {
+		value = roles[i] 
+		if (value==theRole){
+			return 1;
+		}
+	} 
+	return 0;
+}
+
+</script>
+</body>
+</html>

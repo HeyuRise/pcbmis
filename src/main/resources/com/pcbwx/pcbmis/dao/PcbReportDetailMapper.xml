@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pcbwx.pcbmis.dao.PcbReportDetailMapper" >
+ <resultMap id="BaseResultMap" type="com.pcbwx.pcbmis.model.PcbReportDetail" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="report_num" property="reportNum" jdbcType="VARCHAR" />
+    <result column="order_num" property="orderNum" jdbcType="VARCHAR" />
+    <result column="option_name" property="optionName" jdbcType="VARCHAR" />
+    <result column="check_require" property="checkRequire" jdbcType="VARCHAR" />
+    <result column="board_tolerance" property="boardTolerance" jdbcType="VARCHAR" />
+    <result column="check_result" property="checkResult" jdbcType="VARCHAR" />
+    <result column="judge_result" property="judgeResult" jdbcType="INTEGER" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, report_num, order_num, option_name, check_require, board_tolerance, check_result, 
+    judge_result, creat_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pcb_report_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pcb_report_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcbwx.pcbmis.model.PcbReportDetail" >
+    insert into pcb_report_detail (id, report_num, order_num, 
+      option_name, check_require, board_tolerance, 
+      check_result, judge_result, creat_time, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{reportNum,jdbcType=VARCHAR}, #{orderNum,jdbcType=VARCHAR}, 
+      #{optionName,jdbcType=VARCHAR}, #{checkRequire,jdbcType=VARCHAR}, #{boardTolerance,jdbcType=VARCHAR}, 
+      #{checkResult,jdbcType=VARCHAR}, #{judgeResult,jdbcType=INTEGER}, #{creatTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcbwx.pcbmis.model.PcbReportDetail" >
+    insert into pcb_report_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="reportNum != null" >
+        report_num,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="optionName != null" >
+        option_name,
+      </if>
+      <if test="checkRequire != null" >
+        check_require,
+      </if>
+      <if test="boardTolerance != null" >
+        board_tolerance,
+      </if>
+      <if test="checkResult != null" >
+        check_result,
+      </if>
+      <if test="judgeResult != null" >
+        judge_result,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="reportNum != null" >
+        #{reportNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="optionName != null" >
+        #{optionName,jdbcType=VARCHAR},
+      </if>
+      <if test="checkRequire != null" >
+        #{checkRequire,jdbcType=VARCHAR},
+      </if>
+      <if test="boardTolerance != null" >
+        #{boardTolerance,jdbcType=VARCHAR},
+      </if>
+      <if test="checkResult != null" >
+        #{checkResult,jdbcType=VARCHAR},
+      </if>
+      <if test="judgeResult != null" >
+        #{judgeResult,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcbwx.pcbmis.model.PcbReportDetail" >
+    update pcb_report_detail
+    <set >
+      <if test="reportNum != null" >
+        report_num = #{reportNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="optionName != null" >
+        option_name = #{optionName,jdbcType=VARCHAR},
+      </if>
+      <if test="checkRequire != null" >
+        check_require = #{checkRequire,jdbcType=VARCHAR},
+      </if>
+      <if test="boardTolerance != null" >
+        board_tolerance = #{boardTolerance,jdbcType=VARCHAR},
+      </if>
+      <if test="checkResult != null" >
+        check_result = #{checkResult,jdbcType=VARCHAR},
+      </if>
+      <if test="judgeResult != null" >
+        judge_result = #{judgeResult,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcbwx.pcbmis.model.PcbReportDetail" >
+    update pcb_report_detail
+    set report_num = #{reportNum,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=VARCHAR},
+      option_name = #{optionName,jdbcType=VARCHAR},
+      check_require = #{checkRequire,jdbcType=VARCHAR},
+      board_tolerance = #{boardTolerance,jdbcType=VARCHAR},
+      check_result = #{checkResult,jdbcType=VARCHAR},
+      judge_result = #{judgeResult,jdbcType=INTEGER},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+<!-- 以下为自定义接口 -->
+  <select id="selectByReportNum" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from pcb_report_detail
+    where 
+    report_num = #{reportNum,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByReportNumAndOptionName" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from pcb_report_detail
+    where 
+    report_num = #{reportNum,jdbcType=VARCHAR}
+    and option_name = #{optionName,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByReportNum" parameterType="map" >
+    delete from pcb_report_detail
+    where report_num = #{reportNum,jdbcType=VARCHAR}
+  </delete>
+</mapper>

@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pcbwx.pcbmis.dao.JoinBoardOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.pcbwx.pcbmis.model.JoinBoardOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="join_board_code" property="joinBoardCode" jdbcType="VARCHAR" />
+    <result column="product_order_num" property="productOrderNum" jdbcType="VARCHAR" />
+    <result column="join_board_name" property="joinBoardName" jdbcType="VARCHAR" />
+    <result column="join_board_long" property="joinBoardLong" jdbcType="DECIMAL" />
+    <result column="join_board_wide" property="joinBoardWide" jdbcType="DECIMAL" />
+    <result column="join_board_area" property="joinBoardArea" jdbcType="DECIMAL" />
+    <result column="prevent_smt" property="preventSmt" jdbcType="VARCHAR" />
+    <result column="board_char" property="boardChar" jdbcType="VARCHAR" />
+    <result column="single_board_hole_num" property="singleBoardHoleNum" jdbcType="INTEGER" />
+    <result column="min_aperture" property="minAperture" jdbcType="INTEGER" />
+    <result column="gong_length" property="gongLength" jdbcType="DECIMAL" />
+    <result column="min_line_width" property="minLineWidth" jdbcType="DECIMAL" />
+    <result column="min_line_distance" property="minLineDistance" jdbcType="DECIMAL" />
+    <result column="product_num" property="productNum" jdbcType="INTEGER" />
+    <result column="optimal_product_num" property="optimalProductNum" jdbcType="INTEGER" />
+    <result column="inner_create_time" property="innerCreateTime" jdbcType="TIMESTAMP" />
+    <result column="inner_update_time" property="innerUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, join_board_code, product_order_num, join_board_name, join_board_long, join_board_wide, 
+    join_board_area, prevent_smt, board_char, single_board_hole_num, min_aperture, gong_length, 
+    min_line_width, min_line_distance, product_num, optimal_product_num, inner_create_time, 
+    inner_update_time, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from join_board_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from join_board_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcbwx.pcbmis.model.JoinBoardOrder" >
+    insert into join_board_order (id, join_board_code, product_order_num, 
+      join_board_name, join_board_long, join_board_wide, 
+      join_board_area, prevent_smt, board_char, 
+      single_board_hole_num, min_aperture, gong_length, 
+      min_line_width, min_line_distance, product_num, 
+      optimal_product_num, inner_create_time, inner_update_time, 
+      create_time, update_time)
+    values (#{id,jdbcType=INTEGER}, #{joinBoardCode,jdbcType=VARCHAR}, #{productOrderNum,jdbcType=VARCHAR}, 
+      #{joinBoardName,jdbcType=VARCHAR}, #{joinBoardLong,jdbcType=DECIMAL}, #{joinBoardWide,jdbcType=DECIMAL}, 
+      #{joinBoardArea,jdbcType=DECIMAL}, #{preventSmt,jdbcType=VARCHAR}, #{boardChar,jdbcType=VARCHAR}, 
+      #{singleBoardHoleNum,jdbcType=INTEGER}, #{minAperture,jdbcType=INTEGER}, #{gongLength,jdbcType=DECIMAL}, 
+      #{minLineWidth,jdbcType=DECIMAL}, #{minLineDistance,jdbcType=DECIMAL}, #{productNum,jdbcType=INTEGER}, 
+      #{optimalProductNum,jdbcType=INTEGER}, #{innerCreateTime,jdbcType=TIMESTAMP}, #{innerUpdateTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcbwx.pcbmis.model.JoinBoardOrder" >
+    insert into join_board_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="joinBoardCode != null" >
+        join_board_code,
+      </if>
+      <if test="productOrderNum != null" >
+        product_order_num,
+      </if>
+      <if test="joinBoardName != null" >
+        join_board_name,
+      </if>
+      <if test="joinBoardLong != null" >
+        join_board_long,
+      </if>
+      <if test="joinBoardWide != null" >
+        join_board_wide,
+      </if>
+      <if test="joinBoardArea != null" >
+        join_board_area,
+      </if>
+      <if test="preventSmt != null" >
+        prevent_smt,
+      </if>
+      <if test="boardChar != null" >
+        board_char,
+      </if>
+      <if test="singleBoardHoleNum != null" >
+        single_board_hole_num,
+      </if>
+      <if test="minAperture != null" >
+        min_aperture,
+      </if>
+      <if test="gongLength != null" >
+        gong_length,
+      </if>
+      <if test="minLineWidth != null" >
+        min_line_width,
+      </if>
+      <if test="minLineDistance != null" >
+        min_line_distance,
+      </if>
+      <if test="productNum != null" >
+        product_num,
+      </if>
+      <if test="optimalProductNum != null" >
+        optimal_product_num,
+      </if>
+      <if test="innerCreateTime != null" >
+        inner_create_time,
+      </if>
+      <if test="innerUpdateTime != null" >
+        inner_update_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="joinBoardCode != null" >
+        #{joinBoardCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productOrderNum != null" >
+        #{productOrderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="joinBoardName != null" >
+        #{joinBoardName,jdbcType=VARCHAR},
+      </if>
+      <if test="joinBoardLong != null" >
+        #{joinBoardLong,jdbcType=DECIMAL},
+      </if>
+      <if test="joinBoardWide != null" >
+        #{joinBoardWide,jdbcType=DECIMAL},
+      </if>
+      <if test="joinBoardArea != null" >
+        #{joinBoardArea,jdbcType=DECIMAL},
+      </if>
+      <if test="preventSmt != null" >
+        #{preventSmt,jdbcType=VARCHAR},
+      </if>
+      <if test="boardChar != null" >
+        #{boardChar,jdbcType=VARCHAR},
+      </if>
+      <if test="singleBoardHoleNum != null" >
+        #{singleBoardHoleNum,jdbcType=INTEGER},
+      </if>
+      <if test="minAperture != null" >
+        #{minAperture,jdbcType=INTEGER},
+      </if>
+      <if test="gongLength != null" >
+        #{gongLength,jdbcType=DECIMAL},
+      </if>
+      <if test="minLineWidth != null" >
+        #{minLineWidth,jdbcType=DECIMAL},
+      </if>
+      <if test="minLineDistance != null" >
+        #{minLineDistance,jdbcType=DECIMAL},
+      </if>
+      <if test="productNum != null" >
+        #{productNum,jdbcType=INTEGER},
+      </if>
+      <if test="optimalProductNum != null" >
+        #{optimalProductNum,jdbcType=INTEGER},
+      </if>
+      <if test="innerCreateTime != null" >
+        #{innerCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="innerUpdateTime != null" >
+        #{innerUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcbwx.pcbmis.model.JoinBoardOrder" >
+    update join_board_order
+    <set >
+      <if test="joinBoardCode != null" >
+        join_board_code = #{joinBoardCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productOrderNum != null" >
+        product_order_num = #{productOrderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="joinBoardName != null" >
+        join_board_name = #{joinBoardName,jdbcType=VARCHAR},
+      </if>
+      <if test="joinBoardLong != null" >
+        join_board_long = #{joinBoardLong,jdbcType=DECIMAL},
+      </if>
+      <if test="joinBoardWide != null" >
+        join_board_wide = #{joinBoardWide,jdbcType=DECIMAL},
+      </if>
+      <if test="joinBoardArea != null" >
+        join_board_area = #{joinBoardArea,jdbcType=DECIMAL},
+      </if>
+      <if test="preventSmt != null" >
+        prevent_smt = #{preventSmt,jdbcType=VARCHAR},
+      </if>
+      <if test="boardChar != null" >
+        board_char = #{boardChar,jdbcType=VARCHAR},
+      </if>
+      <if test="singleBoardHoleNum != null" >
+        single_board_hole_num = #{singleBoardHoleNum,jdbcType=INTEGER},
+      </if>
+      <if test="minAperture != null" >
+        min_aperture = #{minAperture,jdbcType=INTEGER},
+      </if>
+      <if test="gongLength != null" >
+        gong_length = #{gongLength,jdbcType=DECIMAL},
+      </if>
+      <if test="minLineWidth != null" >
+        min_line_width = #{minLineWidth,jdbcType=DECIMAL},
+      </if>
+      <if test="minLineDistance != null" >
+        min_line_distance = #{minLineDistance,jdbcType=DECIMAL},
+      </if>
+      <if test="productNum != null" >
+        product_num = #{productNum,jdbcType=INTEGER},
+      </if>
+      <if test="optimalProductNum != null" >
+        optimal_product_num = #{optimalProductNum,jdbcType=INTEGER},
+      </if>
+      <if test="innerCreateTime != null" >
+        inner_create_time = #{innerCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="innerUpdateTime != null" >
+        inner_update_time = #{innerUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcbwx.pcbmis.model.JoinBoardOrder" >
+    update join_board_order
+    set join_board_code = #{joinBoardCode,jdbcType=VARCHAR},
+      product_order_num = #{productOrderNum,jdbcType=VARCHAR},
+      join_board_name = #{joinBoardName,jdbcType=VARCHAR},
+      join_board_long = #{joinBoardLong,jdbcType=DECIMAL},
+      join_board_wide = #{joinBoardWide,jdbcType=DECIMAL},
+      join_board_area = #{joinBoardArea,jdbcType=DECIMAL},
+      prevent_smt = #{preventSmt,jdbcType=VARCHAR},
+      board_char = #{boardChar,jdbcType=VARCHAR},
+      single_board_hole_num = #{singleBoardHoleNum,jdbcType=INTEGER},
+      min_aperture = #{minAperture,jdbcType=INTEGER},
+      gong_length = #{gongLength,jdbcType=DECIMAL},
+      min_line_width = #{minLineWidth,jdbcType=DECIMAL},
+      min_line_distance = #{minLineDistance,jdbcType=DECIMAL},
+      product_num = #{productNum,jdbcType=INTEGER},
+      optimal_product_num = #{optimalProductNum,jdbcType=INTEGER},
+      inner_create_time = #{innerCreateTime,jdbcType=TIMESTAMP},
+      inner_update_time = #{innerUpdateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 以下为自定义接口 -->
+  <select id="load" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from join_board_order
+  </select>
+  <select id="listByCodes" resultMap="BaseResultMap" parameterType="java.util.List" >
+    select 
+    <include refid="Base_Column_List" />
+    from join_board_order
+    where 1 = 0
+    <if test="list != null">
+    	or join_board_code IN
+    		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">  
+    			#{item}  
+    		</foreach>  
+    </if>
+    ORDER BY inner_create_time desc
+  </select>
+  <select id="selectByBoardName" resultMap="BaseResultMap" parameterType="map">
+  	select 
+  	select 
+    <include refid="Base_Column_List" />
+    from join_board_order
+    where 1 = 0
+    <if test="boardName != null">
+    	or (join_board_name like '%${boardName}%')
+    </if>
+  </select>
+</mapper>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pcbwx.pcbmis.dao.PcbReportVcutMapper" >
+ <resultMap id="BaseResultMap" type="com.pcbwx.pcbmis.model.PcbReportVcut" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="report_num" property="reportNum" jdbcType="VARCHAR" />
+    <result column="order_num" property="orderNum" jdbcType="VARCHAR" />
+    <result column="require_angle" property="requireAngle" jdbcType="VARCHAR" />
+    <result column="require_h" property="requireH" jdbcType="VARCHAR" />
+    <result column="require_b" property="requireB" jdbcType="VARCHAR" />
+    <result column="require_btolerance" property="requireBtolerance" jdbcType="VARCHAR" />
+    <result column="real_cheak_angle" property="realCheakAngle" jdbcType="VARCHAR" />
+    <result column="real_check_h" property="realCheckH" jdbcType="VARCHAR" />
+    <result column="real_check_b" property="realCheckB" jdbcType="VARCHAR" />
+    <result column="judge_angle" property="judgeAngle" jdbcType="INTEGER" />
+    <result column="judge_h" property="judgeH" jdbcType="INTEGER" />
+    <result column="judge_b" property="judgeB" jdbcType="INTEGER" />
+    <result column="ceate_time" property="ceateTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, report_num, order_num, require_angle, require_h, require_b, require_btolerance, 
+    real_cheak_angle, real_check_h, real_check_b, judge_angle, judge_h, judge_b, ceate_time, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pcb_report_vcut
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pcb_report_vcut
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcbwx.pcbmis.model.PcbReportVcut" >
+    insert into pcb_report_vcut (id, report_num, order_num, 
+      require_angle, require_h, require_b, 
+      require_btolerance, real_cheak_angle, real_check_h, 
+      real_check_b, judge_angle, judge_h, 
+      judge_b, ceate_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{reportNum,jdbcType=VARCHAR}, #{orderNum,jdbcType=VARCHAR}, 
+      #{requireAngle,jdbcType=VARCHAR}, #{requireH,jdbcType=VARCHAR}, #{requireB,jdbcType=VARCHAR}, 
+      #{requireBtolerance,jdbcType=VARCHAR}, #{realCheakAngle,jdbcType=VARCHAR}, #{realCheckH,jdbcType=VARCHAR}, 
+      #{realCheckB,jdbcType=VARCHAR}, #{judgeAngle,jdbcType=INTEGER}, #{judgeH,jdbcType=INTEGER}, 
+      #{judgeB,jdbcType=INTEGER}, #{ceateTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcbwx.pcbmis.model.PcbReportVcut" >
+    insert into pcb_report_vcut
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="reportNum != null" >
+        report_num,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="requireAngle != null" >
+        require_angle,
+      </if>
+      <if test="requireH != null" >
+        require_h,
+      </if>
+      <if test="requireB != null" >
+        require_b,
+      </if>
+      <if test="requireBtolerance != null" >
+        require_btolerance,
+      </if>
+      <if test="realCheakAngle != null" >
+        real_cheak_angle,
+      </if>
+      <if test="realCheckH != null" >
+        real_check_h,
+      </if>
+      <if test="realCheckB != null" >
+        real_check_b,
+      </if>
+      <if test="judgeAngle != null" >
+        judge_angle,
+      </if>
+      <if test="judgeH != null" >
+        judge_h,
+      </if>
+      <if test="judgeB != null" >
+        judge_b,
+      </if>
+      <if test="ceateTime != null" >
+        ceate_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="reportNum != null" >
+        #{reportNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="requireAngle != null" >
+        #{requireAngle,jdbcType=VARCHAR},
+      </if>
+      <if test="requireH != null" >
+        #{requireH,jdbcType=VARCHAR},
+      </if>
+      <if test="requireB != null" >
+        #{requireB,jdbcType=VARCHAR},
+      </if>
+      <if test="requireBtolerance != null" >
+        #{requireBtolerance,jdbcType=VARCHAR},
+      </if>
+      <if test="realCheakAngle != null" >
+        #{realCheakAngle,jdbcType=VARCHAR},
+      </if>
+      <if test="realCheckH != null" >
+        #{realCheckH,jdbcType=VARCHAR},
+      </if>
+      <if test="realCheckB != null" >
+        #{realCheckB,jdbcType=VARCHAR},
+      </if>
+      <if test="judgeAngle != null" >
+        #{judgeAngle,jdbcType=INTEGER},
+      </if>
+      <if test="judgeH != null" >
+        #{judgeH,jdbcType=INTEGER},
+      </if>
+      <if test="judgeB != null" >
+        #{judgeB,jdbcType=INTEGER},
+      </if>
+      <if test="ceateTime != null" >
+        #{ceateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcbwx.pcbmis.model.PcbReportVcut" >
+    update pcb_report_vcut
+    <set >
+      <if test="reportNum != null" >
+        report_num = #{reportNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="requireAngle != null" >
+        require_angle = #{requireAngle,jdbcType=VARCHAR},
+      </if>
+      <if test="requireH != null" >
+        require_h = #{requireH,jdbcType=VARCHAR},
+      </if>
+      <if test="requireB != null" >
+        require_b = #{requireB,jdbcType=VARCHAR},
+      </if>
+      <if test="requireBtolerance != null" >
+        require_btolerance = #{requireBtolerance,jdbcType=VARCHAR},
+      </if>
+      <if test="realCheakAngle != null" >
+        real_cheak_angle = #{realCheakAngle,jdbcType=VARCHAR},
+      </if>
+      <if test="realCheckH != null" >
+        real_check_h = #{realCheckH,jdbcType=VARCHAR},
+      </if>
+      <if test="realCheckB != null" >
+        real_check_b = #{realCheckB,jdbcType=VARCHAR},
+      </if>
+      <if test="judgeAngle != null" >
+        judge_angle = #{judgeAngle,jdbcType=INTEGER},
+      </if>
+      <if test="judgeH != null" >
+        judge_h = #{judgeH,jdbcType=INTEGER},
+      </if>
+      <if test="judgeB != null" >
+        judge_b = #{judgeB,jdbcType=INTEGER},
+      </if>
+      <if test="ceateTime != null" >
+        ceate_time = #{ceateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcbwx.pcbmis.model.PcbReportVcut" >
+    update pcb_report_vcut
+    set report_num = #{reportNum,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=VARCHAR},
+      require_angle = #{requireAngle,jdbcType=VARCHAR},
+      require_h = #{requireH,jdbcType=VARCHAR},
+      require_b = #{requireB,jdbcType=VARCHAR},
+      require_btolerance = #{requireBtolerance,jdbcType=VARCHAR},
+      real_cheak_angle = #{realCheakAngle,jdbcType=VARCHAR},
+      real_check_h = #{realCheckH,jdbcType=VARCHAR},
+      real_check_b = #{realCheckB,jdbcType=VARCHAR},
+      judge_angle = #{judgeAngle,jdbcType=INTEGER},
+      judge_h = #{judgeH,jdbcType=INTEGER},
+      judge_b = #{judgeB,jdbcType=INTEGER},
+      ceate_time = #{ceateTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!--以下为自定义接口 -->
+  <delete id="deleteByReportNum" parameterType="map">
+  	delete from	pcb_report_vcut
+  	where report_num = #{reportNum,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectByReportNum" resultMap="BaseResultMap" parameterType="map">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from pcb_report_vcut
+  	where report_num = #{reportNum,jdbcType=VARCHAR}
+  </select>
+</mapper>

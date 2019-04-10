@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pcbwx.pcbmis.dao.ColReportMapper" >
+   <resultMap id="BaseResultMap" type="com.pcbwx.pcbmis.model.ColReport" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="inspector" property="inspector" jdbcType="VARCHAR" />
+    <result column="inspector_user_code" property="inspectorUserCode" jdbcType="VARCHAR" />
+    <result column="re_inspector" property="reInspector" jdbcType="VARCHAR" />
+    <result column="re_inspector_user_code" property="reInspectorUserCode" jdbcType="VARCHAR" />
+    <result column="out_sum" property="outSum" jdbcType="INTEGER" />
+    <result column="out_storage_date" property="outStorageDate" jdbcType="DATE" />
+    <result column="serial_number" property="serialNumber" jdbcType="VARCHAR" />
+    <result column="revision" property="revision" jdbcType="VARCHAR" />
+    <result column="document_number" property="documentNumber" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_id, order_number, status, inspector, inspector_user_code, re_inspector, 
+    re_inspector_user_code, out_sum, out_storage_date, serial_number, revision, document_number, 
+    create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from col_report
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from col_report
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcbwx.pcbmis.model.ColReport" useGeneratedKeys="true" keyProperty="id">
+    insert into col_report (id, order_id, order_number, 
+      status, inspector, inspector_user_code, 
+      re_inspector, re_inspector_user_code, out_sum, 
+      out_storage_date, serial_number, revision, 
+      document_number, create_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{orderNumber,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{inspector,jdbcType=VARCHAR}, #{inspectorUserCode,jdbcType=VARCHAR}, 
+      #{reInspector,jdbcType=VARCHAR}, #{reInspectorUserCode,jdbcType=VARCHAR}, #{outSum,jdbcType=INTEGER}, 
+      #{outStorageDate,jdbcType=DATE}, #{serialNumber,jdbcType=VARCHAR}, #{revision,jdbcType=VARCHAR}, 
+      #{documentNumber,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcbwx.pcbmis.model.ColReport" useGeneratedKeys="true" keyProperty="id">
+    insert into col_report
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="inspector != null" >
+        inspector,
+      </if>
+      <if test="inspectorUserCode != null" >
+        inspector_user_code,
+      </if>
+      <if test="reInspector != null" >
+        re_inspector,
+      </if>
+      <if test="reInspectorUserCode != null" >
+        re_inspector_user_code,
+      </if>
+      <if test="outSum != null" >
+        out_sum,
+      </if>
+      <if test="outStorageDate != null" >
+        out_storage_date,
+      </if>
+      <if test="serialNumber != null" >
+        serial_number,
+      </if>
+      <if test="revision != null" >
+        revision,
+      </if>
+      <if test="documentNumber != null" >
+        document_number,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="inspector != null" >
+        #{inspector,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectorUserCode != null" >
+        #{inspectorUserCode,jdbcType=VARCHAR},
+      </if>
+      <if test="reInspector != null" >
+        #{reInspector,jdbcType=VARCHAR},
+      </if>
+      <if test="reInspectorUserCode != null" >
+        #{reInspectorUserCode,jdbcType=VARCHAR},
+      </if>
+      <if test="outSum != null" >
+        #{outSum,jdbcType=INTEGER},
+      </if>
+      <if test="outStorageDate != null" >
+        #{outStorageDate,jdbcType=DATE},
+      </if>
+      <if test="serialNumber != null" >
+        #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="revision != null" >
+        #{revision,jdbcType=VARCHAR},
+      </if>
+      <if test="documentNumber != null" >
+        #{documentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcbwx.pcbmis.model.ColReport" >
+    update col_report
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNumber != null" >
+        order_number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="inspector != null" >
+        inspector = #{inspector,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectorUserCode != null" >
+        inspector_user_code = #{inspectorUserCode,jdbcType=VARCHAR},
+      </if>
+      <if test="reInspector != null" >
+        re_inspector = #{reInspector,jdbcType=VARCHAR},
+      </if>
+      <if test="reInspectorUserCode != null" >
+        re_inspector_user_code = #{reInspectorUserCode,jdbcType=VARCHAR},
+      </if>
+      <if test="outSum != null" >
+        out_sum = #{outSum,jdbcType=INTEGER},
+      </if>
+      <if test="outStorageDate != null" >
+        out_storage_date = #{outStorageDate,jdbcType=DATE},
+      </if>
+      <if test="serialNumber != null" >
+        serial_number = #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="revision != null" >
+        revision = #{revision,jdbcType=VARCHAR},
+      </if>
+      <if test="documentNumber != null" >
+        document_number = #{documentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcbwx.pcbmis.model.ColReport" >
+    update col_report
+    set order_id = #{orderId,jdbcType=INTEGER},
+      order_number = #{orderNumber,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      inspector = #{inspector,jdbcType=VARCHAR},
+      inspector_user_code = #{inspectorUserCode,jdbcType=VARCHAR},
+      re_inspector = #{reInspector,jdbcType=VARCHAR},
+      re_inspector_user_code = #{reInspectorUserCode,jdbcType=VARCHAR},
+      out_sum = #{outSum,jdbcType=INTEGER},
+      out_storage_date = #{outStorageDate,jdbcType=DATE},
+      serial_number = #{serialNumber,jdbcType=VARCHAR},
+      revision = #{revision,jdbcType=VARCHAR},
+      document_number = #{documentNumber,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- insert, insertSelective添加useGeneratedKeys="true" keyProperty="id" -->
+  <!-- 以下为自定义接口 -->
+  <select id="countByQuery" resultType="java.lang.Integer"
+		parameterType="map">
+		SELECT count(*)
+		FROM col_report a
+		INNER JOIN col_order b ON a.order_number = b.order_number
+		LEFT JOIN eda_guest c ON b.guest_code = c.guest_code
+		WHERE 1 = 1
+		<if test="serialNumber != null">
+			and a.serial_number like "%"#{serialNumber}"%"
+		</if>
+		<if test="orderNumber != null">
+			and b.order_number like "%"#{orderNumber}"%"
+		</if>
+		<if test="guestName != null">
+			and c.short_name_cn like "%"#{guestName}"%"
+		</if>
+		<if test="productNum != null">
+			and a.out_sum = #{productNum,jdbcType=INTEGER}
+		</if>
+		<if test="boardName != null">
+			and b.col_board_name like "%"#{boardName}"%"
+		</if>
+		<if test="contactName != null">
+			and b.contact_name like "%"#{contactName}"%"
+		</if>
+		<if test="productDateStart != null">
+			and b.product_date &gt;= #{productDateStart,jdbcType=TIMESTAMP}
+		</if>
+		<if test="productDateEnd != null">
+			and b.product_date &lt;= #{productDateEnd,jdbcType=TIMESTAMP}
+		</if>
+		<if test="inspector != null">
+			and a.inspector like "%"#{inspector}"%"
+		</if>
+		<if test="reInspector != null">
+			and a.re_inspector like "%"#{reInspector}"%"
+		</if>
+		<if test="orderStatus != null">
+			and b.state = #{orderStatus,jdbcType=VARCHAR}
+		</if>
+		<if test="reportStatus != null">
+			and a.`status` = #{reportStatus,jdbcType=INTEGER}
+		</if>
+	</select>
+  <select id="selectByQuery" resultType="com.pcbwx.pcbmis.bean.response.ColReportBean"
+		parameterType="map">
+		SELECT a.id id, a.serial_number serialNumber, b.order_number
+		orderNumber, c.short_name_cn guestName, a.out_sum productNum,
+		b.col_board_name boardName,
+		b.contact_name contactName, DATE_FORMAT(b.product_date, '%Y-%m-%d') productDate,
+		a.inspector inspector, a.re_inspector reInspector,
+		b.state orderStatus, a.`status` reportStatus
+		FROM col_report a
+		INNER JOIN col_order b ON a.order_number = b.order_number
+		LEFT JOIN eda_guest c ON b.guest_code = c.guest_code
+		WHERE 1 = 1
+		<if test="serialNumber != null">
+			and a.serial_number like "%"#{serialNumber}"%"
+		</if>
+		<if test="orderNumber != null">
+			and b.order_number like "%"#{orderNumber}"%"
+		</if>
+		<if test="guestName != null">
+			and c.short_name_cn like "%"#{guestName}"%"
+		</if>
+		<if test="productNum != null">
+			and a.out_sum = #{productNum,jdbcType=INTEGER}
+		</if>
+		<if test="boardName != null">
+			and b.col_board_name like "%"#{boardName}"%"
+		</if>
+		<if test="contactName != null">
+			and b.contact_name like "%"#{contactName}"%"
+		</if>
+		<if test="productDateStart != null">
+			and b.product_date &gt;= #{productDateStart,jdbcType=TIMESTAMP}
+		</if>
+		<if test="productDateEnd != null">
+			and b.product_date &lt;= #{productDateEnd,jdbcType=TIMESTAMP}
+		</if>
+		<if test="inspector != null">
+			and a.inspector like "%"#{inspector}"%"
+		</if>
+		<if test="reInspector != null">
+			and a.re_inspector like "%"#{reInspector}"%"
+		</if>
+		<if test="orderStatus != null">
+			and b.state = #{orderStatus,jdbcType=VARCHAR}
+		</if>
+		<if test="reportStatus != null">
+			and a.`status` = #{reportStatus,jdbcType=INTEGER}
+		</if>
+		limit #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+  <select id="selectByOrderId" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from col_report
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+</mapper>

@@ -1,0 +1,170 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script src="../script/js/jquery-easyui-1.3.3/jquery.min.js" type="text/javascript"></script>
+	<script src="../script/js/jquery-easyui-1.3.3/jquery.easyui.min.js" type="text/javascript"></script>
+	<script src="../script/js/jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
+	<script src="../script/js/productList.js" type="text/javascript"></script>
+	<script src="../script/js/angular.min.js" type="text/javascript"></script>
+	<script src="../script/js/datagrid-detailview.js" type="text/javascript"></script>
+	<link href="../script/js/jquery-easyui-1.3.3/themes/icon.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="../script/js/jquery-easyui-1.3.3/themes/default/easyui.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="../script/css/index.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="../script/css/base.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="../script/css/icon.css" media="screen" rel="stylesheet" type="text/css" />
+    <title>PCB检验检测系统</title>
+    <style type="text/css">
+    #listForm table td{line-height: 25px}
+    </style>
+</head>
+<body class="easyui-layout"  ng-app="testApp" ng-controller="testCtrl">
+     
+   	     
+   	<!--  header  -->
+	<div data-options="region:'north',border:false"  class="header">
+		<div ng-include="'../head.html'"></div>
+	</div>
+	
+
+	<!-- 导航 -->
+	<div data-options="region:'west',split:true,title:'导航'" style="width:150px;"   >
+		<div ng-include="'../left.html'"></div>
+	</div>
+	
+	<!-- foot -->
+	<div data-options="region:'south',border:false"  class="footer">
+		<div ng-include="'../foot.html'"> </div>
+	</div>
+	
+	
+
+         
+
+     <div data-options="region:'center'">
+        <div id="centerTabs" class="easyui-tabs" fit="true" border="false" style="width: 100%;">   
+            <div title="产品接收列表" border="false">
+            	<div class="easyui-layout" fit="true" border="false">       
+					
+					<div data-options="region:'north',border:true" style="height: 110px;padding-top: 25px;background-color: #E2EFFE" >
+						<form id="checkForm" style="padding: 0 10px;">
+						  <table style="width:100%;height:100%" >
+							   <tr>
+			                      	<td>工单号</td>
+			                      	<td><input type="text" id="orderNum"></td>
+			                      	<td>客户</td>
+			                      	<td><input type="text" id="guest"></td>
+			                      	<td>等级</td>
+			                      	<td><select id="gradeId"   style="width: 171px;"class="easyui-combobox" data-options="editable:false,url:'/pcbmis/util/grade',textField:'p_text',valueField:'p_id',panelMaxHeight:'100px'"></select></td>
+									<td>检验内容</td>
+			                      	<td><select  id="contentId" style="width: 171px;"class="easyui-combobox" data-options="editable:false,multiple:false,panelHeight:'auto',url:'/pcbmis/util/checkContent',textField:'p_text',valueField:'p_id',panelMaxHeight:'100px'"></select></td>
+									<td>来料类型 </td>
+			                      	<td>
+			                      		<select class="easyui-combobox" editable="false" style="width: 171px;" id="receiveTypeId" >
+											<option value="1">急件</option>
+											<option value="2">正常板</option>
+											<option value="3">二次来板</option>
+											<option value="4">三次来板</option>
+											<option value="5">四次来板</option>
+											<option value="6">五次来板</option>
+											<option value="7">六次来板</option>
+										</select>
+			                      	</td>
+			                      	<td>生产厂家</td>
+			                      	<td><select id="factoryId" style="width: 171px;"class="easyui-combobox" data-options="editable:false,url:'/pcbmis/util/factory',textField:'p_text',valueField:'p_id',panelMaxHeight:'100px'"></select></td>
+			                      </tr>
+			                      <tr>
+			                      	<td>生产数量SET</td>
+			                      	<td><input type="text" onkeyup="value=value.replace(/[^\d]/g,'')" id="productNumSet"></td>
+			                      	<td>生产数量PCS</td>
+			                      	<td><input type="text" onkeyup="value=value.replace(/[^\d]/g,'')" id="productNumPcs"></td>
+			                      	<td>接收数量 </td>
+			                      	<td><input type="text" onkeyup="value=value.replace(/[^\d]/g,'')" id="receiveNum"></td>
+			                     	<td>接收人 </td>
+			                     	<td><input type="text" id="receiver"></td>
+			                 		<td>接收日期（开始）</td>
+			                      	<td><input type="text" id="start_date" class="easyui-datebox" editable="false" data-options="onSelect:onSelect" ></td>
+			                      	<td>接收日期（结束）</td>
+			                      	<td><input type="text" id="end_date" class="easyui-datebox" editable="false" data-options="onSelect:onSelect" ></td>
+			                      </tr>
+			                      <tr>
+			                      	<td colspan="10"></td>
+			                      	<td colspan="2">
+			                      		<a class="easyui-linkbutton search" iconCls="icon-search" href="javascript:void(0)"  onclick="checkSearch()">查询</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			                      		<a class="easyui-linkbutton reset" iconCls="icon-redo" dateType="javascript:void(0)" onclick="checkRest();">重置</a>
+			                      	</td>
+			                     </tr>
+					        </table>
+				          </form>
+				      </div> 
+				          	
+					 <div data-options="region:'center'">
+		             	<table id="listTable" ></table>
+		             </div>
+	          	</div>
+	         </div>
+	     </div>
+    </div>
+    
+    
+    
+	<div id="tb">
+		<a id="edit" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-edit" onclick="editnum()" plain="true">编辑</a>
+		<a id="" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" onclick="btn_delete()" plain="true">删除</a>
+	</div> 
+
+	<div class="easyui-dialog" id="receiving_product"> 
+		<form id="receiving_form">
+		<table class="storage_table">
+			<tr style="display: none;">
+				<td>工单号</td>
+				<td><input type="text" id="orderNumber"></td>
+			</tr>
+			<tr>
+				<td>检验内容</td>
+				<td>       				
+					<select id="btn_select" style="width: 171px;"class="easyui-combobox" data-options="multiple:true,editable:false,url:'/pcbmis/util/checkContent',textField:'p_text',valueField:'p_id',panelMaxHeight:'100px'"></select>
+				</td>
+			</tr>
+<!-- 			<tr> -->
+<!-- 				<td>接收数量：</td> -->
+<!-- 				<td><input type="text"  id="receive_number" class="easyui-validatebox" required="true"   validType="minnumber"></td> -->
+<!-- 			</tr> -->
+			<tr>
+				<td>来料类型：</td>
+				<td>
+					<select class="easyui-combobox" editable="false" style="width: 171px;" id="sourcetype" data-options="required:true">
+						<option value="1">急件</option>
+						<option value="2">正常板</option>
+						<option value="3">二次来板</option>
+						<option value="4">三次来板</option>
+						<option value="5">四次来板</option>
+						<option value="6">五次来板</option>
+						<option value="7">六次来板</option>
+					</select>
+				</td>
+			</tr>
+       </table>
+       </form> 
+   	</div> 
+	<script type="text/javascript">
+	var app = angular.module('testApp', []);
+	app.controller('testCtrl', function ($scope, $http) {    	
+	    $http.get("/pcbmis/roleAuth/getUserDetail"  ,{timeout:8000}).success(function (response) {
+	    	$scope.systemsUrl = response.systemsUrl;
+	    	
+	    	$scope.menu = response.menu;
+	    	$scope.roles = response.roles;
+	    	$scope.userName = response.userName;
+	    	$scope.secondMenu = response.menu.secondMenu;
+	    }).error(function(data,status){ 
+	        if(status=='timeout'){
+	       	 window.location.href="/pcbmis/j_spring_cas_security_logout"
+	       }
+	       
+	   });
+	})
+	</script>
+</body>
+</html>

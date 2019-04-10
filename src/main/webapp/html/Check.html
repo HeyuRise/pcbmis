@@ -1,0 +1,315 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script src="../script/js/jquery-easyui-1.3.3/jquery.min.js" type="text/javascript"></script>
+	<script src="../script/js/jquery-easyui-1.3.3/jquery.easyui.min.js" type="text/javascript"></script>
+	<script src="../script/js/jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
+	<script src="../script/js/check.js" type="text/javascript"></script>
+	<script src="../script/js/angular.min.js" type="text/javascript"></script>
+	<script src="../script/js/datagrid-detailview.js" type="text/javascript"></script>
+	<script src="../script/js/print/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+	<script src="../script/js/print/jquery.jqprint-0.3.js" type="text/javascript"></script>
+	<link href="../script/js/jquery-easyui-1.3.3/themes/icon.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="../script/js/jquery-easyui-1.3.3/themes/default/easyui.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="../script/css/index.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="../script/css/base.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="../script/css/icon.css" media="screen" rel="stylesheet" type="text/css" />
+    <title>PCB检验检测系统</title>
+</head>
+<body class="easyui-layout" ng-app="testApp" ng-controller="testCtrl">
+
+	     
+   	<!--  header  -->
+	<div data-options="region:'north',border:false"  class="header">
+		<div ng-include="'../head.html'"></div>
+	</div>
+	
+
+	<!-- 导航 -->
+	<div data-options="region:'west',split:true,title:'导航'" style="width:150px;"   >
+		<div ng-include="'../left.html'"></div>
+	</div>
+	
+	<!-- foot -->
+	<div data-options="region:'south',border:false"  class="footer">
+		<div ng-include="'../foot.html'"> </div>
+	</div>
+	
+	
+	
+
+    <div data-options="region:'center'">
+        <div id="centerTabs" class="easyui-tabs" fit="true" border="false" style="width: 100%;">   
+            <div title="检验单列表" border="false">
+            	<div class="easyui-layout" fit="true" border="false">
+            	
+            		<!-- 查询条件 -->
+					<div data-options="region:'north',border:true" style="height: 110px;padding-top: 25px;background-color: #E2EFFE" >
+					      <form id="checkForm" style="padding: 0 10px;">
+						  <table style="width:100%;height:100%" >
+							   <tr>
+			                      	<td>工单号</td>
+			                      	<td><input type="text" id="orderNum"></td>
+			                      	<td>客户</td>
+			                      	<td><input type="text" id="guest"></td>
+			                      	<td>等级</td>
+			                      	<td><select id="gradeId"   style="width: 171px;"class="easyui-combobox" data-options="editable:false,url:'/pcbmis/util/grade',textField:'p_text',valueField:'p_id',panelMaxHeight:'100px'"></select></td>
+									<td>检验内容</td>
+			                      	<td>
+			                      		<select  id="btn_select" style="width: 171px;"class="easyui-combobox" data-options="editable:false,multiple:false,panelHeight:'auto',url:'/pcbmis/util/checkContent',textField:'p_text',valueField:'p_id',panelMaxHeight:'100px'">
+<!-- 						       				<option>检验</option> -->
+<!-- 						       				<option>报告</option> -->
+<!-- 						       				<option>合格证</option> -->
+<!-- 						       				<option>标签</option> -->
+						       			</select>
+			                      	</td>
+			                      	<td>检验日期（开始）</td>
+			                      	<td><input type="text" id="start_date" class="easyui-datebox" editable="false" data-options="onSelect:onSelect" ></td>
+			                      	<td>检验日期（结束）</td>
+			                      	<td><input type="text" id="end_date" class="easyui-datebox" editable="false" data-options="onSelect:onSelect" ></td>
+			                      </tr>
+			                      <tr>
+			                      	<td>板名</td>
+			                      	<td><input type="text" id="baordName"></td>
+			                      	<td>生产厂家</td>
+			                      	<td><select id="factoryId" style="width: 171px;"class="easyui-combobox" data-options="editable:false,url:'/pcbmis/util/factory',textField:'p_text',valueField:'p_id',panelMaxHeight:'100px'"></select></td>
+			                      	<td>状态</td>
+			                      	<td><select id="btn_status"  style="width: 171px;"class="easyui-combobox" data-options="editable:false,url:'/pcbmis/util/checkState',textField:'p_text',valueField:'p_id',panelMaxHeight:'100px'"></select></td>
+			                      	<td>审核日期（开始）</td>
+			                      	<td><input type="text" id="start1_date" class="easyui-datebox" editable="false"  data-options="onSelect:onSelect"></td>
+			                      	<td>审核日期（结束）</td>
+			                      	<td><input type="text" id="end1_date" class="easyui-datebox" editable="false" data-options="onSelect:onSelect" ></td>
+			                      	<td colspan="2">
+			                      		<a class="easyui-linkbutton search" iconCls="icon-search" href="javascript:void(0)"  onclick="checkSearch()">查询</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			                      		<a class="easyui-linkbutton reset" iconCls="icon-redo" dateType="javascript:void(0)" onclick="checkRest();">重置</a>
+			                      	</td>
+			                     </tr>
+<!-- 							 <tr> -->
+<!-- 							</tr> -->
+<!-- 							<tr> -->
+<!-- 					           <th align="right" style="width:100px;"></th> -->
+<!-- 					           <td style="width:280px;"><input id="check" style="width:260px;" placeholder="检验单号/工单号/客户/板名/生产厂家/等级" name="check"></td> -->
+<!-- 					           <th></th> -->
+<!-- 					           <td ><a class="easyui-linkbutton search" iconCls="icon-search" href="javascript:void(0)" onclick="checkSearch();">查询</a></td> -->
+<!-- 					        </tr> -->
+					        </table>
+				            </form>
+				      </div>
+
+
+
+      
+			        <!--  表格  -->
+			        <div data-options="region:'center'">
+			           <table id="checkTable">
+			           </table>
+			        </div>
+			    </div>
+			</div>
+	     </div>
+	</div>
+			       
+
+
+
+
+
+
+
+
+	<div id="tb">
+<!-- 		<a id="edit" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-edit"onclick="editnum()" plain="true">修改</a> -->
+		<a  href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-print" index="0" onclick="btn_print(this)" plain="true">打印合格证</a>&nbsp;&nbsp;&nbsp;
+		<a  href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-print" index="1" onclick="btn_print(this)" plain="true">打印标签</a>&nbsp;&nbsp;&nbsp;
+		<a  href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-excel"onclick="btn_export()" plain="true">导出</a>
+	</div> 
+	<div id="down">
+		<form method="get" id ="export_excel"></form>
+    </div>
+    
+    <div id="print0" class="easyui-dialog" >
+    	<table  class="guding-table">
+    		<tr>
+    			<td colspan="2"  style="text-align: center;line-height: 30px;" >
+    				<span id="companyName"></span></br>
+    				<span id="categoryGrade" style="border-bottom: 1px solid black;"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span>产品合格证</span>
+    			</td>
+    		</tr>
+    		<tr>
+    			<td><input type="text"  id="print_value"></td>
+    			<td><span id="print_orderNum"></span></td>
+    		</tr>
+    		<tr>
+    			<td>产品名称</td>
+    			<td><span id="print_boardName"></span></td>
+    		</tr>
+    		<tr>
+    			<td>生产日期</td>
+    			<td><input type="text"  id="productDate" class="easyui-datebox"  editable="false"></td>
+    		</tr>
+    		<tr>
+    			<td>检验日期</td>
+    			<td><input type="text" id="checkDate" class="easyui-datebox" editable="false"></td>
+    		</tr>
+    		<tr>
+    			<td>包装日期</td>
+    			<td><input type="text" id="packageDate" class="easyui-datebox" editable="false"></td>
+    		</tr>
+    		<tr>
+    			<td>检验员</td>
+    			<td><input type="text" id="inspector" style="width: 173px;"></td>
+    		</tr>
+    		<tr>
+    			<td>保质期</td>
+    			<td><input type="text" id="expirationDate" style="width: 173px;"></td>
+    		</tr>
+    		<tr>
+    			<td>数量</td>
+    			<td><input type="text" id="spotCheckNumPcs" style="width: 173px;"></td>
+    		</tr>
+    		<tr>
+    			<td>批号</td>
+    			<td><input type="text" id="batchNumber" style="width: 173px;"></td>
+    		</tr>
+    		<tr>
+    			<td>规格</td>
+    			<td><input type="text" id="size" style="width: 173px;"></td>
+    		</tr>
+    	</table>
+    </div>
+    
+    <div id="print1"  class="easyui-dialog">
+    	<table  class="guding-table">
+<!--     		<tr> -->
+<!--     			<td  colspan="2"  style="text-align: center;" > -->
+<!--     				<img src="../script/images/logo.png" style='vertical-align: middle;'> -->
+<!--     				<span id="print1_companyName"></span></br> -->
+<!--     			</td> -->
+<!--     		</tr> -->
+<!--     		<tr> -->
+<!--     			<td>客户</td> -->
+<!--     			<td><span id="print1_guestName"></span></td> -->
+<!--     		</tr> -->
+    		<tr>
+    			<td>板名</td>
+    			<td><span id="print1_boardName"></span></td>
+    		</tr>
+    		<tr>
+    			<td>数量</td>
+    			<td><input type="text" id="print1_amountCheckoutPcs" style="width: 173px;"></td>
+    		</tr>
+    		<tr>
+    			<td>保质期至</td>
+    			<td><input type="text" id="print1_expirationDate" class="easyui-datebox" editable="false"></td>
+    		</tr>
+    		<tr>
+    			<td>生产日期</td>
+    			<td><input type="text" id="print1_productDate" class="easyui-datebox" editable="false"></td>
+    		</tr>
+    		<tr>
+    			<td>检验日期</td>
+    			<td><input type="text" id="print1_checkDate" class="easyui-datebox" editable="false"></td>
+    		</tr>
+    	</table>
+    </div>
+    
+        
+    <div id="print2"  class="easyui-dialog">
+    	<table  class="guding-table">
+    		<tr>
+    			<td colspan="2"  style="text-align: center;" >
+    				<img src="../script/images/logo.png" style='vertical-align: middle;'>
+    				<span id="print2_companyName"></span></br>
+    			</td>
+    		</tr>
+    		<tr>
+    			<td>客户</td>
+    			<td><span id="print2_guestName"></span></td>
+    		</tr>
+    		<tr>
+    			<td>板名</td>
+    			<td><span id="print2_boardName"></span></td>
+    		</tr>
+    		<tr>
+    			<td>工单号</td>
+    			<td><span id="print2_checkNum"></span></td>
+    		</tr>
+    		<tr>
+    			<td>数量</td>
+    			<td><input type="text" id="print2_amountCheckoutPcs" style="width: 173px;"></td>
+    		</tr>
+    		<tr>
+    			<td>日期</td>
+    			<td><input type="text" id="print2_checkDate" class="easyui-datebox" editable="false"></td>
+    		</tr>
+    	</table>
+    </div>
+    
+    <div id="print_content"></div>
+<!-- 	<div id="dlg" class="easyui-dialog" style="width: 400px; height: 280px; padding: 10px 20px;"closed="true" buttons="#dlg-buttons">  -->
+<!--        <form id="fm" method="post">  -->
+<!--        <div class="fitem"  style="display: none;">  -->
+<!--            <label>检验单号 </label>  -->
+<!--            <input name="checkNum" class="easyui-validatebox" required="true" id="checkNum"/>  -->
+<!--        </div>  -->
+<!--        <div id="fitem-spotCheckNumPcs"class="fitem" style="display:none">  -->
+<!--            <label>抽检数量PCS </label>  -->
+<!--            <input name="spotCheckNumPcs" class="easyui-validatebox" required="true" id="spotCheckNumPcs"/>  -->
+<!--        </div>  -->
+<!--        <div class="fitem" id="fitem-receviceDate">  -->
+<!--            <label> 接收时间</label>  -->
+<!--            <input name="receviceDate" class="easyui-datebox" id="receviceDate" editable="false" required="true"  />  -->
+<!--        </div>  -->
+       
+<!--        <div class="fitem">  -->
+<!--            <label> 是否检验</label>  -->
+<!--            <select style="width: 171px;"id="isCheck" onchange="Check()">  -->
+<!--            	<option>是</option> -->
+<!--            	<option>否</option> -->
+<!--            </select>   -->
+<!--        </div>   -->
+<!--        <input type="hidden" name="action" id="hidtype" />  -->
+<!--        <input type="hidden" name="ID" id="Nameid" />  -->
+<!--        </form>  -->
+<!--    </div> -->
+<!--    <div id="dlg-buttons">  -->
+<!--         <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveuser()" iconcls="icon-save">保存</a>  -->
+<!--         <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#dlg').dialog('close')"iconcls="icon-cancel">取消</a>  -->
+<!--     </div>  -->
+    
+<script type="text/javascript">
+var name;
+var roles;
+var app = angular.module('testApp', []);
+app.controller('testCtrl', function ($scope, $http) {    	
+    $http.get("/pcbmis/roleAuth/getUserDetail",{timeout:8000} ).success(function (response) {
+    	$scope.systemsUrl = response.systemsUrl;
+    	$scope.menu = response.menu;
+    	$scope.roles = response.roles;
+    	$scope.userName = response.userName;
+    	$scope.secondMenu = response.menu.secondMenu;
+     	name= response.userName;
+     	roles=response.roles;
+     	console.log(roles)
+     	if(roles.indexOf('检验员')!=-1){
+     		$("#edit").show();
+     	}else{
+     		$("#edit").hide();
+     	}
+    }).error(function(data,status){ 
+        if(status=='timeout'){
+       	 window.location.href="/pcbmis/j_spring_cas_security_logout"
+       }
+       
+   });
+})
+
+$(function () {
+	localStorage.setItem("last_page", 'Check.html');
+});
+
+</script>
+    </body>
+</html>

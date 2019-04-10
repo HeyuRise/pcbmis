@@ -1,0 +1,794 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pcbwx.pcbmis.dao.ProductOrderMapper" >
+ <resultMap id="BaseResultMap" type="com.pcbwx.pcbmis.model.ProductOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_num" property="orderNum" jdbcType="VARCHAR" />
+    <result column="batch_production_id" property="batchProductionId" jdbcType="INTEGER" />
+    <result column="belong_company_id" property="belongCompanyId" jdbcType="INTEGER" />
+    <result column="board_character" property="boardCharacter" jdbcType="VARCHAR" />
+    <result column="board_name" property="boardName" jdbcType="VARCHAR" />
+    <result column="board_long" property="boardLong" jdbcType="DECIMAL" />
+    <result column="board_ply" property="boardPly" jdbcType="VARCHAR" />
+    <result column="board_ply_tolerance_id" property="boardPlyToleranceId" jdbcType="INTEGER" />
+    <result column="board_wide" property="boardWide" jdbcType="DECIMAL" />
+    <result column="business_notes" property="businessNotes" jdbcType="VARCHAR" />
+    <result column="category_grade_id" property="categoryGradeId" jdbcType="INTEGER" />
+    <result column="cam_tip" property="camTip" jdbcType="VARCHAR" />
+    <result column="character_colour_id" property="characterColourId" jdbcType="INTEGER" />
+    <result column="contact_code" property="contactCode" jdbcType="VARCHAR" />
+    <result column="craft_id" property="craftId" jdbcType="INTEGER" />
+    <result column="cs_code" property="csCode" jdbcType="VARCHAR" />
+    <result column="department_code" property="departmentCode" jdbcType="VARCHAR" />
+    <result column="deliver_good_date" property="deliverGoodDate" jdbcType="TIMESTAMP" />
+    <result column="delivery_mode" property="deliveryMode" jdbcType="VARCHAR" />
+    <result column="ed_product_date" property="edProductDate" jdbcType="TIMESTAMP" />
+    <result column="factory_id" property="factoryId" jdbcType="INTEGER" />
+    <result column="floor_num" property="floorNum" jdbcType="INTEGER" />
+    <result column="forming_way_id" property="formingWayId" jdbcType="INTEGER" />
+    <result column="frame_tolerance_id" property="frameToleranceId" jdbcType="INTEGER" />
+    <result column="guest_code" property="guestCode" jdbcType="VARCHAR" />
+    <result column="hand_over_date" property="handOverDate" jdbcType="TIMESTAMP" />
+    <result column="impedance_require" property="impedanceRequire" jdbcType="VARCHAR" />
+    <result column="join_board_require_id" property="joinBoardRequireId" jdbcType="INTEGER" />
+    <result column="join_board_way_id" property="joinBoardWayId" jdbcType="INTEGER" />
+    <result column="market_department_name" property="marketDepartmentName" jdbcType="VARCHAR" />
+    <result column="metallography_require" property="metallographyRequire" jdbcType="VARCHAR" />
+    <result column="min_line_distance" property="minLineDistance" jdbcType="DECIMAL" />
+    <result column="min_line_width" property="minLineWidth" jdbcType="DECIMAL" />
+    <result column="new_old_product_id" property="newOldProductId" jdbcType="INTEGER" />
+    <result column="offer_order_num" property="offerOrderNum" jdbcType="VARCHAR" />
+    <result column="order_date" property="orderDate" jdbcType="TIMESTAMP" />
+    <result column="prevent_smt" property="preventSmt" jdbcType="VARCHAR" />
+    <result column="prevent_smt_color_id" property="preventSmtColorId" jdbcType="INTEGER" />
+    <result column="product_date" property="productDate" jdbcType="TIMESTAMP" />
+    <result column="production_notes" property="productionNotes" jdbcType="VARCHAR" />
+    <result column="production_num_pcs" property="productionNumPcs" jdbcType="INTEGER" />
+    <result column="production_num_set" property="productionNumSet" jdbcType="INTEGER" />
+    <result column="project_status_id" property="projectStatusId" jdbcType="INTEGER" />
+    <result column="seller_code" property="sellerCode" jdbcType="VARCHAR" />
+    <result column="shipments_notes" property="shipmentsNotes" jdbcType="VARCHAR" />
+    <result column="standard_period" property="standardPeriod" jdbcType="INTEGER" />
+    <result column="start_preliminary_date" property="startPreliminaryDate" jdbcType="TIMESTAMP" />
+    <result column="surface_process_id" property="surfaceProcessId" jdbcType="INTEGER" />
+    <result column="through_hole_treatment" property="throughHoleTreatment" jdbcType="VARCHAR" />
+    <result column="inner_create_time" property="innerCreateTime" jdbcType="TIMESTAMP" />
+    <result column="inner_update_time" property="innerUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_num, batch_production_id, belong_company_id, board_character, board_name, 
+    board_long, board_ply, board_ply_tolerance_id, board_wide, business_notes, category_grade_id, 
+    cam_tip, character_colour_id, contact_code, craft_id, cs_code, department_code, deliver_good_date, 
+    delivery_mode, ed_product_date, factory_id, floor_num, forming_way_id, frame_tolerance_id, 
+    guest_code, hand_over_date, impedance_require, join_board_require_id, join_board_way_id, 
+    market_department_name, metallography_require, min_line_distance, min_line_width, 
+    new_old_product_id, offer_order_num, order_date, prevent_smt, prevent_smt_color_id, 
+    product_date, production_notes, production_num_pcs, production_num_set, project_status_id, 
+    seller_code, shipments_notes, standard_period, start_preliminary_date, surface_process_id, 
+    through_hole_treatment, inner_create_time, inner_update_time, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from product_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from product_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcbwx.pcbmis.model.ProductOrder" >
+    insert into product_order (id, order_num, batch_production_id, 
+      belong_company_id, board_character, board_name, 
+      board_long, board_ply, board_ply_tolerance_id, 
+      board_wide, business_notes, category_grade_id, 
+      cam_tip, character_colour_id, contact_code, 
+      craft_id, cs_code, department_code, 
+      deliver_good_date, delivery_mode, ed_product_date, 
+      factory_id, floor_num, forming_way_id, 
+      frame_tolerance_id, guest_code, hand_over_date, 
+      impedance_require, join_board_require_id, join_board_way_id, 
+      market_department_name, metallography_require, 
+      min_line_distance, min_line_width, new_old_product_id, 
+      offer_order_num, order_date, prevent_smt, 
+      prevent_smt_color_id, product_date, production_notes, 
+      production_num_pcs, production_num_set, project_status_id, 
+      seller_code, shipments_notes, standard_period, 
+      start_preliminary_date, surface_process_id, 
+      through_hole_treatment, inner_create_time, 
+      inner_update_time, create_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{orderNum,jdbcType=VARCHAR}, #{batchProductionId,jdbcType=INTEGER}, 
+      #{belongCompanyId,jdbcType=INTEGER}, #{boardCharacter,jdbcType=VARCHAR}, #{boardName,jdbcType=VARCHAR}, 
+      #{boardLong,jdbcType=DECIMAL}, #{boardPly,jdbcType=VARCHAR}, #{boardPlyToleranceId,jdbcType=INTEGER}, 
+      #{boardWide,jdbcType=DECIMAL}, #{businessNotes,jdbcType=VARCHAR}, #{categoryGradeId,jdbcType=INTEGER}, 
+      #{camTip,jdbcType=VARCHAR}, #{characterColourId,jdbcType=INTEGER}, #{contactCode,jdbcType=VARCHAR}, 
+      #{craftId,jdbcType=INTEGER}, #{csCode,jdbcType=VARCHAR}, #{departmentCode,jdbcType=VARCHAR}, 
+      #{deliverGoodDate,jdbcType=TIMESTAMP}, #{deliveryMode,jdbcType=VARCHAR}, #{edProductDate,jdbcType=TIMESTAMP}, 
+      #{factoryId,jdbcType=INTEGER}, #{floorNum,jdbcType=INTEGER}, #{formingWayId,jdbcType=INTEGER}, 
+      #{frameToleranceId,jdbcType=INTEGER}, #{guestCode,jdbcType=VARCHAR}, #{handOverDate,jdbcType=TIMESTAMP}, 
+      #{impedanceRequire,jdbcType=VARCHAR}, #{joinBoardRequireId,jdbcType=INTEGER}, #{joinBoardWayId,jdbcType=INTEGER}, 
+      #{marketDepartmentName,jdbcType=VARCHAR}, #{metallographyRequire,jdbcType=VARCHAR}, 
+      #{minLineDistance,jdbcType=DECIMAL}, #{minLineWidth,jdbcType=DECIMAL}, #{newOldProductId,jdbcType=INTEGER}, 
+      #{offerOrderNum,jdbcType=VARCHAR}, #{orderDate,jdbcType=TIMESTAMP}, #{preventSmt,jdbcType=VARCHAR}, 
+      #{preventSmtColorId,jdbcType=INTEGER}, #{productDate,jdbcType=TIMESTAMP}, #{productionNotes,jdbcType=VARCHAR}, 
+      #{productionNumPcs,jdbcType=INTEGER}, #{productionNumSet,jdbcType=INTEGER}, #{projectStatusId,jdbcType=INTEGER}, 
+      #{sellerCode,jdbcType=VARCHAR}, #{shipmentsNotes,jdbcType=VARCHAR}, #{standardPeriod,jdbcType=INTEGER}, 
+      #{startPreliminaryDate,jdbcType=TIMESTAMP}, #{surfaceProcessId,jdbcType=INTEGER}, 
+      #{throughHoleTreatment,jdbcType=VARCHAR}, #{innerCreateTime,jdbcType=TIMESTAMP}, 
+      #{innerUpdateTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcbwx.pcbmis.model.ProductOrder" >
+    insert into product_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="batchProductionId != null" >
+        batch_production_id,
+      </if>
+      <if test="belongCompanyId != null" >
+        belong_company_id,
+      </if>
+      <if test="boardCharacter != null" >
+        board_character,
+      </if>
+      <if test="boardName != null" >
+        board_name,
+      </if>
+      <if test="boardLong != null" >
+        board_long,
+      </if>
+      <if test="boardPly != null" >
+        board_ply,
+      </if>
+      <if test="boardPlyToleranceId != null" >
+        board_ply_tolerance_id,
+      </if>
+      <if test="boardWide != null" >
+        board_wide,
+      </if>
+      <if test="businessNotes != null" >
+        business_notes,
+      </if>
+      <if test="categoryGradeId != null" >
+        category_grade_id,
+      </if>
+      <if test="camTip != null" >
+        cam_tip,
+      </if>
+      <if test="characterColourId != null" >
+        character_colour_id,
+      </if>
+      <if test="contactCode != null" >
+        contact_code,
+      </if>
+      <if test="craftId != null" >
+        craft_id,
+      </if>
+      <if test="csCode != null" >
+        cs_code,
+      </if>
+      <if test="departmentCode != null" >
+        department_code,
+      </if>
+      <if test="deliverGoodDate != null" >
+        deliver_good_date,
+      </if>
+      <if test="deliveryMode != null" >
+        delivery_mode,
+      </if>
+      <if test="edProductDate != null" >
+        ed_product_date,
+      </if>
+      <if test="factoryId != null" >
+        factory_id,
+      </if>
+      <if test="floorNum != null" >
+        floor_num,
+      </if>
+      <if test="formingWayId != null" >
+        forming_way_id,
+      </if>
+      <if test="frameToleranceId != null" >
+        frame_tolerance_id,
+      </if>
+      <if test="guestCode != null" >
+        guest_code,
+      </if>
+      <if test="handOverDate != null" >
+        hand_over_date,
+      </if>
+      <if test="impedanceRequire != null" >
+        impedance_require,
+      </if>
+      <if test="joinBoardRequireId != null" >
+        join_board_require_id,
+      </if>
+      <if test="joinBoardWayId != null" >
+        join_board_way_id,
+      </if>
+      <if test="marketDepartmentName != null" >
+        market_department_name,
+      </if>
+      <if test="metallographyRequire != null" >
+        metallography_require,
+      </if>
+      <if test="minLineDistance != null" >
+        min_line_distance,
+      </if>
+      <if test="minLineWidth != null" >
+        min_line_width,
+      </if>
+      <if test="newOldProductId != null" >
+        new_old_product_id,
+      </if>
+      <if test="offerOrderNum != null" >
+        offer_order_num,
+      </if>
+      <if test="orderDate != null" >
+        order_date,
+      </if>
+      <if test="preventSmt != null" >
+        prevent_smt,
+      </if>
+      <if test="preventSmtColorId != null" >
+        prevent_smt_color_id,
+      </if>
+      <if test="productDate != null" >
+        product_date,
+      </if>
+      <if test="productionNotes != null" >
+        production_notes,
+      </if>
+      <if test="productionNumPcs != null" >
+        production_num_pcs,
+      </if>
+      <if test="productionNumSet != null" >
+        production_num_set,
+      </if>
+      <if test="projectStatusId != null" >
+        project_status_id,
+      </if>
+      <if test="sellerCode != null" >
+        seller_code,
+      </if>
+      <if test="shipmentsNotes != null" >
+        shipments_notes,
+      </if>
+      <if test="standardPeriod != null" >
+        standard_period,
+      </if>
+      <if test="startPreliminaryDate != null" >
+        start_preliminary_date,
+      </if>
+      <if test="surfaceProcessId != null" >
+        surface_process_id,
+      </if>
+      <if test="throughHoleTreatment != null" >
+        through_hole_treatment,
+      </if>
+      <if test="innerCreateTime != null" >
+        inner_create_time,
+      </if>
+      <if test="innerUpdateTime != null" >
+        inner_update_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="batchProductionId != null" >
+        #{batchProductionId,jdbcType=INTEGER},
+      </if>
+      <if test="belongCompanyId != null" >
+        #{belongCompanyId,jdbcType=INTEGER},
+      </if>
+      <if test="boardCharacter != null" >
+        #{boardCharacter,jdbcType=VARCHAR},
+      </if>
+      <if test="boardName != null" >
+        #{boardName,jdbcType=VARCHAR},
+      </if>
+      <if test="boardLong != null" >
+        #{boardLong,jdbcType=DECIMAL},
+      </if>
+      <if test="boardPly != null" >
+        #{boardPly,jdbcType=VARCHAR},
+      </if>
+      <if test="boardPlyToleranceId != null" >
+        #{boardPlyToleranceId,jdbcType=INTEGER},
+      </if>
+      <if test="boardWide != null" >
+        #{boardWide,jdbcType=DECIMAL},
+      </if>
+      <if test="businessNotes != null" >
+        #{businessNotes,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryGradeId != null" >
+        #{categoryGradeId,jdbcType=INTEGER},
+      </if>
+      <if test="camTip != null" >
+        #{camTip,jdbcType=VARCHAR},
+      </if>
+      <if test="characterColourId != null" >
+        #{characterColourId,jdbcType=INTEGER},
+      </if>
+      <if test="contactCode != null" >
+        #{contactCode,jdbcType=VARCHAR},
+      </if>
+      <if test="craftId != null" >
+        #{craftId,jdbcType=INTEGER},
+      </if>
+      <if test="csCode != null" >
+        #{csCode,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentCode != null" >
+        #{departmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverGoodDate != null" >
+        #{deliverGoodDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryMode != null" >
+        #{deliveryMode,jdbcType=VARCHAR},
+      </if>
+      <if test="edProductDate != null" >
+        #{edProductDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="factoryId != null" >
+        #{factoryId,jdbcType=INTEGER},
+      </if>
+      <if test="floorNum != null" >
+        #{floorNum,jdbcType=INTEGER},
+      </if>
+      <if test="formingWayId != null" >
+        #{formingWayId,jdbcType=INTEGER},
+      </if>
+      <if test="frameToleranceId != null" >
+        #{frameToleranceId,jdbcType=INTEGER},
+      </if>
+      <if test="guestCode != null" >
+        #{guestCode,jdbcType=VARCHAR},
+      </if>
+      <if test="handOverDate != null" >
+        #{handOverDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="impedanceRequire != null" >
+        #{impedanceRequire,jdbcType=VARCHAR},
+      </if>
+      <if test="joinBoardRequireId != null" >
+        #{joinBoardRequireId,jdbcType=INTEGER},
+      </if>
+      <if test="joinBoardWayId != null" >
+        #{joinBoardWayId,jdbcType=INTEGER},
+      </if>
+      <if test="marketDepartmentName != null" >
+        #{marketDepartmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="metallographyRequire != null" >
+        #{metallographyRequire,jdbcType=VARCHAR},
+      </if>
+      <if test="minLineDistance != null" >
+        #{minLineDistance,jdbcType=DECIMAL},
+      </if>
+      <if test="minLineWidth != null" >
+        #{minLineWidth,jdbcType=DECIMAL},
+      </if>
+      <if test="newOldProductId != null" >
+        #{newOldProductId,jdbcType=INTEGER},
+      </if>
+      <if test="offerOrderNum != null" >
+        #{offerOrderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderDate != null" >
+        #{orderDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="preventSmt != null" >
+        #{preventSmt,jdbcType=VARCHAR},
+      </if>
+      <if test="preventSmtColorId != null" >
+        #{preventSmtColorId,jdbcType=INTEGER},
+      </if>
+      <if test="productDate != null" >
+        #{productDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productionNotes != null" >
+        #{productionNotes,jdbcType=VARCHAR},
+      </if>
+      <if test="productionNumPcs != null" >
+        #{productionNumPcs,jdbcType=INTEGER},
+      </if>
+      <if test="productionNumSet != null" >
+        #{productionNumSet,jdbcType=INTEGER},
+      </if>
+      <if test="projectStatusId != null" >
+        #{projectStatusId,jdbcType=INTEGER},
+      </if>
+      <if test="sellerCode != null" >
+        #{sellerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="shipmentsNotes != null" >
+        #{shipmentsNotes,jdbcType=VARCHAR},
+      </if>
+      <if test="standardPeriod != null" >
+        #{standardPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="startPreliminaryDate != null" >
+        #{startPreliminaryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="surfaceProcessId != null" >
+        #{surfaceProcessId,jdbcType=INTEGER},
+      </if>
+      <if test="throughHoleTreatment != null" >
+        #{throughHoleTreatment,jdbcType=VARCHAR},
+      </if>
+      <if test="innerCreateTime != null" >
+        #{innerCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="innerUpdateTime != null" >
+        #{innerUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcbwx.pcbmis.model.ProductOrder" >
+    update product_order
+    <set >
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="batchProductionId != null" >
+        batch_production_id = #{batchProductionId,jdbcType=INTEGER},
+      </if>
+      <if test="belongCompanyId != null" >
+        belong_company_id = #{belongCompanyId,jdbcType=INTEGER},
+      </if>
+      <if test="boardCharacter != null" >
+        board_character = #{boardCharacter,jdbcType=VARCHAR},
+      </if>
+      <if test="boardName != null" >
+        board_name = #{boardName,jdbcType=VARCHAR},
+      </if>
+      <if test="boardLong != null" >
+        board_long = #{boardLong,jdbcType=DECIMAL},
+      </if>
+      <if test="boardPly != null" >
+        board_ply = #{boardPly,jdbcType=VARCHAR},
+      </if>
+      <if test="boardPlyToleranceId != null" >
+        board_ply_tolerance_id = #{boardPlyToleranceId,jdbcType=INTEGER},
+      </if>
+      <if test="boardWide != null" >
+        board_wide = #{boardWide,jdbcType=DECIMAL},
+      </if>
+      <if test="businessNotes != null" >
+        business_notes = #{businessNotes,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryGradeId != null" >
+        category_grade_id = #{categoryGradeId,jdbcType=INTEGER},
+      </if>
+      <if test="camTip != null" >
+        cam_tip = #{camTip,jdbcType=VARCHAR},
+      </if>
+      <if test="characterColourId != null" >
+        character_colour_id = #{characterColourId,jdbcType=INTEGER},
+      </if>
+      <if test="contactCode != null" >
+        contact_code = #{contactCode,jdbcType=VARCHAR},
+      </if>
+      <if test="craftId != null" >
+        craft_id = #{craftId,jdbcType=INTEGER},
+      </if>
+      <if test="csCode != null" >
+        cs_code = #{csCode,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentCode != null" >
+        department_code = #{departmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverGoodDate != null" >
+        deliver_good_date = #{deliverGoodDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryMode != null" >
+        delivery_mode = #{deliveryMode,jdbcType=VARCHAR},
+      </if>
+      <if test="edProductDate != null" >
+        ed_product_date = #{edProductDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="factoryId != null" >
+        factory_id = #{factoryId,jdbcType=INTEGER},
+      </if>
+      <if test="floorNum != null" >
+        floor_num = #{floorNum,jdbcType=INTEGER},
+      </if>
+      <if test="formingWayId != null" >
+        forming_way_id = #{formingWayId,jdbcType=INTEGER},
+      </if>
+      <if test="frameToleranceId != null" >
+        frame_tolerance_id = #{frameToleranceId,jdbcType=INTEGER},
+      </if>
+      <if test="guestCode != null" >
+        guest_code = #{guestCode,jdbcType=VARCHAR},
+      </if>
+      <if test="handOverDate != null" >
+        hand_over_date = #{handOverDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="impedanceRequire != null" >
+        impedance_require = #{impedanceRequire,jdbcType=VARCHAR},
+      </if>
+      <if test="joinBoardRequireId != null" >
+        join_board_require_id = #{joinBoardRequireId,jdbcType=INTEGER},
+      </if>
+      <if test="joinBoardWayId != null" >
+        join_board_way_id = #{joinBoardWayId,jdbcType=INTEGER},
+      </if>
+      <if test="marketDepartmentName != null" >
+        market_department_name = #{marketDepartmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="metallographyRequire != null" >
+        metallography_require = #{metallographyRequire,jdbcType=VARCHAR},
+      </if>
+      <if test="minLineDistance != null" >
+        min_line_distance = #{minLineDistance,jdbcType=DECIMAL},
+      </if>
+      <if test="minLineWidth != null" >
+        min_line_width = #{minLineWidth,jdbcType=DECIMAL},
+      </if>
+      <if test="newOldProductId != null" >
+        new_old_product_id = #{newOldProductId,jdbcType=INTEGER},
+      </if>
+      <if test="offerOrderNum != null" >
+        offer_order_num = #{offerOrderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderDate != null" >
+        order_date = #{orderDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="preventSmt != null" >
+        prevent_smt = #{preventSmt,jdbcType=VARCHAR},
+      </if>
+      <if test="preventSmtColorId != null" >
+        prevent_smt_color_id = #{preventSmtColorId,jdbcType=INTEGER},
+      </if>
+      <if test="productDate != null" >
+        product_date = #{productDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productionNotes != null" >
+        production_notes = #{productionNotes,jdbcType=VARCHAR},
+      </if>
+      <if test="productionNumPcs != null" >
+        production_num_pcs = #{productionNumPcs,jdbcType=INTEGER},
+      </if>
+      <if test="productionNumSet != null" >
+        production_num_set = #{productionNumSet,jdbcType=INTEGER},
+      </if>
+      <if test="projectStatusId != null" >
+        project_status_id = #{projectStatusId,jdbcType=INTEGER},
+      </if>
+      <if test="sellerCode != null" >
+        seller_code = #{sellerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="shipmentsNotes != null" >
+        shipments_notes = #{shipmentsNotes,jdbcType=VARCHAR},
+      </if>
+      <if test="standardPeriod != null" >
+        standard_period = #{standardPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="startPreliminaryDate != null" >
+        start_preliminary_date = #{startPreliminaryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="surfaceProcessId != null" >
+        surface_process_id = #{surfaceProcessId,jdbcType=INTEGER},
+      </if>
+      <if test="throughHoleTreatment != null" >
+        through_hole_treatment = #{throughHoleTreatment,jdbcType=VARCHAR},
+      </if>
+      <if test="innerCreateTime != null" >
+        inner_create_time = #{innerCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="innerUpdateTime != null" >
+        inner_update_time = #{innerUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcbwx.pcbmis.model.ProductOrder" >
+    update product_order
+    set order_num = #{orderNum,jdbcType=VARCHAR},
+      batch_production_id = #{batchProductionId,jdbcType=INTEGER},
+      belong_company_id = #{belongCompanyId,jdbcType=INTEGER},
+      board_character = #{boardCharacter,jdbcType=VARCHAR},
+      board_name = #{boardName,jdbcType=VARCHAR},
+      board_long = #{boardLong,jdbcType=DECIMAL},
+      board_ply = #{boardPly,jdbcType=VARCHAR},
+      board_ply_tolerance_id = #{boardPlyToleranceId,jdbcType=INTEGER},
+      board_wide = #{boardWide,jdbcType=DECIMAL},
+      business_notes = #{businessNotes,jdbcType=VARCHAR},
+      category_grade_id = #{categoryGradeId,jdbcType=INTEGER},
+      cam_tip = #{camTip,jdbcType=VARCHAR},
+      character_colour_id = #{characterColourId,jdbcType=INTEGER},
+      contact_code = #{contactCode,jdbcType=VARCHAR},
+      craft_id = #{craftId,jdbcType=INTEGER},
+      cs_code = #{csCode,jdbcType=VARCHAR},
+      department_code = #{departmentCode,jdbcType=VARCHAR},
+      deliver_good_date = #{deliverGoodDate,jdbcType=TIMESTAMP},
+      delivery_mode = #{deliveryMode,jdbcType=VARCHAR},
+      ed_product_date = #{edProductDate,jdbcType=TIMESTAMP},
+      factory_id = #{factoryId,jdbcType=INTEGER},
+      floor_num = #{floorNum,jdbcType=INTEGER},
+      forming_way_id = #{formingWayId,jdbcType=INTEGER},
+      frame_tolerance_id = #{frameToleranceId,jdbcType=INTEGER},
+      guest_code = #{guestCode,jdbcType=VARCHAR},
+      hand_over_date = #{handOverDate,jdbcType=TIMESTAMP},
+      impedance_require = #{impedanceRequire,jdbcType=VARCHAR},
+      join_board_require_id = #{joinBoardRequireId,jdbcType=INTEGER},
+      join_board_way_id = #{joinBoardWayId,jdbcType=INTEGER},
+      market_department_name = #{marketDepartmentName,jdbcType=VARCHAR},
+      metallography_require = #{metallographyRequire,jdbcType=VARCHAR},
+      min_line_distance = #{minLineDistance,jdbcType=DECIMAL},
+      min_line_width = #{minLineWidth,jdbcType=DECIMAL},
+      new_old_product_id = #{newOldProductId,jdbcType=INTEGER},
+      offer_order_num = #{offerOrderNum,jdbcType=VARCHAR},
+      order_date = #{orderDate,jdbcType=TIMESTAMP},
+      prevent_smt = #{preventSmt,jdbcType=VARCHAR},
+      prevent_smt_color_id = #{preventSmtColorId,jdbcType=INTEGER},
+      product_date = #{productDate,jdbcType=TIMESTAMP},
+      production_notes = #{productionNotes,jdbcType=VARCHAR},
+      production_num_pcs = #{productionNumPcs,jdbcType=INTEGER},
+      production_num_set = #{productionNumSet,jdbcType=INTEGER},
+      project_status_id = #{projectStatusId,jdbcType=INTEGER},
+      seller_code = #{sellerCode,jdbcType=VARCHAR},
+      shipments_notes = #{shipmentsNotes,jdbcType=VARCHAR},
+      standard_period = #{standardPeriod,jdbcType=INTEGER},
+      start_preliminary_date = #{startPreliminaryDate,jdbcType=TIMESTAMP},
+      surface_process_id = #{surfaceProcessId,jdbcType=INTEGER},
+      through_hole_treatment = #{throughHoleTreatment,jdbcType=VARCHAR},
+      inner_create_time = #{innerCreateTime,jdbcType=TIMESTAMP},
+      inner_update_time = #{innerUpdateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 以下为自定义接口 -->
+  <select id="selectByOrderNum" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from product_order
+    where 1 = 0 
+    <if test="orderNum != null" >
+		 or order_num = #{orderNum,jdbcType=VARCHAR}
+	</if>
+  </select>
+  <select id="listByOrderNum" resultMap="BaseResultMap" parameterType="java.util.List" >
+    select 
+    <include refid="Base_Column_List" />
+    from product_order
+    where order_num IN
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")">  
+    	#{item}  
+    </foreach>  
+    ORDER BY inner_create_time desc
+  </select>
+  <select id="getOrderNums" resultType="java.lang.Integer" parameterType="map" >
+    select count(id)
+    from product_order
+  </select>
+  <select id="getOrderList" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from product_order
+    order by inner_create_time desc
+    limit #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="getOrderNumsByCondition" resultType="java.lang.Integer" parameterType="map" >
+    select count(*)
+    from product_order
+    where 1 = 1
+    <if test="orderNum != null" >
+		 and order_num like "%"#{orderNum}"#"
+	</if>
+    <if test="guestCodes != null" >
+	    and guest_code in
+	    <foreach collection="guestCodes" item="item" index="index" open="(" separator="," close=")">  
+		    #{item}  
+		</foreach>
+	 </if>
+	 <if test="factoryId != null" >
+	    and factory_id = #{factoryId,jdbcType=INTEGER}
+	 </if>
+  </select>
+  <select id="getOrderListByCondition" resultMap="BaseResultMap" parameterType="map" >
+    select a.* from product_order a inner join (select id from product_order where 1 = 1
+    <if test="orderNum != null" >
+		 and order_num like "%"#{orderNum}"%"
+	</if>
+    <if test="guestCodes != null" >
+	    and guest_code in
+	    <foreach collection="guestCodes" item="item" index="index" open="(" separator="," close=")">  
+		    #{item}  
+		</foreach>
+	 </if>
+	 <if test="factoryId != null" >
+	    and factory_id = #{factoryId,jdbcType=INTEGER}
+	 </if>
+    order by inner_create_time desc
+    limit #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}) b 
+    on a.id = b.id
+  </select>
+  <select id="getOrderListByKey" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from product_order
+    where 1 = 0
+    <if test="keyWord != null" >
+		or (board_name like '%${keyWord}%')
+	</if>
+    <if test="guestCodes != null" >
+	    	or guest_code in
+	    	<foreach collection="guestCodes" item="item" index="index" open="(" separator="," close=")">  
+		    	#{item}  
+		    </foreach>
+	 </if>
+	 <if test="factoryIds != null" >
+	    	or factory_id in
+	    	<foreach collection="factoryIds" item="item" index="index" open="(" separator="," close=")">  
+		    	#{item}  
+		    </foreach>
+	 </if>
+	 <if test="cateIds != null">
+	 		or category_grade_id in
+	    	<foreach collection="cateIds" item="item" index="index" open="(" separator="," close=")">  
+		    	#{item}  
+		    </foreach>
+	 </if>
+  </select>
+  <select id="getOrderListByKeyWord" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from product_order
+    where 1 = 0
+    <if test="guestCodes != null" >
+	    	or guest_code in
+	    	<foreach collection="guestCodes" item="item" index="index" open="(" separator="," close=")">  
+		    	#{item}  
+		    </foreach>
+	 </if>
+	 <if test="factoryIds != null" >
+	    	or factory_id in
+	    	<foreach collection="factoryIds" item="item" index="index" open="(" separator="," close=")">  
+		    	#{item}  
+		    </foreach>
+	 </if>
+	 <if test="cateIds != null">
+	 		or category_grade_id in
+	    	<foreach collection="cateIds" item="item" index="index" open="(" separator="," close=")">  
+		    	#{item}  
+		    </foreach>
+	 </if>
+  </select>
+</mapper>

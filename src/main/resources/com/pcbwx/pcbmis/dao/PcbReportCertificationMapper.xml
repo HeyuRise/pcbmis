@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pcbwx.pcbmis.dao.PcbReportCertificationMapper" >
+  <resultMap id="BaseResultMap" type="com.pcbwx.pcbmis.model.PcbReportCertification" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="report_num" property="reportNum" jdbcType="VARCHAR" />
+    <result column="order_num_name" property="orderNumName" jdbcType="VARCHAR" />
+    <result column="order_num" property="orderNum" jdbcType="VARCHAR" />
+    <result column="category_grade" property="categoryGrade" jdbcType="VARCHAR" />
+    <result column="board_name" property="boardName" jdbcType="VARCHAR" />
+    <result column="product_date" property="productDate" jdbcType="TIMESTAMP" />
+    <result column="check_date" property="checkDate" jdbcType="TIMESTAMP" />
+    <result column="packaging_date" property="packagingDate" jdbcType="TIMESTAMP" />
+    <result column="inspector_code" property="inspectorCode" jdbcType="VARCHAR" />
+    <result column="expiration_date" property="expirationDate" jdbcType="VARCHAR" />
+    <result column="number_pcs" property="numberPcs" jdbcType="VARCHAR" />
+    <result column="batch_number" property="batchNumber" jdbcType="VARCHAR" />
+    <result column="size" property="size" jdbcType="VARCHAR" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, report_num, order_num_name, order_num, category_grade, board_name, product_date, 
+    check_date, packaging_date, inspector_code, expiration_date, number_pcs, batch_number, 
+    size, creat_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pcb_report_certification
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pcb_report_certification
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcbwx.pcbmis.model.PcbReportCertification" >
+    insert into pcb_report_certification (id, report_num, order_num_name, 
+      order_num, category_grade, board_name, 
+      product_date, check_date, packaging_date, 
+      inspector_code, expiration_date, number_pcs, 
+      batch_number, size, creat_time, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{reportNum,jdbcType=VARCHAR}, #{orderNumName,jdbcType=VARCHAR}, 
+      #{orderNum,jdbcType=VARCHAR}, #{categoryGrade,jdbcType=VARCHAR}, #{boardName,jdbcType=VARCHAR}, 
+      #{productDate,jdbcType=TIMESTAMP}, #{checkDate,jdbcType=TIMESTAMP}, #{packagingDate,jdbcType=TIMESTAMP}, 
+      #{inspectorCode,jdbcType=VARCHAR}, #{expirationDate,jdbcType=VARCHAR}, #{numberPcs,jdbcType=VARCHAR}, 
+      #{batchNumber,jdbcType=VARCHAR}, #{size,jdbcType=VARCHAR}, #{creatTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcbwx.pcbmis.model.PcbReportCertification" >
+    insert into pcb_report_certification
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="reportNum != null" >
+        report_num,
+      </if>
+      <if test="orderNumName != null" >
+        order_num_name,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="categoryGrade != null" >
+        category_grade,
+      </if>
+      <if test="boardName != null" >
+        board_name,
+      </if>
+      <if test="productDate != null" >
+        product_date,
+      </if>
+      <if test="checkDate != null" >
+        check_date,
+      </if>
+      <if test="packagingDate != null" >
+        packaging_date,
+      </if>
+      <if test="inspectorCode != null" >
+        inspector_code,
+      </if>
+      <if test="expirationDate != null" >
+        expiration_date,
+      </if>
+      <if test="numberPcs != null" >
+        number_pcs,
+      </if>
+      <if test="batchNumber != null" >
+        batch_number,
+      </if>
+      <if test="size != null" >
+        size,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="reportNum != null" >
+        #{reportNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumName != null" >
+        #{orderNumName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryGrade != null" >
+        #{categoryGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="boardName != null" >
+        #{boardName,jdbcType=VARCHAR},
+      </if>
+      <if test="productDate != null" >
+        #{productDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkDate != null" >
+        #{checkDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="packagingDate != null" >
+        #{packagingDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inspectorCode != null" >
+        #{inspectorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="expirationDate != null" >
+        #{expirationDate,jdbcType=VARCHAR},
+      </if>
+      <if test="numberPcs != null" >
+        #{numberPcs,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNumber != null" >
+        #{batchNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcbwx.pcbmis.model.PcbReportCertification" >
+    update pcb_report_certification
+    <set >
+      <if test="reportNum != null" >
+        report_num = #{reportNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumName != null" >
+        order_num_name = #{orderNumName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryGrade != null" >
+        category_grade = #{categoryGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="boardName != null" >
+        board_name = #{boardName,jdbcType=VARCHAR},
+      </if>
+      <if test="productDate != null" >
+        product_date = #{productDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkDate != null" >
+        check_date = #{checkDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="packagingDate != null" >
+        packaging_date = #{packagingDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inspectorCode != null" >
+        inspector_code = #{inspectorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="expirationDate != null" >
+        expiration_date = #{expirationDate,jdbcType=VARCHAR},
+      </if>
+      <if test="numberPcs != null" >
+        number_pcs = #{numberPcs,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNumber != null" >
+        batch_number = #{batchNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        size = #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcbwx.pcbmis.model.PcbReportCertification" >
+    update pcb_report_certification
+    set report_num = #{reportNum,jdbcType=VARCHAR},
+      order_num_name = #{orderNumName,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=VARCHAR},
+      category_grade = #{categoryGrade,jdbcType=VARCHAR},
+      board_name = #{boardName,jdbcType=VARCHAR},
+      product_date = #{productDate,jdbcType=TIMESTAMP},
+      check_date = #{checkDate,jdbcType=TIMESTAMP},
+      packaging_date = #{packagingDate,jdbcType=TIMESTAMP},
+      inspector_code = #{inspectorCode,jdbcType=VARCHAR},
+      expiration_date = #{expirationDate,jdbcType=VARCHAR},
+      number_pcs = #{numberPcs,jdbcType=VARCHAR},
+      batch_number = #{batchNumber,jdbcType=VARCHAR},
+      size = #{size,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 以下为自定义接口 -->
+  <select id="selectByReportNum" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from pcb_report_certification
+    where 
+    report_num = #{reportNum,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByReportNum" parameterType="map" >
+    delete from pcb_report_certification
+    where report_num = #{reportNum,jdbcType=VARCHAR}
+  </delete>
+  <update id="updateBoardNameByOrderNumber" parameterType="map" >
+    UPDATE pcb_report_certification a INNER JOIN pcb_check_report b INNER JOIN pcb_in_storage_order c 
+	ON a.report_num = b.report_num AND b.order_number = c.order_number 
+	SET a.board_name = #{boardName,jdbcType=VARCHAR}
+	WHERE c.order_number = #{orderNumber,jdbcType=VARCHAR}
+  </update>
+</mapper>

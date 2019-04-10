@@ -1,0 +1,405 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script src="../script/js/jquery-easyui-1.3.3/jquery.min.js" type="text/javascript"></script>
+	<script src="../script/js/jquery-easyui-1.3.3/jquery.easyui.min.js" type="text/javascript"></script>
+	<script src="../script/js/jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
+	<script src="../script/js/templet/check_edit.js" type="text/javascript"></script>
+	<script src="../script/js/param.js" type="text/javascript"></script>
+	<script src="../script/js/angular.min.js" type="text/javascript"></script>
+	<script src="../script/js/datagrid-detailview.js" type="text/javascript"></script>
+	<link href="../script/js/jquery-easyui-1.3.3/themes/icon.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="../script/js/jquery-easyui-1.3.3/themes/default/easyui.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="../script/css/index.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="../script/css/base.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="../script/css/icon.css" media="screen" rel="stylesheet" type="text/css" />
+    <title>PCB检验检测系统</title>
+    <style>
+    .div{ 
+	    border: 1px solid #4d4d4d6b;
+	    min-height: 50px;
+	    word-break: break-all;
+	    word-wrap: break-word;
+	    white-space: pre-wrap;
+	    overflow-x: hidden;
+	    overflow-y: auto;
+	    line-height: 20px;
+	    font-size: 12px;
+    }
+    </style>
+</head>
+<body class="easyui-layout" ng-app="testApp" >
+ 	 <!--  header  -->
+	<div data-options="region:'north',border:false"  class="header"  ng-controller="Ctrl" >
+		<div ng-include="'../head.html'"></div>
+	</div>
+	<!-- 导航 -->
+	<div data-options="region:'west',split:true,title:'导航'" style="width:150px;"    ng-controller="aaCtrl" >
+		<div ng-include="'../left.html'"></div>
+	</div>
+	<!-- foot -->
+	<div data-options="region:'south',border:false"  class="footer"   ng-controller="bbCtrl" >
+		<div ng-include="'../foot.html'"> </div>
+	</div>
+	  
+    <div data-options="region:'center'" ng-controller="testCtrl" >
+    	<div id="centerTabs" class="easyui-tabs" fit="true" border="false" style="width: 100%;">   
+            <div title="模板详情" border="false">
+            	<table class="guding-table" ellspacing="0" cellpadding="0" >
+            		<tbody>
+						<tr>
+							<td>验收标准：</td>
+							<td colspan="6"><span id="templateName" ng-bind="auditDetail.templateName"></span></td>
+					    </tr>					         
+					    <tr>
+						    <th colspan="2" style="width: 20%" class="light-blue">检验项目</th>
+						    <th colspan="2" style="width: 30%" class="light-blue">检验要求</th>
+						    <th style="width: 20%" class="light-blue">检验结果</td>
+						    <th style="width: 20%" class="light-blue">不良数量</td>
+						    <th style="width: 10%" class="light-blue">判定</th>					         	
+					    </tr>
+					    <tr>
+					    	<td>印制板信息</td>
+					    	<td>生产厂家</td>
+					    	<td colspan="2"></td>
+					    	<td></td>
+					    	<td></td>
+					    	<td>合格</td>
+					    </tr>
+					    <tr>
+					    <td rowspan="4">印制板边缘</td>
+						    <td>毛刺</td>
+						    <td colspan="2"><textarea style="width: 100%;min-height:50px" id="burrs" ng-bind-html="auditDetail.burrs | trustHtml"></textarea></td>
+						    <td></td>
+						    <td></td>
+						    <td>合格</td>
+					    </tr>
+		     			<tr>
+							<td>缺口</td>
+							<td colspan="2"><input id="gap" ng-value="auditDetail.gap" class="input"></td>
+							<td></td>			
+						    <td></td>
+						    <td>合格</td>
+					    </tr>
+					    <tr>
+							<td>露铜</td>
+							<td colspan="2"><input id="exposedCopper" ng-value="auditDetail.exposedCopper" class="input"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					    </tr>
+					    <tr>
+					    	<td>其他缺陷</td>
+							<td colspan="2"><input id="printedBoardElse" ng-value="auditDetail.printedBoardElse" class="input"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					    </tr>
+					    <tr>
+					    	<td rowspan="6">基材</td>
+							<td>露织物、显布纹</td>
+							<td colspan="2"><input id="fabricTexture"  ng-value="auditDetail.fabricTexture" class="input"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					    </tr>
+						<tr>
+							<td>麻点和空洞</td>
+							<td colspan="2"><textarea style="width: 100%;min-height:50px"  id="pitVoid" ng-bind-html="auditDetail.pitVoid | trustHtml" ></textarea></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					    </tr>					         
+					    <tr>
+							<td>白斑、微裂纹</td>
+							<td colspan="2"><textarea style="width: 100%;min-height:50px"  id="spotCrack" ng-bind-html="auditDetail.spotCrack | trustHtml" ></textarea></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					   </tr>
+					   <tr>
+							<td>分层、起泡</td>
+							<td colspan="2"><input id="delaminationFoaming" ng-value="auditDetail.delaminationFoaming" class="input"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					   </tr>
+					   <tr>
+							<td>外来夹杂物</td>
+							<td colspan="2"><textarea style="width: 100%;min-height:50px"  id="foreignImpurity"  ng-bind-html="auditDetail.foreignImpurity | trustHtml" ></textarea></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					    </tr>
+					    <tr>
+							<td>其他缺陷</td>
+							<td colspan="2"><input id="baseMaterialElse" ng-value="auditDetail.baseMaterialElse" class="input"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					    <tr>
+					    <td rowspan="10">阻焊膜</td>
+							<td>印刷面</td>
+							<td colspan="2"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					    </tr>
+					    <tr>
+							<td>颜色</td>
+							<td colspan="2"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					     </tr>
+					     <tr>
+							<td>覆盖度、附着力</td>
+							<td colspan="2"><textarea style="width: 100%;min-height:50px"  id="coverageAdhesion"  ng-bind-html="auditDetail.coverageAdhesion| trustHtml"  ></textarea></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					     </tr>
+					     <tr>
+							<td>重合度</td>
+							<td colspan="2"><textarea style="width: 100%;min-height:50px"  id="coincidenceDegree"  ng-bind-html="auditDetail.coincidenceDegree | trustHtml" ></textarea></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					    </tr>
+					    <tr>
+							<td>起泡、分层</td>
+							<td colspan="2"><input id="foamingLayering" ng-value="auditDetail.foamingLayering" class="input"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					    </tr>
+					    <tr>
+							<td>波纹、皱褶</td>
+							<td colspan="2"><input  id="corrugation"  ng-value="auditDetail.corrugation" class="input"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					    </tr>
+					    <tr>
+							<td>假性露铜</td>
+							<td colspan="2"><input  id="falseExposedCopper"   ng-value="auditDetail.falseExposedCopper" class="input"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					    </tr>
+					    <tr>
+							<td>掉桥、掉坝</td>
+							<td colspan="2"><input id="falseBridgeDam"   ng-value="auditDetail.falseBridgeDam" class="input"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					    </tr>
+					    <tr>
+							<td>色差</td>
+							<td colspan="2"><input id="chromaticAberration"   ng-value="auditDetail.chromaticAberration" class="input"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					    </tr>
+					    <tr>
+							<td>其他缺陷</td>
+							<td colspan="2"><input id="solderMaskElse"  ng-value="auditDetail.solderMaskElse" class="input"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					    </tr>
+					    <tr>
+					        <td rowspan="7">标记</td>
+							<td>印刷面</td>
+							<td colspan="2"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					    </tr>
+					    <tr>
+							<td>颜色</td>
+							<td colspan="2"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					    </tr>
+					    <tr>
+							<td>覆盖度、附着力</td>
+							<td colspan="2"><input id="identificationAdhesion"  ng-value="auditDetail.identificationAdhesion" class="input"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					    </tr>
+					    <tr>
+							<td>Logo</td>
+							<td colspan="2"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					     </tr>
+					     <tr>
+							<td>批次号</td>
+							<td colspan="2"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					     </tr>
+					     <tr>
+							<td>特殊板号</td>
+							<td colspan="2"><input id="specialBoardNum"  ng-value="auditDetail.specialBoardNum"class="input"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					     </tr>
+					     <tr>
+							<td>其他缺陷</td>
+							<td colspan="2"><input id="markElse"   ng-value="auditDetail.markElse"class="input"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					    </tr>
+					    <tr>
+					        <td rowspan="9">导电图形</td>
+							<td>结瘤、毛刺</td>
+							<td colspan="2"><input id="nodulesBurrs"  ng-value="auditDetail.nodulesBurrs" class="input"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					    </tr>
+					    <tr>
+							<td>孔内铅锡发暗</td>
+							<td colspan="2"><input id="darkOfHoleTinLead"  ng-value="auditDetail.darkOfHoleTinLead" class="input"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					     </tr>
+					     <tr>
+							<td>焊盘起翘</td>
+							<td colspan="2"><input  id="padCocked" ng-value="auditDetail.padCocked" class="input"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					     </tr>
+					     <tr>
+							<td>晕圈</td>
+							<td colspan="2"><input  id="haloRing"  ng-value="auditDetail.haloRing" class="input"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					     </tr>
+					     <tr>
+							<td>外层环宽</td>
+							<td colspan="2"><input id="outerRingWidth" ng-value="auditDetail.outerRingWidth" class="input"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					     </tr>
+					     <tr>
+							<td>锡珠入孔</td>
+							<td colspan="2"><input id="solderInHole"  ng-value="auditDetail.solderInHole" class="input"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					     </tr>
+					     <tr>
+							<td>堵孔</td>
+							<td colspan="2"><input id="clogHole" ng-value="auditDetail.clogHole" class="input"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					     </tr>
+					     <tr>
+							<td>线宽、间距等</td>
+							<td colspan="2"><input id="lineWidthSpacing"  ng-value="auditDetail.lineWidthSpacing" class="input"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					     </tr>
+					     <tr>
+							<td>其他缺陷</td>
+							<td colspan="2"><input id="conductivePatternElse"  ng-value="auditDetail.conductivePatternElse" class="input"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					     </tr>
+					     <tr>
+							<td colspan="2">过孔处理</td>
+							<td colspan="2"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					     </tr>
+					     <tr>
+							<td colspan="2">表面处理</td>
+							<td colspan="2"></td>
+							<td></td>			
+							<td></td>
+							<td>合格</td>
+					     </tr>
+					     <tr>
+							<td rowspan="3">外形尺寸</td>
+							<td>板长（mm）</td>
+							<td></td>
+							<td></td>
+							<td><input  id="boardLongResult" ng-value="auditDetail.boardLongResult" class="input"></td>
+							<td></td>
+							<td>合格</td>
+					     </tr>
+					     <tr>
+							<td>板宽（mm）</td>
+							<td></td>
+							<td></td>
+							<td><input id="boardWideResult" ng-value="auditDetail.boardWideResult" class="input"></td>
+							<td></td>
+							<td>合格</td>
+					     </tr>
+					     <tr>
+							<td>板厚（mm）</td>
+							<td></td>
+							<td></td>
+							<td><input id="boardPlyResult" ng-value="auditDetail.boardPlyResult" class="input"></td>
+							<td></td>
+							<td>合格</td>
+					     </tr>
+					     <tr>
+							<td rowspan="2">平整度</td>
+							<td>弓曲高度</td>
+							<td colspan="2"></td>
+							<td rowspan="2"><input id="smoothnessResult" ng-value="auditDetail.smoothnessResult" class="input"></td>
+							<td></td>
+							<td>合格</td>
+					     </tr>
+					    <tr>
+							<td>扭曲高度</td>
+							<td  colspan="2"></td>
+							<td></td>
+							<td>合格</td>
+					    </tr>
+					 </tbody>
+		         </table>
+		         <div style="text-align: center;margin: 20px 0;font-size: 14px;">		  
+			    	 <a class="easyui-linkbutton ok" iconCls="icon-ok" href="javascript:void(0)"  onclick="btn_save()" id="btn_save">提交</a>
+				</div> 
+            </div>
+        </div>
+    </div>
+     
+     <script type="text/javascript">
+		var app = angular.module('testApp', []);
+		app.controller('testCtrl', function ($scope, $http) {    	
+		    $http.get("/pcbmis/roleAuth/getUserDetail" ,{timeout:8000}).success(function (response) {
+		    	$scope.systemsUrl = response.systemsUrl;
+		    	$scope.menu = response.menu;
+		    	$scope.roles = response.roles;
+		    	$scope.userName = response.userName;
+		    	$scope.secondMenu = response.menu.secondMenu;
+		    }).error(function(data,status){ 
+		        if(status=='timeout'){
+		        	 window.location.href="/pcbmis/j_spring_cas_security_logout"
+		        }
+		    });
+		})
+	</script>
+</body>
+</html>

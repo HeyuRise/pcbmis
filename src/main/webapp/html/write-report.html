@@ -1,0 +1,1365 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script src="../script/js/jquery-1.6.4.min.js"></script>
+	<script src="../script/js/jquery-easyui-1.3.3/jquery.easyui.min.js" type="text/javascript"></script>
+	<script src="../script/js/jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
+	<script src="../script/js/write-report.js" type="text/javascript"></script>
+	<script src="../script/js/datagrid-detailview.js" type="text/javascript"></script>
+	<script src="../script/js/angular.min.js" type="text/javascript"></script>
+	<script src="../script/js/param.js"></script>
+	<link href="../script/js/jquery-easyui-1.3.3/themes/icon.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="../script/js/jquery-easyui-1.3.3/themes/default/easyui.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="../script/css/index.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="../script/css/base.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="../script/css/icon.css" media="screen" rel="stylesheet" type="text/css" />
+    <title>PCB检验检测系统</title>
+     <style>
+    .div{ 
+	    border: 1px solid #4d4d4d6b;
+	    min-height: 50px;
+	    word-break: break-all;
+	    word-wrap: break-word;
+	    white-space: pre-wrap;
+	    overflow-x: hidden;
+	    overflow-y: auto;
+	    line-height: 20px;
+	    font-size: 12px;
+    }
+    </style>
+</head>
+<body class="easyui-layout"    ng-app="testApp" >
+
+	
+	 <!--  header  -->
+	<div data-options="region:'north',border:false"  class="header" ng-controller="Ctrl"  >
+		<div ng-include="'../head.html'"></div>
+	</div>
+	
+
+	<!-- 导航 -->
+	<div data-options="region:'west',split:true,title:'导航'" style="width:150px;"  ng-controller="aaCtrl"   >
+		<div ng-include="'../left.html'"></div>
+	</div>
+	
+	<!-- foot -->
+	<div data-options="region:'south',border:false"  class="footer" ng-controller="bbCtrl"  >
+		<div ng-include="'../foot.html'"> </div>
+	</div>
+	
+	<div data-options="region:'center'" ng-controller="testCtrl">
+	 	<div id="centerTabs" class="easyui-tabs" fit="true" border="false" style="width: 100%;">   
+			<div title="检验报告" style="padding:10px;" >
+			    <form id="gbin5form">
+					<table id="report"class="guding-table" ellspacing="0" cellpadding="0" style="width: 50%;margin: 0 auto;">
+						<tbody>
+							<tr>
+								<th>NO:<span ng-bind="reportDetail.serialNumber"></span></th>
+								<th>版次:<span ng-bind="reportDetail.revision"></span></th>
+								<th>编号:<span ng-bind="reportDetail.documentNumber"></span></th>
+							</tr>
+							<tr>
+								<th>客户名称：</th>
+								<td colspan="2"><span id="guestName"ng-bind="reportDetail.report_intro.guestName"></span></td>
+							</tr>
+							<tr>
+								<th>板名：</th>
+								<td colspan="2"><span id="boardName" ng-bind="reportDetail.report_intro.boardName"></span></td>
+							</tr>
+							<tr ng-if="reportDetail.report_intro.newDateKey!==''">
+								<th><input type='text' id='newDateKey' ng-value='reportDetail.report_intro.newDateKey'></th>
+								<td colspan="2"><input type='text' id='newDateValue' ng-value='reportDetail.report_intro.newDateValue'></td>
+							</tr>
+							<tr ng-if="reportDetail.report_intro.newDateKey==''"></tr>
+							<tr>
+								<th>数量：</th>
+								<td colspan="2">
+									<input id="number" name="number" type="text" class="other"  ng-value="reportDetail.report_intro.number" style="width: 150px;">
+									<select style="width:150px;" id="unit">
+										<option>PCS</option>
+										<option>SET</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th>生产周期：</th>
+								<td colspan="2"><input class="other"  id="productPeriod"  onchange='btn_productPeriod()' ng-value="reportDetail.report_intro.productPeriod" type="text" style="width: 150px;"></td>
+							</tr>
+							<tr>
+								<th>验收标准：</th>
+								<td colspan="2">
+									<select id=acceptanceStandard ng-options="x.index as x.desc for x in data"  ng-model="selected" ng-change="change_templateId()">
+					         		</select>
+<!-- 								<textarea id="acceptanceStandard" style="resize: none;width: 100%;min-height: 100px;" class="other">{{reportDetail.report_intro.acceptanceStandard}}</textarea> -->
+								</td>
+							</tr>
+							<tr>
+								<th>出货日期：</th>
+								<td colspan="2">
+									<input  type= "text" class= "easyui-datebox"  id="dispatchDate" editable="false"></input> 
+<!-- 									<span ng-bind="reportDetail.report_intro.dispatchDate"></span> -->
+								</td>
+							</tr>
+							<tr>
+								<th>编写：</th>
+								<td colspan="2"><span></span></td>
+							</tr>
+							<tr>
+								<th>审核：</th>
+								<td colspan="2"><span></span></td>
+							</tr>
+						</tbody>
+					</table>
+				</form>
+				<div style="text-align: center;margin: 20px 0;font-size: 14px;" ng-if="reportDetail.report_intro.newDateKey!==''">
+					<a id="add-report" style="display: none;"class="easyui-linkbutton add" iconCls="icon-add" href="javascript:void(0)"  onclick="add()">新增</a>&nbsp;&nbsp;&nbsp;
+		         	<a id="delete-report"style="display: inline-block;"class="easyui-linkbutton remove" iconCls="icon-remove" href="javascript:void(0)"   onclick="delet()">删除</a>
+		       </div>
+		       <div style="text-align: center;margin: 20px 0;font-size: 14px;" ng-if="reportDetail.report_intro.newDateKey==''">
+		         	<a id="add-report" style="display: inline-block;"class="easyui-linkbutton add" iconCls="icon-add" href="javascript:void(0)"  onclick="add()">新增</a>&nbsp;&nbsp;&nbsp;
+		         	<a id="delete-report"style="display: none;"class="easyui-linkbutton remove" iconCls="icon-remove" href="javascript:void(0)"   onclick="delet()">删除</a>
+		       </div>
+				<div style="border: 1px dotted #ccc;padding: 20px 10px;margin-top: 100px;width: 550px;margin-left: auto;margin-right: auto;">
+					<p style="text-align: center;font-weight: 600;font-size: 15px;margin: 10px 0;">温馨提示</p>
+					<p style="text-indent: 2em;font-weight: 500;font-size: 14px;line-height: 150%">请将产品以真空包装的形式存放于温度≤30℃，湿度≤65%，无腐蚀性气体的环境中。拆包后，在温度≤30℃，湿度≤65%条件下保存，若在48小时内未完成焊接，或超过保质期，需烘板，条件120±5℃，2~4小时。</p>
+				</div>
+				<div style="text-align: center;margin: 20px 0;font-size: 14px;">
+         			<a id="tijiao1" style="display: inline-block;"class="easyui-linkbutton save" iconCls="icon-ok" href="javascript:void(0)" onclick="writetijiao()">提交</a>&nbsp;&nbsp;&nbsp;
+		         	<a class="easyui-linkbutton excel" iconCls="icon-excel" href="javascript:void(0)"  onclick="btn_export()">导出报告单</a>
+		         	<a class="easyui-linkbutton excel" iconCls="icon-excel" href="javascript:void(0)"  onclick="btn_export2()">导出合格证</a>
+         		</div>
+			</div>
+			<div title="检验内容" style="padding:10px;" >
+			    <form id="gbin10form">
+					<table class="guding-table" ellspacing="0" cellpadding="0" >
+	         			<tbody>
+		        			<tr>
+					         	<th class="light-blue">检验类别</th>
+					            <th class="light-blue">No.</th>
+					         	<th class="light-blue">项目</th>
+					         	<th class="light-blue" colspan="3">检验要求</th>
+					         	<th class="light-blue">检验结果</th>
+					         	<th class="light-blue">判断</th>
+				         	</tr>
+				         	<tr>
+				         		<td rowspan="8">外观检查</td>
+				         		<td  rowspan="2">1</td>
+								<td>基材类型</td>
+								<td colspan="3"><input class="other" id="base_material_types-checkRequire"  ng-value="reportDetail.report_content.base_material_types.checkRequire"></td>
+								<td><input class="other" id="base_material_types-checkResult" ng-value="reportDetail.report_content.base_material_types.checkResult" onchange="btn_result(this)"></td>
+								<td>
+									<select id="base_material_types-judgeResult">
+										<option>合格</option>
+										<option>不合格</option>
+										<option>/</option>
+									</select>
+								</td>
+				         	</tr>
+				         	<tr>
+								<td>基材外观</td>
+								<td colspan="3"><span ng-bind="reportDetail.report_content.base_material_appearance.checkRequire"></span></td>
+								<td>
+									<input  class="other" id="base_material_appearance-checkResult" type="text"  ng-value="reportDetail.report_content.base_material_appearance.checkResult" ng-if="reportDetail.report_content.base_material_appearance.checkResult!=''"  onchange="btn_result(this)">
+									<input  class="other" id="base_material_appearance-checkResult" type="text" value="无缺陷"  ng-if="reportDetail.report_content.base_material_appearance.checkResult==''" onchange="btn_result(this)">
+								</td>
+								<td>
+									<select id="base_material_appearance-judgeResult">
+										<option>合格</option>
+										<option>不合格</option>
+										<option>/</option>
+									</select>
+								</td>
+				         	</tr>
+				         	<tr>
+				         	    <td >2</td>
+								<td>导电图形</td>
+								<td colspan="3"><span ng-bind="reportDetail.report_content.conductive_pattern.checkRequire"></span></td>
+								<td>
+									<input  class="other"  id="conductive_pattern-checkResult" type="text"  ng-value="reportDetail.report_content.conductive_pattern.checkResult"  ng-if="reportDetail.report_content.conductive_pattern.checkResult!=''" onchange="btn_result(this)">
+									<input  class="other"  id="conductive_pattern-checkResult" type="text" value="无缺陷"  ng-if="reportDetail.report_content.conductive_pattern.checkResult==''" onchange="btn_result(this)">
+								</td>
+								<td>
+									<select id="conductive_pattern-judgeResult">
+										<option>合格</option>
+										<option>不合格</option>
+										<option>/</option>
+									</select>
+								</td>
+				         	</tr>
+				         	<tr>
+				         	    <td rowspan="2">3</td>
+								<td>阻焊类型</td>
+								<td colspan="3">
+									<input class="other"  id="prevent_smt_type-checkRequire" type="text"  ng-value="reportDetail.report_content.prevent_smt_type.checkRequire"  ng-if="reportDetail.report_content.prevent_smt_type.checkRequire!=''" onkeyup="document.getElementById('prevent_smt_type-checkResult').value=this.value">
+									<input class="other"  id="prevent_smt_type-checkRequire" type="text"  ng-if="reportDetail.report_content.prevent_smt_type.checkRequire==''" value="Nanya" onkeyup="document.getElementById('prevent_smt_type-checkResult').value=this.value">
+								</td>
+								<td>
+									<input  class="other"  id="prevent_smt_type-checkResult" type="text"  ng-value="reportDetail.report_content.prevent_smt_type.checkResult" ng-if="reportDetail.report_content.prevent_smt_type.checkResult!=''" onchange="btn_result(this)">
+									<input  class="other"  id="prevent_smt_type-checkResult" type="text"  ng-if="reportDetail.report_content.prevent_smt_type.checkResult==''" value="Nanya" onchange="btn_result(this)">
+								</td>
+								<td>
+									<select  id="prevent_smt_type-judgeResult">
+										<option>合格</option>
+										<option>不合格</option>
+										<option>/</option>
+									</select>
+								</td>
+				         	</tr>
+				         	<tr>
+								<td>阻焊外观</td>
+								<td colspan="3"><span ng-bind="reportDetail.report_content.prevent_smt_appearance.checkRequire"></span></td>
+								<td>
+									<input  class="other"  id="prevent_smt_appearance-checkResult" type="text" ng-value="reportDetail.report_content.prevent_smt_appearance.checkResult"  ng-if="reportDetail.report_content.prevent_smt_appearance.checkResult!=''" onchange="btn_result(this)">
+									<input  class="other"  id="prevent_smt_appearance-checkResult" type="text" value="无缺陷"  ng-if="reportDetail.report_content.prevent_smt_appearance.checkResult==''" onchange="btn_result(this)">
+								</td>
+								<td>
+									<select id="prevent_smt_appearance-judgeResult">
+										<option>合格</option>
+										<option>不合格</option>
+										<option>/</option>
+									</select>
+								</td>
+				         	</tr>
+				         	<tr>
+				         	    <td rowspan="2">4</td>
+								<td>字符类型</td>
+								<td colspan="3">
+									<input id="character_type-checkRequire" type="text" class="other"  ng-value="reportDetail.report_content.character_type.checkRequire" ng-if="reportDetail.report_content.character_type.checkRequire!=''" onkeyup="document.getElementById('character_type-checkResult').value=this.value">
+									<input id="character_type-checkRequire" type="text" class="other"  ng-if="reportDetail.report_content.character_type.checkRequire==''"  value="KSM-388" onkeyup="document.getElementById('character_type-checkResult').value=this.value">
+								</td>
+								<td>
+									<input class="other" id="character_type-checkResult" type="text"  ng-value="reportDetail.report_content.character_type.checkResult" ng-if="reportDetail.report_content.character_type.checkResult!=''" onchange="btn_result(this)">
+									<input class="other" id="character_type-checkResult" type="text"  ng-if="reportDetail.report_content.character_type.checkResult==''" value="KSM-388" onchange="btn_result(this)">
+								</td>
+								<td>
+									<select id="character_type-judgeResult">
+										<option>合格</option>
+										<option>不合格</option>
+										<option>/</option>
+									</select>
+								</td>
+				         	</tr>
+				         	<tr>
+								<td>字符外观</td>
+								<td colspan="3"><span ng-bind="reportDetail.report_content.character_appearance.checkRequire"></span></td>
+								<td>
+									<input  class="other"  id="character_appearance-checkResult" type="text"  ng-value="reportDetail.report_content.character_appearance.checkResult" ng-if="reportDetail.report_content.character_appearance.checkResult!=''" onchange="btn_result(this)">
+									<input  class="other"  id="character_appearance-checkResult" type="text" value="无缺陷"  ng-if="reportDetail.report_content.character_appearance.checkResult==''" onchange="btn_result(this)">
+								</td>
+								<td>
+									<select id="character_appearance-judgeResult">
+										<option>合格</option>
+										<option>不合格</option>
+										<option>/</option>
+									</select>
+								</td>
+				         	</tr>
+				         	<tr>
+				         	    <td>5</td>
+								<td>表面处理</td>
+								<td  colspan="3"><span ng-bind="reportDetail.report_content.surface_process.checkRequire"></span></td>
+								<td>
+									<input class="other"  id="surface_process-checkResult" type="text"  ng-value="reportDetail.report_content.surface_process.checkRequire"  ng-if="reportDetail.report_content.surface_process.checkResult==''" onchange="btn_result(this)">
+									<input class="other"  id="surface_process-checkResult" type="text"  ng-value="reportDetail.report_content.surface_process.checkResult" ng-if="reportDetail.report_content.surface_process.checkResult!=''" onchange="btn_result(this)">
+								</td>
+								<td>
+									<select id="surface_process-judgeResult">
+										<option>合格</option>
+										<option>不合格</option>
+										<option>/</option>
+									</select>
+								</td>
+				         	</tr>
+				         	<tr>
+				         		<td rowspan="2">标记检查</td>
+				         		<td>6</td>
+								<td>常规标记</td>
+								<td colspan="3">
+									<input class="other"  id="regular_label-checkRequire" type="text" ng-value="reportDetail.report_content.regular_label.checkRequire">
+								</td>
+								<td>
+									<input class="other"  id="regular_label-checkResult" type="text"  ng-value="reportDetail.report_content.regular_label.checkRequire" ng-if="reportDetail.report_content.regular_label.checkResult==''" onchange="btn_result(this)">
+									<input class="other"  id="regular_label-checkResult" type="text"  ng-value="reportDetail.report_content.regular_label.checkResult" ng-if="reportDetail.report_content.regular_label.checkResult!=''" onchange="btn_result(this)">
+								</td>
+								<td>
+									<select id="regular_label-judgeResult">
+										<option>合格</option>
+										<option>不合格</option>
+										<option>/</option>
+									</select>
+								</td>
+				         	</tr>
+				         	<tr>
+				         		<td >7</td>
+								<td>生产周期</td>
+								<td colspan="3"><input class="other"  type="text" id="produce_period-checkRequire"   ng-value="reportDetail.report_content.produce_period.checkRequire" onkeyup="document.getElementById('produce_period-checkResult').value=this.value"></td>
+								<td>
+									<input class="other"  id="produce_period-checkResult" type="text"  ng-value="reportDetail.report_content.produce_period.checkRequire" ng-if="reportDetail.report_content.produce_period.checkResult==''" onchange="btn_result(this)">
+									<input class="other"  id="produce_period-checkResult" type="text"  ng-value="reportDetail.report_content.produce_period.checkResult" ng-if="reportDetail.report_content.produce_period.checkResult!=''" onchange="btn_result(this)">
+								</td>
+								<td>
+									<select id="produce_period-judgeResult">
+										<option>合格</option>
+										<option>不合格</option>
+										<option>/</option>
+									</select>
+								</td>
+				         	</tr>
+				         	<tr>
+				         		<td rowspan="2">附着力测试</td>
+				         		<td>8</td>
+								<td>外镀层附着力</td>
+								<td colspan="3"><span ng-bind="reportDetail.report_content.external_coating_adhesion.checkRequire"></span></td>
+								<td>
+									<input class="other"  id="external_coating_adhesion-checkResult" type="text"  ng-value="reportDetail.report_content.external_coating_adhesion.checkResult"  ng-if="reportDetail.report_content.external_coating_adhesion.checkResult!=''" onchange="btn_result(this)">
+									<input class="other"  id="external_coating_adhesion-checkResult" type="text"  ng-if="reportDetail.report_content.external_coating_adhesion.checkResult==''" value="无脱落" onchange="btn_result(this)">
+								</td>
+								<td>
+									<select id="external_coating_adhesion-judgeResult">
+										<option>合格</option>
+										<option>不合格</option>
+										<option>/</option>
+									</select>
+								</td>
+				         	</tr>
+				         	<tr>
+				         		<td>9</td>
+								<td>阻焊/字符附着力</td>
+								<td colspan="3"><span ng-bind="reportDetail.report_content.prevent_smt_character_adhesion.checkRequire"></span></td>
+								<td>
+									<input id="prevent_smt_character_adhesion-checkResult" type="text" class="other"  ng-value="reportDetail.report_content.prevent_smt_character_adhesion.checkResult" ng-if="reportDetail.report_content.prevent_smt_character_adhesion.checkResult!=''" onchange="btn_result(this)">
+									<input id="prevent_smt_character_adhesion-checkResult" type="text" class="other"  ng-if="reportDetail.report_content.prevent_smt_character_adhesion.checkResult==''" value="无阻焊/字符脱落" onchange="btn_result(this)">
+								</td>
+								<td>
+									<select id="prevent_smt_character_adhesion-judgeResult">
+										<option>合格</option>
+										<option>不合格</option>
+										<option>/</option>
+									</select>
+								</td>
+				         	</tr>
+				         	<tr>
+				         		<td rowspan="9">尺寸测量</td>
+				         		<td >10</td>
+								<td>最小线宽</td>
+								<td colspan="3">
+									<input  class="other" type="text" id="min_line_width-checkRequire" ng-value="reportDetail.report_content.min_line_width.checkRequire">
+								</td>
+								<td>
+									<input class="other" id="min_line_width-checkResult" type="text" ng-value="reportDetail.report_content.min_line_width.checkResult" style="width:70%" onkeyup="isNUll(this)"><span ng-if="reportDetail.report_content.min_line_width.checkResult!=''">mm</span>
+								</td>
+								<td>
+									<select id="min_line_width-judgeResult">
+										<option>合格</option>
+										<option>不合格</option>
+										<option>/</option>
+									</select>
+								</td>
+				         	</tr>
+				         	<tr>
+				         		<td >11</td>
+								<td>最小间距</td>
+								<td colspan="3">
+									<input  class="other" type="text" id="min_line_distance-checkRequire"  ng-value="reportDetail.report_content.min_line_distance.checkRequire">
+								</td>
+								<td><input  class="other" id="min_line_distance-checkResult"type="text" ng-value="reportDetail.report_content.min_line_distance.checkResult" style="width:70%" onkeyup="isNUll(this)"><span ng-if="reportDetail.report_content.min_line_distance.checkResult!=''">mm</span></td>
+								<td>
+									<select id="min_line_distance-judgeResult">
+										<option>合格</option>
+										<option>不合格</option>
+										<option>/</option>
+									</select>
+								</td>
+				         	</tr>
+				         	<tr>
+				         		<td >12</td>
+								<td>最小环宽</td>
+								<td id="ring_width" colspan="3">
+			<!-- 						<input  class="other" id="min_annular_ring-checkRequire"  type="text"  ng-value="reportDetail.report_content.min_annular_ring.checkRequire" ng-if="reportDetail.report_content.min_annular_ring.checkRequire!=''"> -->
+								</td>
+								<td><input  class="other" id="min_annular_ring-checkResult"type="text" ng-value="reportDetail.report_content.min_annular_ring.checkResult" style="width:70%" onkeyup="isNUll(this)"><span ng-if="reportDetail.report_content.min_annular_ring.checkResult!=''">mm</span></td>
+								<td>
+									<select id="min_annular_ring-judgeResult">
+										<option>合格</option>
+										<option>不合格</option>
+										<option>/</option>
+									</select>
+								</td>
+				         	</tr> 
+				         	<tr>
+				         		<td >13</td>
+								<td>成品板厚</td>
+								<td colspan="3">
+<!-- 							<!-- 		<input class="other" style="width: 90%;"type="text" id="board_ply-checkRequire" ng-value="reportDetail.report_content.board_ply.checkRequire" onkeyup="isNUll(this)"> --> 
+									<span  ng-bind="reportDetail.report_content.board_ply.checkRequire" ></span>
+								</td>
+								<td><input  class="other" id="board_ply-checkResult" type="text" ng-value="reportDetail.report_content.board_ply.checkResult" style="width:70%" onkeyup="isNUll(this)"><span ng-if="reportDetail.report_content.board_ply.checkResult!=''">mm</span></td>
+								<td>
+									<select id="board_ply-judgeResult">
+										<option>合格</option>
+										<option>不合格</option>
+										<option>/</option>
+									</select>
+								</td>
+				         	</tr>  
+				         	<tr>
+				         		<td >14</td>
+								<td>翘曲度</td>
+								<td colspan="3">
+									<span id="warping_degree-checkRequire" ng-bind="reportDetail.report_content.warping_degree.checkRequire"></span>
+<!-- 									<input class="other" type="text" id="warping_degree-checkRequire" ng-value="reportDetail.report_content.warping_degree.checkRequire" ng-if="reportDetail.report_content.warping_degree.checkRequire!=''"> -->
+<!-- 									<input class="other" type="text" id="warping_degree-checkRequire" value="≤0.75%" ng-if="reportDetail.report_content.warping_degree.checkRequire==''"> -->
+								</td>
+								<td><input  class="other" id="warping_degree-checkResult" type="text" ng-value="reportDetail.report_content.warping_degree.checkResult" style="width:70%" onkeyup="isNUll_per(this)"><span ng-if="reportDetail.report_content.warping_degree.checkResult!=''">%</span></td>
+								<td>
+									<select id="warping_degree-judgeResult">
+										<option>合格</option>
+										<option>不合格</option>
+										<option>/</option>
+									</select>
+								</td>
+				         	</tr>
+				         	<tr>
+				         		<td rowspan="2">15</td>
+								<td rowspan="2">外形尺寸</td>
+								<td>长</td>
+								<td><span id="board_long-checkRequire" ng-bind="reportDetail.report_content.board_long.checkRequire"></span></td>
+								<td>
+									<input  class="other" type="text" id="board_long-boardTolerance" ng-value="reportDetail.report_content.board_long.boardTolerance"  style="width:70%" onkeyup="isNUll(this)"><span ng-if="reportDetail.report_content.board_long.boardTolerance!=''">mm</span>
+								</td>
+								<td><input  class="other" id="board_long-checkResult" type="text" ng-value="reportDetail.report_content.board_long.checkResult" style="width:70%" onkeyup="isNUll(this)"><span ng-if="reportDetail.report_content.board_long.checkResult!=''">mm</span></td>
+								<td>
+									<select id="board_long-judgeResult">
+										<option>合格</option>
+										<option>不合格</option>
+										<option>/</option>
+									</select>
+								</td>
+				         	</tr> 
+				         	<tr>
+				         		<td>宽</td>
+								<td><span  id="board_wide-checkRequire" ng-bind="reportDetail.report_content.board_wide.checkRequire"></span></td>
+								<td>
+									<input  class="other" type="text"  id="board_wide-boardTolerance" ng-value="reportDetail.report_content.board_wide.boardTolerance" style="width:70%" onkeyup="isNUll(this)"><span ng-if="reportDetail.report_content.board_wide.boardTolerance!=''">mm</span>
+								</td>
+								<td><input  class="other" id="board_wide-checkResult" type="text" ng-value="reportDetail.report_content.board_wide.checkResult" style="width:70%" onkeyup="isNUll(this)"><span ng-if="reportDetail.report_content.board_wide.checkResult!=''">mm</span></td>
+								<td>
+									<select id="board_wide-judgeResult">
+										<option>合格</option>
+										<option>不合格</option>
+										<option>/</option>
+									</select>
+								</td>
+				         	</tr>  
+				         	<tr>
+				         		<td >16</td>
+								<td>孔径</td>
+								<td colspan="4"><span ng-bind="reportDetail.report_content.aperture.checkRequire"></span></td>
+								<td>
+									<select id="aperture-judgeResult">
+										<option>合格</option>
+										<option>不合格</option>
+										<option>/</option>
+									</select>
+								</td>
+				         	</tr>
+				         	<tr>
+				         		<td >17</td>
+								<td>特殊尺寸</td>
+								<td colspan="4"><span ng-bind="reportDetail.report_content.v_cut.checkRequire"></span></td>
+								<td>
+									<select id="v_cut-judgeResult">
+										<option>合格</option>
+										<option>不合格</option>
+										<option>/</option>
+									</select>
+								</td>
+				         	</tr>
+				         	<tr>
+				         		<td rowspan="3">电气性能测试</td>
+				         		<td>18</td>
+				         		<td>电路连通性</td>
+				         		<td rowspan="2" colspan="4"><span ng-bind="reportDetail.report_content.circuit_connectivity.checkRequire"></span></td>
+			<!-- 	         		<td rowspan="2"><input class="other"  id="circuit_connectivity_insulativity-checkResult" value="无开路、无短路" ng-value="reportDetail.report_content.circuit_connectivity_insulativity.checkResult"></td> -->
+				         		<td>
+									<select id="circuit_connectivity-judgeResult">
+										<option>合格</option>
+										<option>不合格</option>
+										<option>/</option>
+									</select>
+								</td>
+				         	</tr>
+				         	<tr>
+				         		<td>19</td>
+				         		<td>电路绝缘性</td>
+				         		<td colspan="3">
+									<select id="circuit_insulativity-judgeResult">
+										<option>合格</option>
+										<option>不合格</option>
+										<option>/</option>
+									</select>
+								</td>
+				         	</tr>
+				         	<tr>
+				         		<td>20</td>
+				         		<td>特性阻抗</td>
+				         		<td colspan="4"><span ng-bind="reportDetail.report_content.special_impedance.checkRequire"></span></td>
+				         		<td>
+				         			<select id="special_impedance-judgeResult">
+										<option>合格</option>
+										<option>不合格</option>
+										<option>/</option>
+									</select>
+				         		</td>
+				         	</tr>
+				         	<tr>
+				         		<td rowspan="2">其他特性</td>
+				         		<td>21</td>
+				         		<td>可焊性</td>
+				         		<td colspan="3"><span ng-bind="reportDetail.report_content.solderability.checkRequire"></span></td>
+				         		<td>
+				         			<input class="other"  id="solderability-checkResult"ng-value="reportDetail.report_content.solderability.checkResult" ng-if="reportDetail.report_content.solderability.checkResult!=''" onchange="btn_result(this)">
+				         			<input class="other"  id="solderability-checkResult"value="上锡良好" ng-if="reportDetail.report_content.solderability.checkResult==''" onchange="btn_result(this)">
+				         		</td>
+				         		<td>
+				         			<select id="solderability-judgeResult">
+										<option>合格</option>
+										<option>不合格</option>
+										<option>/</option>
+									</select>
+				         		</td>
+				         	</tr>
+				         	<tr>
+				         		<td>22</td>
+				         		<td>显微剖切</td>
+				         		<td colspan="4">
+				         			<input  class="other"  type="text" id="microsectioning-checkRequire" value="/" ng-if="reportDetail.report_content.microsectioning.checkRequire==''"  onchange="btn_result(this)">
+				         			<input  class="other"  type="text" id="microsectioning-checkRequire" ng-value="reportDetail.report_content.microsectioning.checkRequire" ng-if="reportDetail.report_content.microsectioning.checkRequire!=''"  onchange="btn_result(this)">
+				         		</td>
+				         		<td>
+				         			<select id="microsectioning-judgeResult">
+										<option>/</option>
+										<option>合格</option>
+										<option>不合格</option>
+									</select>
+								</td>
+				         	</tr>
+				         	<tr>
+				         		<td>报告备注</td>
+				         		<td colspan="7">
+				         			<textarea id="note_note" style="width: 100%;min-height: 50px;"ng-bind="note"></textarea>
+				         		</td>
+				         	</tr>
+				         	<tr>
+				         		<td>内部错误</td>
+				         		<td colspan="7"><span ng-bind-html="reportDetail.note.mistakeNote | trustHtml"></span></td>
+				         	</tr>
+				         	<tr>
+				         		<td>供应商报告错误</td>
+				         		<td colspan="7">
+				         			<textarea id="supplierMistakeNote"  style="width: 100%;min-height: 50px;" ng-bind="supplierMistakeNote"></textarea>
+				         		</td>
+				         	</tr>
+		         		</tbody>
+		         	</table>
+		         	<div style="text-align: center;margin: 20px 0;font-size: 14px;">
+	         			<a id="tijiao2" style="display: inline-block;"class="easyui-linkbutton save" iconCls="icon-ok" href="javascript:void(0)" onclick="writetijiao()">提交</a>&nbsp;&nbsp;&nbsp;
+			            <a class="easyui-linkbutton excel" iconCls="icon-excel" href="javascript:void(0)"  onclick="btn_export()">导出报告单</a>
+			         	<a class="easyui-linkbutton excel" iconCls="icon-excel" href="javascript:void(0)"  onclick="btn_export2()">导出合格证</a>
+	         		</div>
+         		</form>
+			</div>
+			<div title="孔径检测" style="padding:10px;" >
+				<span  id="Num" ></span>
+				<form id="gbin6form">
+		         	<table class="guding-table" id="check" >
+						<thead>
+							<tr>
+								<th style="width: 5%" class="light-blue">ID</th>
+								<th style="width: 15%"class="light-blue">P/N</th>
+								<th style="width: 20%" class="light-blue"colspan="2">要求</th>
+								<th style="width: 20%" class="light-blue">实测</th>
+								<th style="width: 20%" class="light-blue">判定</th>
+								<th style="width: 20%" class="light-blue">操作</th>
+							</tr>
+						</thead>
+						<tbody id="check-tr">	
+						</tbody>
+					</table>
+					<div id="aperture-add" style="text-align: center;margin: 20px 0;font-size: 14px;">
+		         		<a style="display: inline-block;"class="easyui-linkbutton add" iconCls="icon-add" href="javascript:void(0)" onclick="addcheck()">孔径检测</a>&nbsp;&nbsp;&nbsp;
+		         	</div>
+         		</form>
+		        <div style="text-align: center;margin: 20px 0;font-size: 14px;">
+         			<a id="tijiao3" style="display: inline-block;"class="easyui-linkbutton save" iconCls="icon-ok" href="javascript:void(0)" onclick="writetijiao()">提交</a>&nbsp;&nbsp;&nbsp;
+		            <a class="easyui-linkbutton excel" iconCls="icon-excel" href="javascript:void(0)"  onclick="btn_export()">导出报告单</a>
+		         	<a class="easyui-linkbutton excel" iconCls="icon-excel" href="javascript:void(0)"  onclick="btn_export2()">导出合格证</a>
+         		</div>
+			</div>
+			<div title="特殊尺寸" style="padding:10px;" >
+				<form action="">
+					<table class="guding-table" id="specialsize" >
+						<tr>
+							<th style="width: 5%" class="light-blue">ID</th>
+							<th colspan="2"  style="width: 10%" class="light-blue">项目</th>
+							<th style="width: 20%" class="light-blue">要求</th>
+							<th style="width: 20%" class="light-blue">单位</th>
+							<th style="width: 20%" class="light-blue">实测</th>
+							<th style="width: 20%" class="light-blue">判定</th>
+							<th style="width: 5%" class="light-blue">操作</th>
+						</tr>
+						<tr>
+							<td rowspan="2">1</td>
+							<td rowspan="2">V-cut</td>
+							<td>残厚</td>
+							<td><input type="text" id="vCutResidualThickness_require" ng-value="reportDetail.special_dimensions.vCutResidualThickness.require"></td>
+							<td><input type="text" id="vCutResidualThickness_unit" ng-value="reportDetail.special_dimensions.vCutResidualThickness.unit"></td>
+							<td><input type="text" id="vCutResidualThickness_realCheck" ng-value="reportDetail.special_dimensions.vCutResidualThickness.realCheck"></td>
+							<td>
+								<select id="vCutResidualThickness_judge">
+									<option value=""></option>
+									<option>合格</option>
+									<option>不合格</option>
+								</select>
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>偏差</td>
+							<td><input type="text" id="vCutDeviation_require" ng-value="reportDetail.special_dimensions.vCutDeviation.require"></td>
+							<td><input type="text" id="vCutDeviation_unit" ng-value="reportDetail.special_dimensions.vCutDeviation.unit"></td>
+							<td><input type="text" id="vCutDeviation_realCheck" ng-value="reportDetail.special_dimensions.vCutDeviation.realCheck"></td>
+							<td>
+								<select id="vCutDeviation_judge">
+									<option value=""></option>
+									<option>合格</option>
+									<option>不合格</option>
+								</select>
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td rowspan="2">2</td>
+							<td rowspan="2">金手指</td>
+							<td>倒角深度</td>
+							<td><input type="text" id="goldfingerBevelDepth_require" ng-value="reportDetail.special_dimensions.goldfingerBevelDepth.require"></td>
+							<td><input type="text" id="goldfingerBevelDepth_unit" ng-value="reportDetail.special_dimensions.goldfingerBevelDepth.unit"></td>
+							<td><input type="text" id="goldfingerBevelDepth_realCheck" ng-value="reportDetail.special_dimensions.goldfingerBevelDepth.realCheck"></td>
+							<td>
+								<select id="goldfingerBevelDepth_judge">
+									<option value=""></option>
+									<option>合格</option>
+									<option>不合格</option>
+								</select>
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>残厚</td>
+							<td><input type="text" id="goldfingerResidualThickness_require" ng-value="reportDetail.special_dimensions.goldfingerResidualThickness.require"></td>
+							<td><input type="text" id="goldfingerResidualThickness_unit" ng-value="reportDetail.special_dimensions.goldfingerResidualThickness.unit"></td>
+							<td><input type="text" id="goldfingerResidualThickness_realCheck" ng-value="reportDetail.special_dimensions.goldfingerResidualThickness.realCheck"></td>
+							<td>
+								<select id="goldfingerResidualThickness_judge">
+									<option value=""></option>
+									<option>合格</option>
+									<option>不合格</option>
+								</select>
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td rowspan="2">3</td>
+							<td rowspan="2">台阶</td>
+							<td>宽度</td>
+							<td><input type="text" id="stepWidth_require" ng-value="reportDetail.special_dimensions.stepWidth.require"></td>
+							<td><input type="text" id="stepWidth_unit" ng-value="reportDetail.special_dimensions.stepWidth.unit"></td>
+							<td><input type="text" id="stepWidth_realCheck" ng-value="reportDetail.special_dimensions.stepWidth.realCheck"></td>
+							<td>
+								<select id="stepWidth_judge">
+									<option value=""></option>
+									<option>合格</option>
+									<option>不合格</option>
+								</select>
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>残厚</td>
+							<td><input type="text"  id="stepResidualThickness_require" ng-value="reportDetail.special_dimensions.stepResidualThickness.require"></td>
+							<td><input type="text"  id="stepResidualThickness_unit" ng-value="reportDetail.special_dimensions.stepResidualThickness.unit"></td>
+							<td><input type="text"  id="stepResidualThickness_realCheck" ng-value="reportDetail.special_dimensions.stepResidualThickness.realCheck"></td>
+							<td>
+								<select  id="stepResidualThickness_judge">
+									<option value=""></option>
+									<option>合格</option>
+									<option>不合格</option>
+								</select>
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td rowspan="2">4</td>
+							<td rowspan="2">台阶孔</td>
+							<td>孔径</td>
+							<td><input type="text" id="steppedHoleAperture_require" ng-value="reportDetail.special_dimensions.steppedHoleAperture.require"></td>
+							<td><input type="text" id="steppedHoleAperture_unit" ng-value="reportDetail.special_dimensions.steppedHoleAperture.unit"></td>
+							<td><input type="text" id="steppedHoleAperture_realCheck" ng-value="reportDetail.special_dimensions.steppedHoleAperture.realCheck"></td>
+							<td>
+								<select id="steppedHoleAperture_judge">
+									<option value=""></option>
+									<option>合格</option>
+									<option>不合格</option>
+								</select>
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>孔深</td>
+							<td><input type="text" id="steppedHoleHoleDepth_require" ng-value="reportDetail.special_dimensions.steppedHoleHoleDepth.require"></td>
+							<td><input type="text" id="steppedHoleHoleDepth_unit" ng-value="reportDetail.special_dimensions.steppedHoleHoleDepth.unit"></td>
+							<td><input type="text" id="steppedHoleHoleDepth_realCheck" ng-value="reportDetail.special_dimensions.steppedHoleHoleDepth.realCheck"></td>
+							<td>
+								<select id="steppedHoleHoleDepth_judge">
+									<option value=""></option>
+									<option>合格</option>
+									<option>不合格</option>
+								</select>
+							</td>
+							<td></td>
+						</tr>
+
+					</table>
+					<table id="add_special" class="guding-table" ng-if="reportDetail.special_dimensions.rests==''">
+						<tr>
+							<td style="width:5%">5</td>
+							<td style="width: 10%" colspan="2"><input type="text" name="itemName"  value="锥形孔孔径" id="itemName0"></td>
+							<td style="width: 20%"><input type="text"   name="rests_require"  id="rests_require0"></td>
+							<td style="width: 20%"><input type="text"   name="rests_unit"  id="rests_unit0"></td>
+							<td style="width: 20%"><input type="text"   name="rests_realCheck"  id="rests_realCheck0"></td>
+							<td style="width: 20%">
+								<select  id="rests_judge0">
+									<option value=""></option>
+									<option>合格</option>
+									<option>不合格</option>
+								</select>
+							</td>
+							<td style="width: 5%"></td>
+						</tr>
+						<tr>
+							<td>6</td>
+							<td colspan="2"><input type="text" value="背钻孔深" id="itemName1" name="itemName"></td>
+							<td><input type="text"  name="rests_require" id="rests_require1"></td>
+							<td><input type="text"	name="rests_unit" id="rests_unit1"></td>
+							<td><input type="text" name="rests_realCheck" id="rests_realCheck1"></td>
+							<td>
+								<select id="rests_judge1">
+									<option value=""></option>
+									<option>合格</option>
+									<option>不合格</option>
+								</select>
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>7</td>
+							<td colspan="2"><input type="text" value="半孔孔径" id="itemName2" name="itemName"></td>
+							<td><input type="text" name="rests_require"  id="rests_require2"></td>
+							<td><input type="text" name="rests_unit" id="rests_unit2"></td>
+							<td><input type="text" name="rests_realCheck" id="rests_realCheck2"></td>
+							<td>
+								<select id="rests_judge2">
+									<option value=""></option>
+									<option>合格</option>
+									<option>不合格</option>
+								</select>
+							</td>
+							<td></td>
+						</tr>
+					</table>
+					<table id="add_special" class="guding-table" ng-if="reportDetail.special_dimensions.rests!=''">
+					</table>
+				</form>
+				<div style="text-align: center;margin: 20px 0;font-size: 14px;">
+         			<a id="" style="display: inline-block;"class="easyui-linkbutton add" iconCls="icon-add" href="javascript:void(0)" onclick="special_size()">新增</a>&nbsp;&nbsp;&nbsp;
+         		</div>
+				</form>
+			
+				<div style="text-align: center;margin: 20px 0;font-size: 14px;">
+         			<a id="tijiao4" style="display: inline-block;"class="easyui-linkbutton save" iconCls="icon-ok" href="javascript:void(0)" onclick="writetijiao()">提交</a>&nbsp;&nbsp;&nbsp;
+		         	<a class="easyui-linkbutton excel" iconCls="icon-excel" href="javascript:void(0)"  onclick="btn_export()">导出报告单</a>
+		         	<a class="easyui-linkbutton excel" iconCls="icon-excel" href="javascript:void(0)"  onclick="btn_export2()">导出合格证</a>
+         		</div>
+			</div>
+			<div title="V_CUT测量" style="padding:10px;" >
+				<form action="">
+					<table class="guding-table" style="width: 70%;margin: 0 auto;" ng-if="reportDetail.report_vcut==''">
+						<tr>
+							<th class="light-blue">V-CUT</th>
+							<th colspan="2" class="light-blue">要求</th>
+							<th class="light-blue">实测</th>
+							<th class="light-blue">判定</th>
+						</tr>
+						<tr>
+							<td rowspan="3">
+								<img src="../script/images/cut.png">
+							</td>
+							<td colspan="2">&=<input type="text" value="30°±5°"id="requireAngle" style="width: 200px;"></td>
+							<td><input type="text" id="realCheakAngle"></td>
+							<td>
+								<select id="judgeAngle">
+									<option>合格</option>
+									<option>不合格</option>
+									<option>/</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">h=<input type="text" style="width: 200px;" id="requireH" ng-value="reportDetail.report_content.board_ply.checkRequire"></td>
+							<td><input type="text" id="realCheckH" ng-value="reportDetail.report_content.board_ply.checkResult"></td>
+							<td>
+								<select id="judgeH">
+									<option>合格</option>
+									<option>不合格</option>
+									<option>/</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>b=<input type="text"  style="width: 200px;" id="requireB"></td>
+							<td><input type="text" value="±0.1mm" id="requireBtolerance"></td>
+							<td><input type="text" id="realCheckB"></td>
+							<td>
+								<select id="judgeB">
+									<option>合格</option>
+									<option>不合格</option>
+									<option>/</option>
+								</select>
+							</td>
+						</tr>
+					</table>
+					<table class="guding-table" style="width: 70%;margin: 0 auto;" ng-if="reportDetail.report_vcut!=''">
+						<tr>
+							<th class="light-blue">V-CUT</th>
+							<th colspan="2" class="light-blue">要求</th>
+							<th class="light-blue">实测</th>
+							<th class="light-blue">判定</th>
+						</tr>
+						<tr>
+							<td rowspan="3">
+								<img src="../script/images/cut.png">
+							</td>
+							<td colspan="2">&=<input type="text" ng-value="reportDetail.report_vcut.requireAngle" id="requireAngle" style="width: 200px;"></td>
+							<td><input type="text" id="realCheakAngle" ng-value="reportDetail.report_vcut.realCheakAngle"></td>
+							<td>
+								<select id="judgeAngle" ng-model="reportDetail.report_vcut.judgeAngle">
+									<option>合格</option>
+									<option>不合格</option>
+									<option>/</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">h=<input type="text" style="width: 200px;" id="requireH" ng-value="reportDetail.report_vcut.requireH"></td>
+							<td><input type="text" id="realCheckH" ng-value="reportDetail.report_vcut.realCheckH"></td>
+							<td>
+								<select id="judgeH" ng-model="reportDetail.report_vcut.judgeH">
+									<option>合格</option>
+									<option>不合格</option>
+									<option>/</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>b=<input type="text"  style="width: 200px;" id="requireB" ng-value="reportDetail.report_vcut.requireB"></td>
+							<td><input type="text"  id="requireBtolerance" ng-value="reportDetail.report_vcut.requireBtolerance"></td>
+							<td><input type="text" id="realCheckB"  ng-value="reportDetail.report_vcut.realCheckB"></td>
+							<td>
+								<select id="judgeB" ng-model="reportDetail.report_vcut.judgeB">
+									<option>合格</option>
+									<option>不合格</option>
+									<option>/</option>
+								</select>
+							</td>
+						</tr>
+					</table>
+				</form>
+				<div style="text-align: center;margin: 20px 0;font-size: 14px;">
+         			<a id="tijiao5" style="display: inline-block;"class="easyui-linkbutton save" iconCls="icon-ok" href="javascript:void(0)" onclick="writetijiao()">提交</a>&nbsp;&nbsp;&nbsp;
+		         	<a class="easyui-linkbutton excel" iconCls="icon-excel" href="javascript:void(0)"  onclick="btn_export()">导出报告单</a>
+		         	<a class="easyui-linkbutton excel" iconCls="icon-excel" href="javascript:void(0)"  onclick="btn_export2()">导出合格证</a>
+         		</div>
+			</div>
+			<div title="电气完善性报告" style="padding:10px;" >
+			    <form id="gbin7form" style="width: 70%;margin: 0 auto;">
+				<table class="guding-table" ellspacing="0" cellpadding="0">
+				<thead>
+					<tr>
+						<th class="light-blue">ID</th>
+						<th class="light-blue">检查项目</th>
+						<th class="light-blue">检查结果</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>测试仪器：</td>
+						<td>
+							<input class="other" id="checkInstrument" type="text" ng-if="reportDetail.report_integrity.checkInstrument==''" value="协力">
+							<input class="other" id="checkInstrument" type="text" ng-if="reportDetail.report_integrity.checkInstrument!=''" ng-value="reportDetail.report_integrity.checkInstrument">
+						</td>
+					</tr>	
+					<tr>
+						<td>2</td>
+						<td>测试电压：</td>
+						<td>
+							<input id="checkVoltage" class="other"type="text"  ng-if="reportDetail.report_integrity.checkVoltage==''" value="250V">
+							<input id="checkVoltage" class="other"type="text"  ng-value="reportDetail.report_integrity.checkVoltage" ng-if="reportDetail.report_integrity.checkVoltage!=''">
+						</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>测试点数量：</td>
+						<td><input id="checkPointNum"type="text" class="other" ng-value="reportDetail.report_integrity.checkPointNum"></td>
+					</tr>
+					<tr>
+					    <td>4</td>
+						<td>网络数量：</td>
+						<td><input id="netNum" type="text" class="other" ng-value="reportDetail.report_integrity.netNum"></td>
+					</tr>	
+					<tr>
+						<td>5</td>
+						<td>连通电阻：</td>
+						<td>
+							<input id="connectedResistance" class="other" type="text"  ng-if="reportDetail.report_integrity.connectedResistance==''" value="20Ω"> 
+							<input id="connectedResistance" class="other" type="text"  ng-value="reportDetail.report_integrity.connectedResistance" ng-if="reportDetail.report_integrity.connectedResistance!=''"> 
+						</td>
+					</tr>
+					<tr>
+						<td>6</td>
+						<td>绝缘电阻：</td>
+						<td>
+							<input id="insulatedResistance" class="other" type="text" ng-if="reportDetail.report_integrity.insulatedResistance==''" value="25MΩ">
+							<input id="insulatedResistance" class="other" type="text" ng-value="reportDetail.report_integrity.insulatedResistance" ng-if="reportDetail.report_integrity.insulatedResistance!=''">
+						</td>
+					</tr>
+					<tr>
+						<td>7</td>
+						<td>相连网络数量：</td>
+						<td><input id="connectedNetNum" type="text" class="other" ng-value="reportDetail.report_integrity.connectedNetNum"></td>
+					</tr>	
+					<tr>
+						<td>8</td>
+						<td>测试结果：</td>
+						<td><input type="text" value="ACC" class="other" id="result">
+<!-- 							<select id="result"> -->
+<!-- 								<option>合格</option> -->
+<!-- 								<option>不合格</option> -->
+<!-- 							</select> -->
+						</td>
+					</tr>							
+				</tbody>
+				</table>
+				</form>
+				<div style="text-align: center;margin: 20px 0;font-size: 14px;">
+         			<a id="tijiao6" style="display: inline-block;"class="easyui-linkbutton save" iconCls="icon-ok" href="javascript:void(0)" onclick="writetijiao()">提交</a>&nbsp;&nbsp;&nbsp;
+		            <a class="easyui-linkbutton excel" iconCls="icon-excel" href="javascript:void(0)"  onclick="btn_export()">导出报告单</a>
+		         	<a class="easyui-linkbutton excel" iconCls="icon-excel" href="javascript:void(0)"  onclick="btn_export2()">导出合格证</a>
+         		</div>
+			</div>
+		    <div title="特性阻抗" style="padding:10px;" >
+		    	<form id="gbin8form">
+		    	<table class="guding-table" id="tbListTM" >
+				<thead>
+					<tr>
+						<th style="width: 5%" class="light-blue">ID</th>
+						<th style="width: 15%" class="light-blue">项目</th>
+						<th style="width: 20%" class="light-blue" colspan="2">层数</th>
+					    <th style="width: 20%" class="light-blue" colspan="2">要求</th>
+						<th style="width: 20%" class="light-blue">实测</th>
+						<th style="width: 15%" class="light-blue">判定</th>
+						<th style="width: 5%" class="light-blue">操作</th>
+					</tr>
+				</thead>
+				<tbody id="tbListTM-tr">	
+				</tbody>
+				</table>
+			   
+				<table class="guding-table" id="mm">
+					<thead >
+						<tr style="display: none;">
+						<th style="width: 5%">ID</th>
+						<th style="width: 15%">项目</th>
+						<th style="width: 20%" colspan="2">层数</th>
+					    <th style="width: 20%" colspan="2">要求</th>
+						<th style="width: 20%">实测</th>
+						<th style="width: 15%">判定</th>
+						<th style="width: 5%">操作</th>
+					</tr>
+					</thead>
+					<tbody id="mmtr">	
+					</tbody>
+				</table>
+				<div style="text-align: center;margin: 20px 0;font-size: 14px;">
+         			<a id="impendance-add-1" style="display: inline-block;"class="easyui-linkbutton add" iconCls="icon-add" href="javascript:void(0)" onclick="addlist2()">单端阻抗</a>&nbsp;&nbsp;&nbsp;
+		         	<a id="impendance-add-2" class="easyui-linkbutton add" iconCls="icon-add" href="javascript:void(0)"  onclick="addlist()">差分阻抗</a>
+         		</div>
+				</form>
+			
+				<div style="text-align: center;margin: 20px 0;font-size: 14px;">
+         			<a id="tijiao7" style="display: inline-block;"class="easyui-linkbutton save" iconCls="icon-ok" href="javascript:void(0)" onclick="writetijiao()">提交</a>&nbsp;&nbsp;&nbsp;
+		         	<a class="easyui-linkbutton excel" iconCls="icon-excel" href="javascript:void(0)"  onclick="btn_export()">导出报告单</a>
+		         	<a class="easyui-linkbutton excel" iconCls="icon-excel" href="javascript:void(0)"  onclick="btn_export2()">导出合格证</a>
+         		</div>
+			</div>
+			<div title="合格证" style="padding:10px;" >
+				<form id="gbin9form" style="width: 50%;margin: 0 auto;">
+					<table class="guding-table" id="add_certification_table">
+						<thead>
+							<tr>
+								<td colspan="3">
+								<div style="text-align: center;font-size: 15px;line-height: 150%;padding: 10px 0;">
+								            <span ng-if="reportDetail.companyName=='同步科技'">无锡市同步电子科技有限公司</span>
+								            <span ng-if="reportDetail.companyName=='同步电子'">无锡市同步电子有限公司</span>
+									<br>
+									<span id="min" style="border-bottom: 1px solid black; ">民品印制板</span>
+									<span id="jun" style="border-bottom: 1px solid black; ">军品印制板</span>
+									&nbsp;&nbsp;&nbsp;产品合格证
+								</div>
+								</td>
+								
+							</tr>
+							<tr>
+								<td><input class="other" style="text-align: center;" id="listnum" ng-value="reportDetail.certification.orderNumName"></td>
+								<td colspan="2"><span ng-bind="reportDetail.certification.orderNum"></span></td>
+							</tr>
+							<tr>
+								<td>产品名称</td>
+								<td colspan="2"><span ng-bind="reportDetail.certification.boardName"></span></td>
+							</tr>
+							<tr>
+								<td>生产日期</td>
+								<td colspan="2"><span ng-bind="reportDetail.certification.productDate"></span></td>
+							</tr>
+							<tr>
+								<td>检验日期</td>
+								<td colspan="2"><span ng-bind="reportDetail.certification.checkDate"></span></td>
+							</tr>
+							<tr>
+								<td>包装日期</td>
+								<td colspan="2"><input name="packagingDate" required="true"class="easyui-datebox" id="packagingDate" editable="false"> 
+							</tr>
+							<tr>
+								<td>检验员</td>
+								<td colspan="2"><span ng-bind="reportDetail.certification.inspector"></span></td>
+							</tr>
+							<tr>
+								<td>保质期</td>
+								<td colspan="2">
+									<select class="easyui-combobox" style="width: 175px;"  id="expirationDate">
+										<option>6个月</option>
+										<option>12个月</option>
+									</select>
+	<!-- 								<input class="other" id="expirationDate"ng-value="reportDetail.certification.expirationDate"> -->
+								</td>
+							</tr>
+							<tr>
+								<td>数量</td>
+								<td colspan="2"><input class="other" type="text" id="numberPcs"  ng-value="reportDetail.certification.numberPcs"></td>
+							</tr>
+							<tr>
+								<td>批号</td>
+								<td colspan="2">
+									<input class="other" id="batchNumber" type="text" ng-value="reportDetail.certification.batchNumber">
+								</td>
+							</tr>
+							<tr>
+								<td>规格</td>
+								<td colspan="2"><span ng-bind="reportDetail.certification.size"></span></td>
+							</tr>
+							<tr ng-if="reportDetail.certification.add!=''" ng-repeat="x in reportDetail.certification.add">
+								<td><input type="text" id="add_certification_th{{$index}}" ng-value="x.key"></td>
+								<td><input type="text" id="add_certification_td{{$index}}" ng-value="x.value"></td>
+								<td style="text-align: center;line-height: 25px;"><img src="../script/images/delete.png" class="red_min"  id="delete_certification_td{{$index}}"  ng-click="delete_certification($index)"></td>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+					<div style="text-align: center;margin: 20px 0;font-size: 14px;">
+						<a id="add-certification" class="easyui-linkbutton add" iconCls="icon-add" href="javascript:void(0)"  onclick="add_certification()">新增</a>&nbsp;&nbsp;&nbsp;
+		       		</div>
+				</form>
+			  	<div style="text-align: center;margin: 20px 0;font-size: 14px;">
+         			<a id="tijiao8" style="display: inline-block;"class="easyui-linkbutton save" iconCls="icon-ok" href="javascript:void(0)" onclick="writetijiao()">提交</a>&nbsp;&nbsp;&nbsp;
+		         	<a class="easyui-linkbutton excel" iconCls="icon-excel" href="javascript:void(0)"  onclick="btn_export()">导出报告单</a>
+		         	<a class="easyui-linkbutton excel" iconCls="icon-excel" href="javascript:void(0)"  onclick="btn_export2()">导出合格证</a>
+         		</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div data-options="region:'east',title:'基础信息'" style="width:400px;"   ng-controller="ddCtrl">
+		<div title="基础信息" style="overflow:auto;padding: 0 10px;">
+			<div class="bottom-20">
+			    <span class="xinleft">报告单号：<span ng-bind="reportDetail.baseReportInfo.reportNum"></span></span>
+				<span class="xinright">工单号：<span ng-bind="reportDetail.baseReportInfo.orderNum"></span></span>
+			</div>
+			<div class="bottom-20">
+				<span class="xinleft">板名：<span ng-bind="reportDetail.baseReportInfo.boardName"></span></span>
+			</div>
+			<div class="bottom-20">
+				<span class="xinleft" >客户：<span ng-bind="reportDetail.baseReportInfo.guestName"></span></span>
+				<span class="xinright">生产厂家：<span ng-bind="reportDetail.baseReportInfo.factoryName"></span></span>
+			</div>
+			<div class="bottom-20">
+				<span class="xinleft" >等级：<span ng-bind="reportDetail.baseReportInfo.categoryGrade"></span></span>
+				<span class="xinright">工艺：<span ng-bind="reportDetail.baseReportInfo.craft"></span></span>
+			</div>
+			<div class="bottom-20">
+				<span class="xinleft" >金相要求：<span ng-bind="reportDetail.baseReportInfo.metallography_require"></span></span>
+				<span class="xinright">投产日期：<span ng-bind="reportDetail.baseReportInfo.productDate"></span></span>
+			</div>
+			<div class="bottom-20">
+				<span class="xinleft" >生产数量SET：<span ng-bind="reportDetail.baseReportInfo.productionNumSet"></span></span>
+				<span class="xinright">生产数量PCS：<span ng-bind="reportDetail.baseReportInfo.productionNumPcs"></span></span>
+			</div>
+			<div class="bottom-20">
+				<span class="xinleft" >来料数量（块）：<span ng-bind="reportDetail.baseReportInfo.amountCheckoutPcs"></span></span>
+				<span class="xinright">抽样数量（块）：<span ng-bind="reportDetail.baseReportInfo.spotCheckNumPcs"></span></span>
+			</div>
+			<div class="bottom-20">
+				<span class="xinleft" >送板人：<span ng-bind="reportDetail.baseReportInfo.deliveryMan"></span></span>
+				<span class="xinright">送板时间：<span ng-bind="reportDetail.baseReportInfo.deliveryDate"></span></span>
+			</div>
+	      </div>
+	     <div id="down">
+        	<form method="post" id ="export_excel"></form>
+         </div>
+	 </div> 
+      
+	<script type="text/javascript">
+// 	var url=window.location.href;
+// 	var loc = url.substring(url.lastIndexOf('=')+1, url.length);
+// 	$.ajax({  
+// 	    type: "POST",  
+// 	    url: "/pcbmis/order/reportDetailSecond?reportNum=" + loc,  
+// 	    contentType: 'application/json', 
+// 	    success: function (data) {  
+// 			var num = data.reportDetail.baseReportInfo.spotCheckNumPcs;
+// 			var apertureCheck = data.reportDetail.aperture_check;
+// 			var differential_characteristic_impedance = data.reportDetail.differential_characteristic_impedance;
+// 			var dlength=differential_characteristic_impedance.length;
+// 			var single_ended_impedances = data.reportDetail.single_ended_impedances;
+// 			var special_dimensions=data.reportDetail.special_dimensions
+// 			var slength=single_ended_impedances.length;
+// 			test(num,apertureCheck,differential_characteristic_impedance,single_ended_impedances,special_dimensions);
+// 		}
+// 	})
+
+
+// 	function test(Num,apertureCheck,differential_characteristic_impedance,single_ended_impedances,special_dimensions){
+// 	    //初始化
+// 	    if(differential_characteristic_impedance==""){
+// 	    	//孔径检测
+// 	    	for(var i=0;i<=19;i++){
+// 		    	data='<tr>'+
+// 	    		'<td style="width: 5%"></td>'+
+// 		    	'<td style="width: 15%"><input type="text" index="'+i+'"  id ="pN'+i+'" name="pN"  list="data_pN'+i+'" oninput="btn_pN(this)"><datalist id="data_pN'+i+'" ><option value="P"><option value="N"><option value="Via"></datalist></td>'+
+// 		    	'<td style="width: 20%"><input type="text" name="require" id="require'+i+'" ></td>'+
+// 		    	'<td style="width: 15%"><input type="text" id ="pN_require'+i+'" name="pN_require"  list="list_require'+i+'"><datalist id="list_require'+i+'" ><option value="±0.075"><option value="±0.050"></datalist></td>'+
+// 		    	'<td style="width: 15%"><input type="text" name="realCheck" id="realCheck'+i+'" class=""></td>'+
+// 				'<td style="width: 15%">'+
+// 				   '<select id="judge'+i+'"><option>合格</option><option>不合格</option><option>/</option></select>'+
+// 			    '</td>'	+
+// 			    '<td style="width: 15%;text-align: center;">'+
+// 				   '<img src="../script/images/delete.png" class="red_min"   id="premove'+i+'"    onclick="return premove('+i+')">'+
+// 			    '</td>'	+
+// 			    '</tr>' 
+// 			    $("#check-tr").append(data);
+// 			    console.log(data)
+// 		    }
+	    	
+// 		    var len = $('#check tr').length;
+// 		    for(var i = 1;i<len;i++){
+// 		    	$('#check tr:eq('+i+') td:first').text(i);
+// 		    }
+
+		    
+// 		    //单端阻抗
+// 		    for(var j=0;j<=single_ended_impedances.length;j++){
+// 		    	var bb="";
+// 		    	bb=	'<tr>'+
+// 	    		'<td style="width: 5%">1</td>'+
+// 				'<td style="width: 15%">单端阻抗</td>'+
+// 		    	'<td style="width: 10%"><input type="text" id="slayerL'+j+'" value="L"></td>'+
+// 		    	'<td style="width: 10%"><input type="text" name="slayerNum" id="slayerNum'+j+'"></td>'+
+// 		    	'<td style="width: 10%"><input type="text" name="srequire" id="srequire'+j+'"></td>'+
+// 		    	'<td style="width: 10%"><input type="text"  id="srequire_ten'+j+'" value="±10%" ></td>'+
+// 		    	'<td style="width: 20%"><input type="text" name="srealCheck" id="srealCheck'+j+'" ></td>'+
+// 				'<td style="width: 15%">'+
+// 				   '<select id="sjudge'+j+'"><option>合格</option><option>不合格</option></select>'+
+// 			    '</td>'	+
+// 			    '<td style="width: 5%;text-align: center;">'+
+// 				   '<img src="../script/images/delete.png" class="red_min"    id="sremove'+j+'"   onclick="return remove('+j+')">'+
+// 			    '</td>'	+
+// 			    '</tr>' 
+// 			    $("#tbListTM-tr").append(bb);
+// 			    console.log(bb)
+// 		    }
+		    
+// 		    //差分阻抗
+// 		    for(var z=0;z<=differential_characteristic_impedance.length;z++){
+// 		    	var cc="";
+// 		    	cc=	'<tr>'+
+// 	    		'<td style="width: 5%">2</td>'+
+// 				'<td style="width: 15%">差分阻抗</td>'+
+// 		    	'<td style="width: 10%"><input type="text" id="layerNumL'+z+'" value="L"></td>'+
+// 		    	'<td style="width: 10%"><input type="text"name="layerNum"  id="layerNum'+z+'"></td>'+
+// 		    	'<td style="width: 10%"><input type="text" name="drequire" id="drequire'+z+'" ></td>'+
+// 		    	'<td style="width: 10%"><input type="text"  id="drequire_ten'+z+'"value="±10%" ></td>'+
+// 		    	'<td style="width: 20%"><input type="text" name="drealCheck" id="drealCheck'+z+'" class=""></td>'+
+// 				'<td style="width: 15%">'+
+// 				   '<select id="djudge'+z+'"><option>合格</option><option>不合格</option></select>'+
+// 			    '</td>'	+
+// 			    '<td style="width: 5%;text-align: center;">'+
+// 				   '<img src="../script/images/delete.png" class="red_min"    id="dremove'+z+'"    onclick="return dremove('+z+')">'+
+// 			    '</td>'	+
+// 			    '</tr>' 
+// 			    $("#mmtr").append(cc);
+// 			    console.log(cc)
+// 		    }
+// 	    }else{
+		    
+// 	    	$("#vCutResidualThickness_judge").val(special_dimensions.vCutResidualThickness.judge)
+// 	    	$("#vCutDeviation_judge").val(special_dimensions.vCutDeviation.judge)
+// 	    	$("#goldfingerBevelDepth_judge").val(special_dimensions.goldfingerBevelDepth.judge)
+// 	    	$("#goldfingerResidualThickness_judge").val(special_dimensions.goldfingerResidualThickness.judge)
+// 	    	$("#stepWidth_judge").val(special_dimensions.stepWidth.judge)
+// 	    	$("#stepResidualThickness_judge").val(special_dimensions.stepResidualThickness.judge)
+// 	    	$("#steppedHoleAperture_judge").val(special_dimensions.steppedHoleAperture.judge)
+// 	    	$("#steppedHoleHoleDepth_judge").val(special_dimensions.steppedHoleHoleDepth.judge)
+	    	
+// 	    	for(var i=0;i<special_dimensions.rests.length;i++){
+// 	    		var special_dimensions_html=''
+// 	    		special_dimensions_html+='<tr>'
+// 	    		special_dimensions_html+=	'<td style="width: 5%">'+(i+5)+'</td>'
+// 	    		special_dimensions_html+=	'<td colspan="2" style="width: 10%"><input type="text" name="itemName"  value="'+special_dimensions.rests[i].itemName+'" id="itemName'+i+'"></td>'
+// 	    		special_dimensions_html+=	'<td style="width: 20%"><input type="text" name="rests_require" value="'+special_dimensions.rests[i].require+'" id="rests_require'+i+'" ></td>'
+// 	    		special_dimensions_html+=	'<td style="width: 20%"><input type="text" name="rests_unit" value="'+special_dimensions.rests[i].unit+'" id="rests_unit'+i+'"></td>'
+// 	    		special_dimensions_html+=	'<td style="width: 20%"><input type="text" name="rests_realCheck" value="'+special_dimensions.rests[i].realCheck+'" id="rests_realCheck'+i+'"></td>'
+// 	    		special_dimensions_html+=	'<td style="width: 20%"> '
+// 	    		special_dimensions_html+=		'<select id="rests_judge'+i+'">'
+// 	    		special_dimensions_html+=			'<option value=""></option>'
+// 	    		special_dimensions_html+=			'<option>合格</option> '
+// 	    		special_dimensions_html+=			'<option>不合格</option> '
+// 	    		special_dimensions_html+=		'</select>'
+// 	    		special_dimensions_html+=	'</td> '
+// 	    		if(i>=3){
+// 	    			special_dimensions_html+='<td style="width: 5%;text-align: center;" >'
+// 	    			special_dimensions_html+=	'<img src="../script/images/delete.png" class="red_min"   id="special_remove'+i+'"   onclick="return special_remove('+i+')">'
+// 	    			special_dimensions_html+='</td>'
+// 	    		}else{
+// 	    			special_dimensions_html+='<td style="width: 5%;text-align: center;"></td>'
+		    		
+// 	    		}
+// 	    		special_dimensions_html+='</tr>'
+	    		
+// 				$("#add_special").append(special_dimensions_html);
+// 	    	}
+// 	    	for(var i=0;i<special_dimensions.rests.length;i++){
+// 				$("#rests_judge"+i).val(special_dimensions.rests[i].judge);
+// 			}
+	    	
+// 	    	for(var i=0;i<apertureCheck.length;i++){			    			    
+// 	    		data='<tr>'+
+// 	    		'<td style="width: 5%"></td>'+
+// 		    	'<td style="width: 15%"><input type="text" index="'+i+'"  id ="pN'+i+'" name="pN" value="'+apertureCheck[i].pN+'" list="data_pN'+i+'"><datalist id="data_pN'+i+'"><option value="P"><option value="N"><option value="Via"></datalist></td>'+
+// 		    	'<td style="width: 20%"><input type="text" name="require" id="require'+i+'"   value="'+apertureCheck[i].require+'"></td>'+
+// 		    	'<td style="width: 15%"><input type="text" id ="pN_require'+i+'" name="pN_require" value="'+apertureCheck[i].requireTolerance+'"  list="list_require'+i+'"><datalist id="list_require'+i+'" ><option value="±0.075"><option value="±0.050"></datalist></td>'+
+// 		    	'<td style="width: 15%"><input type="text" name="realCheck" id="realCheck'+i+'" value="'+apertureCheck[i].realCheck+'"></td>'+
+// 				'<td style="width: 15%">'+
+// 				   '<select id="judge'+i+'"><option>合格</option><option>不合格</option></select>'+
+// 			    '</td>'	+
+// 			    '<td style="width: 15%;text-align: center;">'+
+// 				   '<img src="../script/images/delete.png" class="red_min"    id="premove'+i+'" onclick="return premove('+i+')">'+
+// 			    '</td>'	+
+// 			    '</tr>' 
+// 			    $("#check-tr").append(data);
+// 			    //console.log(data)
+// 		    }
+// 		    var len = $('#check tr').length;
+// 		    for(var i = 1;i<=len;i++){
+// 		        $('#check tr:eq('+i+') td:first').text(i);
+// 		    }
+		    
+// 	    	for(var i=0;i<apertureCheck.length;i++){
+// 				$("#judge"+i).val(apertureCheck[i].judge);
+// 			}		    
+// 		    for(var j=0;j<single_ended_impedances.length;j++){
+// 		    	var html="";		    
+// 		    	html='<tr>'+
+// 	    		'<td style="width: 5%">1</td>'+
+// 				'<td style="width: 15%">单端阻抗</td>'+
+// 				'<td style="width: 10%"><input type="text" id="slayerL'+j+'" value="'+single_ended_impedances[j].layer+'"></td>'+
+// 		    	'<td style="width: 10%"><input type="text" name="slayerNum" id="slayerNum'+j+'" value="'+single_ended_impedances[j].layerNum+'" class=""></td>'+
+// 		    	'<td style="width: 10%"><input type="text" name="srequire" id="srequire'+j+'"  value="'+single_ended_impedances[j].require+'" class=""></td>'+
+// 		    	'<td style="width: 10%"><input type="text"  id="srequire_ten'+j+'" value="'+single_ended_impedances[j].requireTolerance+'" ></td>'+
+// 		    	'<td style="width: 20%"><input type="text" name="srealCheck" id="srealCheck'+j+'"  value="'+single_ended_impedances[j].realCheck+'" class=""></td>'+
+// 				'<td style="width: 15%">'+
+// 				   '<select id="sjudge'+j+'"><option>合格</option><option>不合格</option></select>'+
+// 			    '</td>'	+
+// 			    '<td style="width: 5%;text-align: center;">'+
+// 				   '<img src="../script/images/delete.png" class="red_min"    id="sremove'+j+'"  onclick="return remove('+j+')">'+
+// 			    '</td>'	+
+// 			    '</tr>'
+// 			    $("#tbListTM-tr").append(html);
+// 		    }
+
+// 		    for(var j=0;j<single_ended_impedances.length;j++){
+// 				$("#sjudge"+j).val(single_ended_impedances[j].judge);
+// 			}
+// 		    for(var z=0;z<differential_characteristic_impedance.length;z++){
+// 		    	var aa="";
+// 		    	aa=	'<tr>'+
+// 	    		'<td style="width: 5%">2</td>'+
+// 				'<td style="width: 15%">差分阻抗</td>'+
+// 				'<td style="width: 10%"><input type="text" id="layerNumL'+z+'" value="'+differential_characteristic_impedance[z].layer+'"></td>'+
+// 		    	'<td style="width: 10%"><input type="text" name="layerNum" id="layerNum'+z+'" value="'+differential_characteristic_impedance[z].layerNum+'" class=""></td>'+
+// 		    	'<td style="width: 10%"><input type="text" name="drequire" id="drequire'+z+'"  value="'+differential_characteristic_impedance[z].require+'"class=""></td>'+
+// 		    	'<td style="width: 10%"><input type="text"  id="drequire_ten'+z+'"value="'+differential_characteristic_impedance[z].requireTolerance+'" ></td>'+
+// 		    	'<td style="width: 20%"><input type="text" name="drealCheck" id="drealCheck'+z+'"  value="'+differential_characteristic_impedance[z].realCheck+'" class=""></td>'+
+// 				'<td style="width: 15%">'+
+// 				   '<select id="djudge'+z+'"><option>合格</option><option>不合格</option></select>'+
+// 			    '</td>'	+
+// 			    '<td style="width: 5%;text-align: center;">'+
+// 				   '<img src="../script/images/delete.png" class="red_min"    id="dremove'+z+'"  onclick="return dremove('+z+')">'+
+// 			    '</td>'	+
+// 			    '</tr>' 
+// 			    $("#mmtr").append(aa);
+// 		    }
+// 		    for(var z=0;z<differential_characteristic_impedance.length;z++){ 
+// 				$("#djudge"+z).val(differential_characteristic_impedance[z].judge);
+// 			}	
+// 	    }
+// 	}
+	var app = angular.module('App', []);
+	app.controller('Ctrl', function ($scope, $http) {    	
+	    $http.get("/pcbmis/roleAuth/getUserDetail",{timeout:8000} ).success(function (response) {
+	    	$scope.systemsUrl = response.systemsUrl;
+	    	$scope.menu = response.menu;
+	    	$scope.roles = response.roles;
+	    	$scope.userName = response.userName;
+	    	$scope.secondMenu = response.menu.secondMenu;
+	    }).error(function(data,status){ 
+	        if(status=='timeout'){
+	       	 window.location.href="/pcbmis/j_spring_cas_security_logout"
+	       }
+	       
+	   });
+	})
+	</script>
+</body>
+</html>

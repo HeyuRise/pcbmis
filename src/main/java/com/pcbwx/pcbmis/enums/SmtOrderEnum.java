@@ -1,0 +1,38 @@
+package com.pcbwx.pcbmis.enums;
+
+/**
+ * smt工单状态
+ * 
+ * @author 孙贺宇
+ *
+ */
+public enum SmtOrderEnum {
+
+	FINISH(1, "已完成"),
+	PRODUCT(2, "已投产"),
+	CHANGE_REVIEW(3, "变更审核中"),
+	WITHDRAWAL(4, "撤单"),
+	INVALID(5, "已作废"),
+	TIME_OUT(6, "暂停");
+	
+	private int code;
+	private String descr;
+	
+	private SmtOrderEnum(int code, String descr) {
+		this.code = code;
+		this.descr = descr;
+	}
+	
+	public int getCode() {
+		return code;
+	}
+	public void setCode(int code) {
+		this.code = code;
+	}
+	public String getDescr() {
+		return descr;
+	}
+	public void setDescr(String descr) {
+		this.descr = descr;
+	}
+}

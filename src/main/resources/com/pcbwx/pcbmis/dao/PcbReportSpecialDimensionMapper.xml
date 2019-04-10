@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pcbwx.pcbmis.dao.PcbReportSpecialDimensionMapper" >
+  <resultMap id="BaseResultMap" type="com.pcbwx.pcbmis.model.PcbReportSpecialDimension" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="report_num" property="reportNum" jdbcType="VARCHAR" />
+    <result column="order_num" property="orderNum" jdbcType="VARCHAR" />
+    <result column="aperture_id" property="apertureId" jdbcType="INTEGER" />
+    <result column="item_key" property="itemKey" jdbcType="VARCHAR" />
+    <result column="check_require" property="checkRequire" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="real_check" property="realCheck" jdbcType="VARCHAR" />
+    <result column="judge" property="judge" jdbcType="INTEGER" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, report_num, order_num, aperture_id, item_key, check_require, unit, real_check, 
+    judge, creat_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pcb_report_special_dimension
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pcb_report_special_dimension
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcbwx.pcbmis.model.PcbReportSpecialDimension" >
+    insert into pcb_report_special_dimension (id, report_num, order_num, 
+      aperture_id, item_key, check_require, 
+      unit, real_check, judge, 
+      creat_time, update_time)
+    values (#{id,jdbcType=INTEGER}, #{reportNum,jdbcType=VARCHAR}, #{orderNum,jdbcType=VARCHAR}, 
+      #{apertureId,jdbcType=INTEGER}, #{itemKey,jdbcType=VARCHAR}, #{checkRequire,jdbcType=VARCHAR}, 
+      #{unit,jdbcType=VARCHAR}, #{realCheck,jdbcType=VARCHAR}, #{judge,jdbcType=INTEGER}, 
+      #{creatTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcbwx.pcbmis.model.PcbReportSpecialDimension" >
+    insert into pcb_report_special_dimension
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="reportNum != null" >
+        report_num,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="apertureId != null" >
+        aperture_id,
+      </if>
+      <if test="itemKey != null" >
+        item_key,
+      </if>
+      <if test="checkRequire != null" >
+        check_require,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="realCheck != null" >
+        real_check,
+      </if>
+      <if test="judge != null" >
+        judge,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="reportNum != null" >
+        #{reportNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="apertureId != null" >
+        #{apertureId,jdbcType=INTEGER},
+      </if>
+      <if test="itemKey != null" >
+        #{itemKey,jdbcType=VARCHAR},
+      </if>
+      <if test="checkRequire != null" >
+        #{checkRequire,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="realCheck != null" >
+        #{realCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="judge != null" >
+        #{judge,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcbwx.pcbmis.model.PcbReportSpecialDimension" >
+    update pcb_report_special_dimension
+    <set >
+      <if test="reportNum != null" >
+        report_num = #{reportNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="apertureId != null" >
+        aperture_id = #{apertureId,jdbcType=INTEGER},
+      </if>
+      <if test="itemKey != null" >
+        item_key = #{itemKey,jdbcType=VARCHAR},
+      </if>
+      <if test="checkRequire != null" >
+        check_require = #{checkRequire,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="realCheck != null" >
+        real_check = #{realCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="judge != null" >
+        judge = #{judge,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcbwx.pcbmis.model.PcbReportSpecialDimension" >
+    update pcb_report_special_dimension
+    set report_num = #{reportNum,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=VARCHAR},
+      aperture_id = #{apertureId,jdbcType=INTEGER},
+      item_key = #{itemKey,jdbcType=VARCHAR},
+      check_require = #{checkRequire,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=VARCHAR},
+      real_check = #{realCheck,jdbcType=VARCHAR},
+      judge = #{judge,jdbcType=INTEGER},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 以下为自定义接口 -->
+  <delete id="deleteByReportNum" parameterType="map">
+  	delete from pcb_report_special_dimension
+  	where report_num = #{reportNum,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectByReportNum" resultMap="BaseResultMap" parameterType="map">
+  	select 
+  	<include refid="Base_Column_List" />
+    from pcb_report_special_dimension
+    where report_num = #{reportNum,jdbcType=VARCHAR}
+    order by id
+  </select>
+</mapper>

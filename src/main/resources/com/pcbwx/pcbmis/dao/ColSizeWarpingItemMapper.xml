@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pcbwx.pcbmis.dao.ColSizeWarpingItemMapper" >
+  <resultMap id="BaseResultMap" type="com.pcbwx.pcbmis.model.ColSizeWarpingItem" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="col_report_id" property="colReportId" jdbcType="INTEGER" />
+    <result column="col_size_warping_id" property="colSizeWarpingId" jdbcType="INTEGER" />
+    <result column="board_long" property="boardLong" jdbcType="DECIMAL" />
+    <result column="board_wide" property="boardWide" jdbcType="DECIMAL" />
+    <result column="board_ply" property="boardPly" jdbcType="DECIMAL" />
+    <result column="warping" property="warping" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, col_report_id, col_size_warping_id, board_long, board_wide, board_ply, warping, 
+    create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from col_size_warping_item
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from col_size_warping_item
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcbwx.pcbmis.model.ColSizeWarpingItem" >
+    insert into col_size_warping_item (id, col_report_id, col_size_warping_id, 
+      board_long, board_wide, board_ply, 
+      warping, create_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{colReportId,jdbcType=INTEGER}, #{colSizeWarpingId,jdbcType=INTEGER}, 
+      #{boardLong,jdbcType=DECIMAL}, #{boardWide,jdbcType=DECIMAL}, #{boardPly,jdbcType=DECIMAL}, 
+      #{warping,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcbwx.pcbmis.model.ColSizeWarpingItem" >
+    insert into col_size_warping_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="colReportId != null" >
+        col_report_id,
+      </if>
+      <if test="colSizeWarpingId != null" >
+        col_size_warping_id,
+      </if>
+      <if test="boardLong != null" >
+        board_long,
+      </if>
+      <if test="boardWide != null" >
+        board_wide,
+      </if>
+      <if test="boardPly != null" >
+        board_ply,
+      </if>
+      <if test="warping != null" >
+        warping,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="colReportId != null" >
+        #{colReportId,jdbcType=INTEGER},
+      </if>
+      <if test="colSizeWarpingId != null" >
+        #{colSizeWarpingId,jdbcType=INTEGER},
+      </if>
+      <if test="boardLong != null" >
+        #{boardLong,jdbcType=DECIMAL},
+      </if>
+      <if test="boardWide != null" >
+        #{boardWide,jdbcType=DECIMAL},
+      </if>
+      <if test="boardPly != null" >
+        #{boardPly,jdbcType=DECIMAL},
+      </if>
+      <if test="warping != null" >
+        #{warping,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcbwx.pcbmis.model.ColSizeWarpingItem" >
+    update col_size_warping_item
+    <set >
+      <if test="colReportId != null" >
+        col_report_id = #{colReportId,jdbcType=INTEGER},
+      </if>
+      <if test="colSizeWarpingId != null" >
+        col_size_warping_id = #{colSizeWarpingId,jdbcType=INTEGER},
+      </if>
+      <if test="boardLong != null" >
+        board_long = #{boardLong,jdbcType=DECIMAL},
+      </if>
+      <if test="boardWide != null" >
+        board_wide = #{boardWide,jdbcType=DECIMAL},
+      </if>
+      <if test="boardPly != null" >
+        board_ply = #{boardPly,jdbcType=DECIMAL},
+      </if>
+      <if test="warping != null" >
+        warping = #{warping,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcbwx.pcbmis.model.ColSizeWarpingItem" >
+    update col_size_warping_item
+    set col_report_id = #{colReportId,jdbcType=INTEGER},
+      col_size_warping_id = #{colSizeWarpingId,jdbcType=INTEGER},
+      board_long = #{boardLong,jdbcType=DECIMAL},
+      board_wide = #{boardWide,jdbcType=DECIMAL},
+      board_ply = #{boardPly,jdbcType=DECIMAL},
+      warping = #{warping,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 以下为自定义接口 -->
+  <select id="selectByColReportId" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from col_size_warping_item
+    where col_report_id = #{colReportId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByColReportId" parameterType="map" >
+    delete from col_size_warping_item
+    where col_report_id = #{colReportId,jdbcType=INTEGER}
+  </delete>
+</mapper>

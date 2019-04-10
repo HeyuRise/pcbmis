@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pcbwx.pcbmis.dao.ProductNoteMapper" >
+  <resultMap id="BaseResultMap" type="com.pcbwx.pcbmis.model.ProductNote" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_num" property="orderNum" jdbcType="VARCHAR" />
+    <result column="product_note" property="productNote" jdbcType="VARCHAR" />
+    <result column="note_type" property="noteType" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_num, product_note, note_type, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from product_note
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from product_note
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcbwx.pcbmis.model.ProductNote" >
+    insert into product_note (id, order_num, product_note, 
+      note_type, create_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{orderNum,jdbcType=VARCHAR}, #{productNote,jdbcType=VARCHAR}, 
+      #{noteType,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcbwx.pcbmis.model.ProductNote" >
+    insert into product_note
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="productNote != null" >
+        product_note,
+      </if>
+      <if test="noteType != null" >
+        note_type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="productNote != null" >
+        #{productNote,jdbcType=VARCHAR},
+      </if>
+      <if test="noteType != null" >
+        #{noteType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcbwx.pcbmis.model.ProductNote" >
+    update product_note
+    <set >
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="productNote != null" >
+        product_note = #{productNote,jdbcType=VARCHAR},
+      </if>
+      <if test="noteType != null" >
+        note_type = #{noteType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcbwx.pcbmis.model.ProductNote" >
+    update product_note
+    set order_num = #{orderNum,jdbcType=VARCHAR},
+      product_note = #{productNote,jdbcType=VARCHAR},
+      note_type = #{noteType,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!--以下为自定义接口 -->
+  <delete id="deleteByOrderNum" parameterType="map">
+  	delete from product_note
+    where order_num in 
+	<foreach collection="orderNums" index="index" item="item" open="(" separator="," close=")">
+    	#{item}
+    </foreach>
+  </delete>
+  <insert id="insertBatch" parameterType="List" useGeneratedKeys="true" keyProperty="id">
+    insert into product_note (id, order_num, product_note, 
+      note_type, create_time, update_time)
+    values 
+    <foreach collection="list" index="index" item="item" separator=",">
+    	(#{item.id,jdbcType=INTEGER}, #{item.orderNum,jdbcType=VARCHAR}, #{item.productNote,jdbcType=VARCHAR}, 
+      #{item.noteType,jdbcType=INTEGER}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}
+      )
+    </foreach>
+  </insert>
+  <select id="selectByOrderNumAndType" resultMap="BaseResultMap" parameterType="map">
+  	select 
+    <include refid="Base_Column_List" />
+    from product_note
+    where order_num = #{orderNum,jdbcType=VARCHAR}
+    and note_type = #{type,jdbcType=INTEGER}
+  </select>
+  <select id="listByOrderNumAndType" resultMap="BaseResultMap" parameterType="map">
+  	select order_num, product_note, note_type
+    from product_note
+    where 0 = 1 
+    <if test="orderNums != null">
+    	or (order_num in 
+    	<foreach collection="orderNums" item="item" index="index" open="(" separator="," close=")">  
+    		#{item}  
+    	</foreach>  
+    	and note_type = #{type,jdbcType=INTEGER})
+    </if>
+  </select>
+</mapper>

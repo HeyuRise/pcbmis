@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pcbwx.pcbmis.dao.CraftInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.pcbwx.pcbmis.model.CraftInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="inner_id" property="innerId" jdbcType="INTEGER" />
+    <result column="craft_name" property="craftName" jdbcType="VARCHAR" />
+    <result column="enable" property="enable" jdbcType="INTEGER" />
+    <result column="exsit_unequal_thickness" property="exsitUnequalThickness" jdbcType="INTEGER" />
+    <result column="position" property="position" jdbcType="INTEGER" />
+    <result column="is_special_order" property="isSpecialOrder" jdbcType="INTEGER" />
+    <result column="is_soft_hard" property="isSoftHard" jdbcType="INTEGER" />
+    <result column="is_maimang" property="isMaimang" jdbcType="INTEGER" />
+    <result column="is_hdi" property="isHdi" jdbcType="INTEGER" />
+    <result column="inner_create_time" property="innerCreateTime" jdbcType="TIMESTAMP" />
+    <result column="inner_update_time" property="innerUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="udpate_time" property="udpateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, inner_id, craft_name, enable, exsit_unequal_thickness, position, is_special_order, 
+    is_soft_hard, is_maimang, is_hdi, inner_create_time, inner_update_time, create_time, 
+    udpate_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from craft_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from craft_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcbwx.pcbmis.model.CraftInfo" >
+    insert into craft_info (id, inner_id, craft_name, 
+      enable, exsit_unequal_thickness, position, 
+      is_special_order, is_soft_hard, is_maimang, 
+      is_hdi, inner_create_time, inner_update_time, 
+      create_time, udpate_time)
+    values (#{id,jdbcType=INTEGER}, #{innerId,jdbcType=INTEGER}, #{craftName,jdbcType=VARCHAR}, 
+      #{enable,jdbcType=INTEGER}, #{exsitUnequalThickness,jdbcType=INTEGER}, #{position,jdbcType=INTEGER}, 
+      #{isSpecialOrder,jdbcType=INTEGER}, #{isSoftHard,jdbcType=INTEGER}, #{isMaimang,jdbcType=INTEGER}, 
+      #{isHdi,jdbcType=INTEGER}, #{innerCreateTime,jdbcType=TIMESTAMP}, #{innerUpdateTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{udpateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcbwx.pcbmis.model.CraftInfo" >
+    insert into craft_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="innerId != null" >
+        inner_id,
+      </if>
+      <if test="craftName != null" >
+        craft_name,
+      </if>
+      <if test="enable != null" >
+        enable,
+      </if>
+      <if test="exsitUnequalThickness != null" >
+        exsit_unequal_thickness,
+      </if>
+      <if test="position != null" >
+        position,
+      </if>
+      <if test="isSpecialOrder != null" >
+        is_special_order,
+      </if>
+      <if test="isSoftHard != null" >
+        is_soft_hard,
+      </if>
+      <if test="isMaimang != null" >
+        is_maimang,
+      </if>
+      <if test="isHdi != null" >
+        is_hdi,
+      </if>
+      <if test="innerCreateTime != null" >
+        inner_create_time,
+      </if>
+      <if test="innerUpdateTime != null" >
+        inner_update_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="udpateTime != null" >
+        udpate_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="innerId != null" >
+        #{innerId,jdbcType=INTEGER},
+      </if>
+      <if test="craftName != null" >
+        #{craftName,jdbcType=VARCHAR},
+      </if>
+      <if test="enable != null" >
+        #{enable,jdbcType=INTEGER},
+      </if>
+      <if test="exsitUnequalThickness != null" >
+        #{exsitUnequalThickness,jdbcType=INTEGER},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=INTEGER},
+      </if>
+      <if test="isSpecialOrder != null" >
+        #{isSpecialOrder,jdbcType=INTEGER},
+      </if>
+      <if test="isSoftHard != null" >
+        #{isSoftHard,jdbcType=INTEGER},
+      </if>
+      <if test="isMaimang != null" >
+        #{isMaimang,jdbcType=INTEGER},
+      </if>
+      <if test="isHdi != null" >
+        #{isHdi,jdbcType=INTEGER},
+      </if>
+      <if test="innerCreateTime != null" >
+        #{innerCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="innerUpdateTime != null" >
+        #{innerUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="udpateTime != null" >
+        #{udpateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcbwx.pcbmis.model.CraftInfo" >
+    update craft_info
+    <set >
+      <if test="innerId != null" >
+        inner_id = #{innerId,jdbcType=INTEGER},
+      </if>
+      <if test="craftName != null" >
+        craft_name = #{craftName,jdbcType=VARCHAR},
+      </if>
+      <if test="enable != null" >
+        enable = #{enable,jdbcType=INTEGER},
+      </if>
+      <if test="exsitUnequalThickness != null" >
+        exsit_unequal_thickness = #{exsitUnequalThickness,jdbcType=INTEGER},
+      </if>
+      <if test="position != null" >
+        position = #{position,jdbcType=INTEGER},
+      </if>
+      <if test="isSpecialOrder != null" >
+        is_special_order = #{isSpecialOrder,jdbcType=INTEGER},
+      </if>
+      <if test="isSoftHard != null" >
+        is_soft_hard = #{isSoftHard,jdbcType=INTEGER},
+      </if>
+      <if test="isMaimang != null" >
+        is_maimang = #{isMaimang,jdbcType=INTEGER},
+      </if>
+      <if test="isHdi != null" >
+        is_hdi = #{isHdi,jdbcType=INTEGER},
+      </if>
+      <if test="innerCreateTime != null" >
+        inner_create_time = #{innerCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="innerUpdateTime != null" >
+        inner_update_time = #{innerUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="udpateTime != null" >
+        udpate_time = #{udpateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcbwx.pcbmis.model.CraftInfo" >
+    update craft_info
+    set inner_id = #{innerId,jdbcType=INTEGER},
+      craft_name = #{craftName,jdbcType=VARCHAR},
+      enable = #{enable,jdbcType=INTEGER},
+      exsit_unequal_thickness = #{exsitUnequalThickness,jdbcType=INTEGER},
+      position = #{position,jdbcType=INTEGER},
+      is_special_order = #{isSpecialOrder,jdbcType=INTEGER},
+      is_soft_hard = #{isSoftHard,jdbcType=INTEGER},
+      is_maimang = #{isMaimang,jdbcType=INTEGER},
+      is_hdi = #{isHdi,jdbcType=INTEGER},
+      inner_create_time = #{innerCreateTime,jdbcType=TIMESTAMP},
+      inner_update_time = #{innerUpdateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      udpate_time = #{udpateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 以下为自定义接口 -->
+  <select id="load" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from craft_info
+    <!-- where enable = 1 -->
+  </select>
+  <select id="listByInnerIds" resultMap="BaseResultMap" parameterType="java.util.List" >
+    select 
+    <include refid="Base_Column_List" />
+    from craft_info
+    where inner_id IN
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")">  
+    	#{item}  
+    </foreach>  
+    ORDER BY inner_create_time desc
+  </select>
+</mapper>

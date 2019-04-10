@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pcbwx.pcbmis.dao.ColOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.pcbwx.pcbmis.model.ColOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="company_code" property="companyCode" jdbcType="VARCHAR" />
+    <result column="col_board_name" property="colBoardName" jdbcType="VARCHAR" />
+    <result column="guest_code" property="guestCode" jdbcType="VARCHAR" />
+    <result column="contact_code" property="contactCode" jdbcType="VARCHAR" />
+    <result column="contact_name" property="contactName" jdbcType="VARCHAR" />
+    <result column="market_department_code" property="marketDepartmentCode" jdbcType="VARCHAR" />
+    <result column="factory_name" property="factoryName" jdbcType="VARCHAR" />
+    <result column="cs_code" property="csCode" jdbcType="VARCHAR" />
+    <result column="product_date" property="productDate" jdbcType="DATE" />
+    <result column="demand_delivery_date" property="demandDeliveryDate" jdbcType="DATE" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="INTEGER" />
+    <result column="surface_process_name" property="surfaceProcessName" jdbcType="VARCHAR" />
+    <result column="counterbore_type_name" property="counterboreTypeName" jdbcType="VARCHAR" />
+    <result column="board_long" property="boardLong" jdbcType="DECIMAL" />
+    <result column="board_wide" property="boardWide" jdbcType="DECIMAL" />
+    <result column="board_ply" property="boardPly" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_number, company_code, col_board_name, guest_code, contact_code, contact_name, 
+    market_department_code, factory_name, cs_code, product_date, demand_delivery_date, 
+    state, amount, surface_process_name, counterbore_type_name, board_long, board_wide, 
+    board_ply, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from col_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from col_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcbwx.pcbmis.model.ColOrder" >
+    insert into col_order (id, order_number, company_code, 
+      col_board_name, guest_code, contact_code, 
+      contact_name, market_department_code, factory_name, 
+      cs_code, product_date, demand_delivery_date, 
+      state, amount, surface_process_name, 
+      counterbore_type_name, board_long, board_wide, 
+      board_ply, create_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{orderNumber,jdbcType=VARCHAR}, #{companyCode,jdbcType=VARCHAR}, 
+      #{colBoardName,jdbcType=VARCHAR}, #{guestCode,jdbcType=VARCHAR}, #{contactCode,jdbcType=VARCHAR}, 
+      #{contactName,jdbcType=VARCHAR}, #{marketDepartmentCode,jdbcType=VARCHAR}, #{factoryName,jdbcType=VARCHAR}, 
+      #{csCode,jdbcType=VARCHAR}, #{productDate,jdbcType=DATE}, #{demandDeliveryDate,jdbcType=DATE}, 
+      #{state,jdbcType=VARCHAR}, #{amount,jdbcType=INTEGER}, #{surfaceProcessName,jdbcType=VARCHAR}, 
+      #{counterboreTypeName,jdbcType=VARCHAR}, #{boardLong,jdbcType=DECIMAL}, #{boardWide,jdbcType=DECIMAL}, 
+      #{boardPly,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcbwx.pcbmis.model.ColOrder" >
+    insert into col_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
+      </if>
+      <if test="companyCode != null" >
+        company_code,
+      </if>
+      <if test="colBoardName != null" >
+        col_board_name,
+      </if>
+      <if test="guestCode != null" >
+        guest_code,
+      </if>
+      <if test="contactCode != null" >
+        contact_code,
+      </if>
+      <if test="contactName != null" >
+        contact_name,
+      </if>
+      <if test="marketDepartmentCode != null" >
+        market_department_code,
+      </if>
+      <if test="factoryName != null" >
+        factory_name,
+      </if>
+      <if test="csCode != null" >
+        cs_code,
+      </if>
+      <if test="productDate != null" >
+        product_date,
+      </if>
+      <if test="demandDeliveryDate != null" >
+        demand_delivery_date,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="surfaceProcessName != null" >
+        surface_process_name,
+      </if>
+      <if test="counterboreTypeName != null" >
+        counterbore_type_name,
+      </if>
+      <if test="boardLong != null" >
+        board_long,
+      </if>
+      <if test="boardWide != null" >
+        board_wide,
+      </if>
+      <if test="boardPly != null" >
+        board_ply,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null" >
+        #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="colBoardName != null" >
+        #{colBoardName,jdbcType=VARCHAR},
+      </if>
+      <if test="guestCode != null" >
+        #{guestCode,jdbcType=VARCHAR},
+      </if>
+      <if test="contactCode != null" >
+        #{contactCode,jdbcType=VARCHAR},
+      </if>
+      <if test="contactName != null" >
+        #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="marketDepartmentCode != null" >
+        #{marketDepartmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="factoryName != null" >
+        #{factoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="csCode != null" >
+        #{csCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productDate != null" >
+        #{productDate,jdbcType=DATE},
+      </if>
+      <if test="demandDeliveryDate != null" >
+        #{demandDeliveryDate,jdbcType=DATE},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="surfaceProcessName != null" >
+        #{surfaceProcessName,jdbcType=VARCHAR},
+      </if>
+      <if test="counterboreTypeName != null" >
+        #{counterboreTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="boardLong != null" >
+        #{boardLong,jdbcType=DECIMAL},
+      </if>
+      <if test="boardWide != null" >
+        #{boardWide,jdbcType=DECIMAL},
+      </if>
+      <if test="boardPly != null" >
+        #{boardPly,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcbwx.pcbmis.model.ColOrder" >
+    update col_order
+    <set >
+      <if test="orderNumber != null" >
+        order_number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null" >
+        company_code = #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="colBoardName != null" >
+        col_board_name = #{colBoardName,jdbcType=VARCHAR},
+      </if>
+      <if test="guestCode != null" >
+        guest_code = #{guestCode,jdbcType=VARCHAR},
+      </if>
+      <if test="contactCode != null" >
+        contact_code = #{contactCode,jdbcType=VARCHAR},
+      </if>
+      <if test="contactName != null" >
+        contact_name = #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="marketDepartmentCode != null" >
+        market_department_code = #{marketDepartmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="factoryName != null" >
+        factory_name = #{factoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="csCode != null" >
+        cs_code = #{csCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productDate != null" >
+        product_date = #{productDate,jdbcType=DATE},
+      </if>
+      <if test="demandDeliveryDate != null" >
+        demand_delivery_date = #{demandDeliveryDate,jdbcType=DATE},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="surfaceProcessName != null" >
+        surface_process_name = #{surfaceProcessName,jdbcType=VARCHAR},
+      </if>
+      <if test="counterboreTypeName != null" >
+        counterbore_type_name = #{counterboreTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="boardLong != null" >
+        board_long = #{boardLong,jdbcType=DECIMAL},
+      </if>
+      <if test="boardWide != null" >
+        board_wide = #{boardWide,jdbcType=DECIMAL},
+      </if>
+      <if test="boardPly != null" >
+        board_ply = #{boardPly,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcbwx.pcbmis.model.ColOrder" >
+    update col_order
+    set order_number = #{orderNumber,jdbcType=VARCHAR},
+      company_code = #{companyCode,jdbcType=VARCHAR},
+      col_board_name = #{colBoardName,jdbcType=VARCHAR},
+      guest_code = #{guestCode,jdbcType=VARCHAR},
+      contact_code = #{contactCode,jdbcType=VARCHAR},
+      contact_name = #{contactName,jdbcType=VARCHAR},
+      market_department_code = #{marketDepartmentCode,jdbcType=VARCHAR},
+      factory_name = #{factoryName,jdbcType=VARCHAR},
+      cs_code = #{csCode,jdbcType=VARCHAR},
+      product_date = #{productDate,jdbcType=DATE},
+      demand_delivery_date = #{demandDeliveryDate,jdbcType=DATE},
+      state = #{state,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=INTEGER},
+      surface_process_name = #{surfaceProcessName,jdbcType=VARCHAR},
+      counterbore_type_name = #{counterboreTypeName,jdbcType=VARCHAR},
+      board_long = #{boardLong,jdbcType=DECIMAL},
+      board_wide = #{boardWide,jdbcType=DECIMAL},
+      board_ply = #{boardPly,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 以下为自定义接口 -->
+  <select id="listByCodes" resultMap="BaseResultMap" parameterType="java.util.List" >
+    select 
+    <include refid="Base_Column_List" />
+    from col_order
+    where order_number IN
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")">  
+    	#{item}  
+    </foreach>  
+    ORDER BY create_time desc
+  </select>
+  <select id="selectByOrderNumber" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from col_order
+    where order_number = #{orderNumber,jdbcType=VARCHAR}
+  </select>
+</mapper>

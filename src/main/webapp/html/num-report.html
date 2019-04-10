@@ -1,0 +1,696 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script src="../script/js/jquery-easyui-1.3.3/jquery.min.js" type="text/javascript"></script>
+	<script src="../script/js/jquery-easyui-1.3.3/jquery.easyui.min.js" type="text/javascript"></script>
+	<script src="../script/js/jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
+	<script src="../script/js/num-report.js" type="text/javascript"></script>
+	<script src="../script/js/angular.min.js" type="text/javascript"></script>
+	<link href="../script/js/jquery-easyui-1.3.3/themes/icon.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="../script/js/jquery-easyui-1.3.3/themes/default/easyui.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="../script/css/index.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="../script/css/base.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="../script/css/icon.css" media="screen" rel="stylesheet" type="text/css" />
+    <title>PCB检验检测系统</title>
+    
+</head>
+<body class="easyui-layout"  ng-app="testApp" onclick="initload()">
+
+	<!--  header  -->
+	<div data-options="region:'north',border:false"  class="header"  ng-controller="Ctrl">
+		<div ng-include="'../head.html'"></div>
+	</div>
+	
+
+	<!-- 导航 -->
+	<div data-options="region:'west',split:true,title:'导航'" style="width:150px;"   ng-controller="aaCtrl" >
+		<div ng-include="'../left.html'"></div>
+	</div>
+	
+	<!-- foot -->
+	<div data-options="region:'south',border:false"  class="footer"  ng-controller="bbCtrl">
+		<div ng-include="'../foot.html'"> </div>
+	</div>
+	
+	
+	
+	<div data-options="region:'center'" ng-controller="testCtrl">
+	 	<div id="centerTabs" class="easyui-tabs" fit="true" border="false" style="width: 100%;">   
+			<div title="检验报告" style="padding:10px;">
+				<table class="guding-table" ellspacing="0" cellpadding="0">
+				<tbody>
+					<tr>
+						<th>NO:<span ng-bind="reportDetail.serialNumber"></span></th>
+						<th>版次:<span ng-bind="reportDetail.revision"></span></th>
+						<th>编号:<span ng-bind="reportDetail.documentNumber"></span></th>
+					</tr>
+					<tr>
+					<th>客户名称：</th>
+					<td colspan="2"><span id="guestName"ng-bind="reportDetail.report_intro.guestName"></span></td>
+					</tr>
+					<tr>
+					<th>板名：</th>
+					<td colspan="2"><span id="boardName" ng-bind="reportDetail.report_intro.boardName"></span></td>
+					</tr>
+					<tr>
+					<tr ng-if="reportDetail.report_intro.newDateKey!==''">
+					<th><span ng-bind="reportDetail.report_intro.newDateKey"></span></th>
+					<td colspan="2"><span ng-bind="reportDetail.report_intro.newDateValue"></span></td>
+					</tr>
+					<tr ng-if="reportDetail.report_intro.newDateKey==''">
+					</tr>
+					<th>数量：</th>
+					<td colspan="2">
+						<span id="number" ng-bind="reportDetail.report_intro.number"></span>
+						<span  ng-bind="reportDetail.report_intro.unit"></span>
+					</td>
+					</tr>
+					<tr>
+					<th>生产周期：</th>
+					<td colspan="2"><span ng-bind="reportDetail.report_intro.productPeriod"></span></td>
+					</tr>
+					<tr>
+					<th>验收标准：</th>
+					<td colspan="2"><span ng-bind="reportDetail.report_intro.acceptanceStandard"></span></td>
+					</tr>
+					<tr>
+					<th>出货日期：</th>
+					<td colspan="2"><span ng-bind="reportDetail.report_intro.dispatchDate"></span></td>
+					</tr>
+					<tr>
+					<th>编写：</th>
+					<td colspan="2"><span></span></td>
+					</tr>
+					<tr>
+					<th>审核：</th>
+					<td colspan="2"><span></span></td>
+					</tr>
+				</tbody>
+				</table>
+				<div style="border: 1px dotted #ccc;padding: 20px 10px;margin-top: 100px; width: 550px;margin-left: auto;margin-right: auto;">
+					<p style="text-align: center;font-weight: 600;font-size: 15px;margin: 10px 0;">温馨提示</p>
+					<p style="text-indent: 2em;font-weight: 500;font-size: 14px;line-height: 150%">请将产品以真空包装的形式存放于温度≤30℃，湿度≤65%，无腐蚀性气体的环境中。拆包后，在温度≤30℃，湿度≤65%条件下保存，若在48小时内未完成焊接，或超过保质期，需烘板，条件120±5℃，2~4小时。</p>
+				</div>
+			</div>
+			<div title="检验内容" style="padding:10px;" >
+				<table class="guding-table" ellspacing="0" cellpadding="0" >
+         		<tbody>
+	        	<tr>
+		         	<th class="light-blue">检验类别</th>
+		            <th class="light-blue">No.</th>
+		         	<th class="light-blue">项目</th>
+		         	<th class="light-blue" colspan="3">检验要求</th>
+		         	<th class="light-blue">检验结果</th>
+		         	<th class="light-blue">判断</th>
+	         	</tr>
+	         	 <tr>
+	         		<td rowspan="8">外观检查</td>
+	         		<td  rowspan="2">1</td>
+					<td>基材类型</td>
+					<td colspan="3"><span ng-bind="reportDetail.report_content.base_material_types.checkRequire"></span></td>
+					<td><span ng-bind="reportDetail.report_content.base_material_types.checkResult"></span></td>
+					<td><span ng-bind="reportDetail.report_content.base_material_types.judgeResult"></span></td>
+	         	</tr>
+	         	<tr>
+					<td>基材外观</td>
+					<td colspan="3"><span ng-bind="reportDetail.report_content.base_material_appearance.checkRequire"></span></td>
+					<td><span ng-bind="reportDetail.report_content.base_material_appearance.checkResult"></span></td>
+					<td><span ng-bind="reportDetail.report_content.base_material_appearance.judgeResult"></span></td>
+	         	</tr>
+	         	<tr>
+	         	    <td >2</td>
+					<td>导电图形</td>
+					<td colspan="3"><span ng-bind="reportDetail.report_content.conductive_pattern.checkRequire"></span></td>
+					<td><span ng-bind="reportDetail.report_content.conductive_pattern.checkResult"></span></td>
+					<td><span ng-bind="reportDetail.report_content.conductive_pattern.judgeResult"></span></td>
+	         	</tr>
+	         	<tr>
+	         	    <td rowspan="2">3</td>
+					<td>阻焊类型</td>
+					<td colspan="3"><span ng-bind="reportDetail.report_content.prevent_smt_type.checkRequire"></span></td>
+					<td><span ng-bind="reportDetail.report_content.prevent_smt_type.checkResult"></span></td>
+					<td><span ng-bind="reportDetail.report_content.prevent_smt_type.judgeResult"></span></td>
+	         	</tr>
+	         	<tr>
+					<td>阻焊外观</td>
+					<td colspan="3"><span ng-bind="reportDetail.report_content.prevent_smt_appearance.checkRequire"></span></td>
+					<td><span ng-bind="reportDetail.report_content.prevent_smt_appearance.checkResult"></span></td>
+					<td><span ng-bind="reportDetail.report_content.prevent_smt_appearance.judgeResult"></span></td>
+	         	</tr>
+	         	<tr>
+	         	    <td rowspan="2">4</td>
+					<td>字符类型</td>
+					<td colspan="3"><span ng-bind="reportDetail.report_content.character_type.checkRequire"></span></td>
+					<td><span ng-bind="reportDetail.report_content.character_type.checkResult"></span></td>
+					<td><span ng-bind="reportDetail.report_content.character_type.judgeResult"></span></td>
+	         	</tr>
+	         	<tr>
+					<td>字符外观</td>
+					<td colspan="3"><span ng-bind="reportDetail.report_content.character_appearance.checkRequire"></span></td>
+					<td><span ng-bind="reportDetail.report_content.character_appearance.checkResult"></span></td>
+					<td><span ng-bind="reportDetail.report_content.character_appearance.judgeResult"></span></td>
+	         	</tr>
+	         	<tr>
+	         	    <td>5</td>
+					<td>表面处理</td>
+					<td colspan="3"><span ng-bind="reportDetail.report_content.surface_process.checkRequire"></span></td>
+					<td><span ng-bind="reportDetail.report_content.surface_process.checkResult"></span></td>
+					<td><span ng-bind="reportDetail.report_content.surface_process.judgeResult"></span></td>
+	         	</tr>
+	         	<tr>
+	         		<td rowspan="2">标记检查</td>
+	         		<td >6</td>
+					<td>常规标记</td>
+					<td colspan="3"><span ng-bind="reportDetail.report_content.regular_label.checkRequire"></span></td>
+					<td><span ng-bind="reportDetail.report_content.regular_label.checkResult"></span></td>
+					<td><span ng-bind="reportDetail.report_content.regular_label.judgeResult"></span></td>
+	         	</tr>
+	         	<tr>
+	         		<td >7</td>
+					<td>生产周期</td>
+					<td colspan="3"><span ng-bind="reportDetail.report_content.produce_period.checkRequire"></span></td>
+					<td><span ng-bind="reportDetail.report_content.produce_period.checkResult"></span></td>
+					<td><span ng-bind="reportDetail.report_content.produce_period.judgeResult"></span></td>
+	         	</tr>
+	         	<tr>
+	         		<td rowspan="2">附着力测试</td>
+	         		<td>8</td>
+					<td>外镀层附着力</td>
+					<td colspan="3"><span ng-bind="reportDetail.report_content.external_coating_adhesion.checkRequire"></span></td>
+					<td><span ng-bind="reportDetail.report_content.external_coating_adhesion.checkResult"></span></td>
+					<td><span ng-bind="reportDetail.report_content.external_coating_adhesion.judgeResult"></span></td>
+	         	</tr>
+	         	<tr>
+	         		<td>9</td>
+					<td>阻焊/字符附着力</td>
+					<td colspan="3"><span ng-bind="reportDetail.report_content.prevent_smt_character_adhesion.checkRequire"></span></td>
+					<td><span ng-bind="reportDetail.report_content.prevent_smt_character_adhesion.checkResult"></span></td>
+					<td><span ng-bind="reportDetail.report_content.prevent_smt_character_adhesion.judgeResult"></span></td>
+	         	</tr>
+	         	<tr>
+	         		<td rowspan="9">尺寸测量</td>
+	         		<td >10</td>
+					<td>最小线宽</td>
+					<td colspan="3"><span ng-bind="reportDetail.report_content.min_line_width.checkRequire"></span></td>
+					<td>
+						<span ng-bind="reportDetail.report_content.min_line_width.checkResult"></span>
+						<span ng-if="reportDetail.report_content.min_line_width.checkResult!=''">mm</span>
+					</td>
+					<td><span ng-bind="reportDetail.report_content.min_line_width.judgeResult"></span></td>
+	         	</tr>
+	         	<tr>
+	         		<td >11</td>
+					<td>最小间距</td>
+					<td colspan="3"><span ng-bind="reportDetail.report_content.min_line_distance.checkRequire"></span></td>
+					<td>
+						<span ng-bind="reportDetail.report_content.min_line_distance.checkResult"></span>
+						<span ng-if="reportDetail.report_content.min_line_distance.checkResult!=''">mm</span>
+					</td>
+					<td><span ng-bind="reportDetail.report_content.min_line_distance.judgeResult"></span></td>
+	         	</tr>
+	         	<tr>
+	         		<td >12</td>
+					<td>最小环宽</td>
+					<td colspan="3"><span ng-bind="reportDetail.report_content.min_annular_ring.checkRequire"></span></td>
+					<td>
+						<span ng-bind="reportDetail.report_content.min_annular_ring.checkResult"></span>
+						<span ng-if="reportDetail.report_content.min_annular_ring.checkResult!=''">mm</span>
+					</td>
+					<td><span ng-bind="reportDetail.report_content.min_annular_ring.judgeResult"></span></td>
+	         	</tr> 
+	         	<tr>
+	         		<td >13</td>
+					<td>成品板厚</td>
+					<td colspan="3">
+						<span ng-bind="reportDetail.report_content.board_ply.checkRequire"></span>
+						<span ng-if="reportDetail.report_content.board_ply.checkRequire!=''">mm</span>
+					</td>
+					<td>
+						<span ng-bind="reportDetail.report_content.board_ply.checkResult"></span>
+						<span ng-if="reportDetail.report_content.board_ply.checkResult!=''">mm</span>
+					</td>
+					<td><span ng-bind="reportDetail.report_content.board_ply.judgeResult"></span></td>
+	         	</tr>  
+	         	<tr>
+	         		<td >14</td>
+					<td>翘曲度</td>
+					<td colspan="3"><span ng-bind="reportDetail.report_content.warping_degree.checkRequire"></span></td>
+					<td>
+						<span ng-bind="reportDetail.report_content.warping_degree.checkResult"></span>
+						<span ng-if="reportDetail.report_content.warping_degree.checkResult!=''">%</span>
+					</td>
+					<td><span ng-bind="reportDetail.report_content.warping_degree.judgeResult"></span></td>
+	         	</tr>
+	         	<tr>
+	         		<td rowspan="2">15</td>
+					<td rowspan="2">外形尺寸</td>
+					<td>长</td>
+					<td><span ng-bind="reportDetail.report_content.board_long.checkRequire"></span></td>
+					<td>
+						<span ng-bind="reportDetail.report_content.board_long.boardTolerance"></span>
+						<span ng-if="reportDetail.report_content.board_long.boardTolerance!=''">mm</span>
+					</td>
+					<td><span ng-bind="reportDetail.report_content.board_long.checkResult" ></span><span ng-if="reportDetail.report_content.board_long.checkResult!=''" >mm</span></td>
+					<td><span ng-bind="reportDetail.report_content.board_long.judgeResult"></span></td>
+	         	</tr> 
+	         	<tr>
+	         		<td>宽</td>
+					<td><span ng-bind="reportDetail.report_content.board_wide.checkRequire"></span></td>
+					<td>
+						<span ng-bind="reportDetail.report_content.board_wide.boardTolerance"></span>
+						<span ng-if="reportDetail.report_content.board_wide.boardTolerance!=''">mm</span>
+					</td>
+					<td><span ng-bind="reportDetail.report_content.board_wide.checkResult"></span><span ng-if="reportDetail.report_content.board_wide.checkResult!=''">mm</span></td>
+					<td><span ng-bind="reportDetail.report_content.board_wide.judgeResult"></span></td>
+	         	</tr>  
+	         	<tr>
+	         		<td >16</td>
+					<td>孔径</td>
+					<td colspan="4"><span ng-bind="reportDetail.report_content.aperture.checkRequire"></span></td>
+					<td><span ng-bind="reportDetail.report_content.aperture.judgeResult"></span></td>
+	         	</tr>
+	         	<tr>
+	         		<td >17</td>
+					<td>特殊尺寸</td>
+					<td colspan="4"><span ng-bind="reportDetail.report_content.v_cut.checkRequire"></span></td>
+					<td><span ng-bind="reportDetail.report_content.v_cut.judgeResult"></span></td>
+	         	</tr>
+	         	<tr>
+	         		<td rowspan="3">电气性能测试</td>
+	         		<td>18</td>
+	         		<td>电路连通性</td>
+	         		<td rowspan="2" colspan="4"><span ng-bind="reportDetail.report_content.circuit_connectivity.checkRequire"></span></td>
+	         		<td>
+						<span ng-bind="reportDetail.report_content.circuit_connectivity.judgeResult"></span>
+					</td>
+	         	</tr>
+	         	<tr>
+	         		<td>19</td>
+	         		<td>电路绝缘性</td>
+	         		<td>
+						<span ng-bind="reportDetail.report_content.circuit_insulativity.judgeResult"></span>
+					</td>
+	         	</tr>
+	         	<tr>
+	         		<td>20</td>
+	         		<td>特性阻抗</td>
+	         		<td colspan="4"><span ng-bind="reportDetail.report_content.special_impedance.checkRequire"></span></td>
+	         		<td>
+	         			<span ng-bind="reportDetail.report_content.special_impedance.judgeResult"></span>
+	         		</td>
+	         	</tr>
+	         	<tr>
+	         		<td rowspan="2">其他特性</td>
+	         		<td>21</td>
+	         		<td>可焊性</td>
+	         		<td colspan="3"><span ng-bind="reportDetail.report_content.solderability.checkRequire"></span></td>
+	         		<td><span ng-bind="reportDetail.report_content.solderability.checkResult"></span></td>
+	         		<td>
+	         			<span ng-bind="reportDetail.report_content.solderability.judgeResult"></span>
+	         		</td>
+	         	</tr>
+	         	<tr>
+	         		<td>22</td>
+	         		<td>显微剖切</td>
+	         		<td colspan="4"><span ng-bind="reportDetail.report_content.microsectioning.checkRequire"></span></td>
+	         		<td><span ng-bind="reportDetail.report_content.microsectioning.judgeResult"></span></td>
+	         	</tr>
+	         	<tr>
+				    <td>报告备注</td>
+				    <td colspan="7">
+				         <span  ng-bind-html="reportDetail.note.note | trustHtml"></span>
+				    </td>
+				</tr>
+				<tr>
+				    <td>内部错误</td>
+				    <td colspan="7"><span ng-bind-html="reportDetail.note.mistakeNote | trustHtml"></span></td>
+				</tr>
+				<tr>
+				     <td>供应商报告错误</td>
+				     <td colspan="7">
+				     	<span  ng-bind-html="reportDetail.note.supplierMistakeNote | trustHtml" ></span>
+				    </td>
+				</tr>
+	         	</tbody>
+	         </table>
+			</div>
+			<div title="孔径检测" style="padding:10px;" >
+				<span id="Num" type="text"  name="Num"   ng-bind="reportDetail.baseReportInfo.spotCheckNumPcs" hidden></span>
+				<div id="table1">
+					<table class="guding-table" id="tablerecord" ellspacing="0" cellpadding="0">
+					    <tr>
+						   <th class="light-blue">ID</th>
+						   <th class="light-blue">P/N</th>
+						   <th class="light-blue"  colspan="2">要求</th>
+						   <th class="light-blue">实测</th>
+						   <th class="light-blue">判定</th>
+					    </tr>
+					    <tr ng-repeat="z in  reportDetail.aperture_check">
+						   <td>{{$index+1}}</td>
+						   <td>{{z.pN}}</td>
+						   <td>{{z.require}}</td>
+						   <td>{{z.requireTolerance}}</td>
+						   <td>{{z.realCheck}}</td>
+						   <td>{{z.judge}}</td>
+					    </tr>
+					 </table>
+         		</div>
+			</div>
+			<div title="特殊尺寸" style="padding:10px;">
+				<table class="guding-table">
+					<tr>
+						<th style="width: 10%" class="light-blue">ID</th>
+						<th colspan="2" class="light-blue"  style="width: 10%">项目</th>
+						<th style="width: 20%" class="light-blue">要求</th>
+						<th style="width: 20%" class="light-blue">单位</th>
+						<th style="width: 20%" class="light-blue">实测</th>
+						<th style="width: 20%" class="light-blue">判定</th>
+					</tr>
+					<tr>
+						<td rowspan="2">1</td>
+						<td rowspan="2">V-cut</td>
+						<td>残厚</td>
+						<td><span ng-bind="reportDetail.special_dimensions.vCutResidualThickness.require"></span></td>
+						<td><span ng-bind="reportDetail.special_dimensions.vCutResidualThickness.unit"></span></td>
+						<td><span ng-bind="reportDetail.special_dimensions.vCutResidualThickness.realCheck"></span></td>
+						<td><span ng-bind="reportDetail.special_dimensions.vCutResidualThickness.judge"></span></td>
+						</tr>
+					<tr>
+						<td>偏差</td>
+						<td><span ng-bind="reportDetail.special_dimensions.vCutDeviation.require"></span></td>
+						<td><span ng-bind="reportDetail.special_dimensions.vCutDeviation.unit"></span></td>
+						<td><span ng-bind="reportDetail.special_dimensions.vCutDeviation.realCheck"></span></td>
+						<td><span ng-bind="reportDetail.special_dimensions.vCutDeviation.judge"></span></td>
+					</tr>
+					<tr>
+						<td rowspan="2">2</td>
+						<td rowspan="2">金手指</td>
+						<td>倒角深度</td>
+						<td><span ng-bind="reportDetail.special_dimensions.goldfingerBevelDepth.require"></span></td>
+						<td><span ng-bind="reportDetail.special_dimensions.goldfingerBevelDepth.unit"></span></td>
+						<td><span ng-bind="reportDetail.special_dimensions.goldfingerBevelDepth.realCheck"></span></td>
+						<td><span ng-bind="reportDetail.special_dimensions.goldfingerBevelDepth.judge"></span></td>
+					</tr>
+					<tr>
+						<td>残厚</td>
+						<td><span ng-bind="reportDetail.special_dimensions.goldfingerResidualThickness.require"></span></td>
+						<td><span ng-bind="reportDetail.special_dimensions.goldfingerResidualThickness.unit"></span></td>
+						<td><span ng-bind="reportDetail.special_dimensions.goldfingerResidualThickness.realCheck"></span></td>
+						<td><span ng-bind="reportDetail.special_dimensions.goldfingerResidualThickness.judge"></span></td>
+					</tr>
+					<tr>
+						<td rowspan="2">3</td>
+						<td rowspan="2">台阶</td>
+						<td>宽度</td>
+						<td><span ng-bind="reportDetail.special_dimensions.stepWidth.require"></span></td>
+						<td><span ng-bind="reportDetail.special_dimensions.stepWidth.unit"></span></td>
+						<td><span ng-bind="reportDetail.special_dimensions.stepWidth.realCheck"></span></td>
+						<td><span ng-bind="reportDetail.special_dimensions.stepWidth.judge"></span></td>
+					</tr>
+					<tr>
+						<td>残厚</td>
+						<td><span ng-bind="reportDetail.special_dimensions.stepResidualThickness.require"></span></td>
+						<td><span ng-bind="reportDetail.special_dimensions.stepResidualThickness.unit"></span></td>
+						<td><span ng-bind="reportDetail.special_dimensions.stepResidualThickness.realCheck"></span></td>
+						<td><span ng-bind="reportDetail.special_dimensions.stepResidualThickness.judge"></span></td>
+					</tr>
+					<tr>
+						<td rowspan="2">4</td>
+						<td rowspan="2">台阶孔</td>
+						<td>孔径</td>
+						<td><span ng-bind="reportDetail.special_dimensions.steppedHoleAperture.require"></span></td>
+						<td><span ng-bind="reportDetail.special_dimensions.steppedHoleAperture.unit"></span></td>
+						<td><span ng-bind="reportDetail.special_dimensions.steppedHoleAperture.realCheck"></span></td>
+						<td><span ng-bind="reportDetail.special_dimensions.steppedHoleAperture.judge"></span></td>
+					</tr>
+					<tr>
+						<td>孔深</td>
+						<td><span ng-bind="reportDetail.special_dimensions.steppedHoleHoleDepth.require"></span></td>
+						<td><span ng-bind="reportDetail.special_dimensions.steppedHoleHoleDepth.unit"></span></td>
+						<td><span ng-bind="reportDetail.special_dimensions.steppedHoleHoleDepth.realCheck"></span></td>
+						<td><span ng-bind="reportDetail.special_dimensions.steppedHoleHoleDepth.judge"></span></td>
+					</tr>
+				</table>
+				<table class="guding-table">
+					<tr ng-repeat="y in reportDetail.special_dimensions.rests">
+						<td style="width: 10%">{{$index+5}}</td>
+						<td style="width: 10%">{{y.itemName}}</td>
+						<td style="width: 20%">{{y.require}}</td>
+						<td style="width: 20%">{{y.unit}}</td>
+						<td style="width: 20%">{{y.realCheck}}</td>
+						<td style="width: 20%">{{y.judge}}</td>
+					</tr>
+				</table>
+			</div>
+			<div title="V_CUT测量" style="padding:10px;">
+				<table class="guding-table" style="width: 70%;margin: 0 auto;">
+					<tr>
+						<th class="light-blue">V-CUT</th>
+						<th colspan="2" class="light-blue">要求</th>
+						<th class="light-blue">实测</th>
+						<th class="light-blue">判定</th>
+					</tr>
+					<tr>
+						<td rowspan="3">
+							<img src="../script/images/cut.png">
+						</td>
+						<td colspan="2">&=<span ng-bind="reportDetail.report_vcut.requireAngle"></span></td>
+						<td><span ng-bind="reportDetail.report_vcut.realCheakAngle"></span></td>
+						<td><span ng-bind="reportDetail.report_vcut.judgeAngle"></span></td>
+					</tr>
+					<tr>
+						<td colspan="2">h=<span ng-bind="reportDetail.report_vcut.requireH"></span></td>
+						<td><span ng-bind="reportDetail.report_vcut.realCheckH"></span></td>
+						<td><span ng-bind="reportDetail.report_vcut.judgeH"></span></td>
+					</tr>
+					<tr>
+						<td>b=<span ng-bind="reportDetail.report_vcut.requireB"></span></td>
+						<td><span ng-bind="reportDetail.report_vcut.requireBtolerance"></span></td>
+						<td><span ng-bind="reportDetail.report_vcut.realCheckB"></span></td>
+						<td><span ng-bind="reportDetail.report_vcut.judgeB"></span></td>
+					</tr>
+				</table>
+			</div>
+			<div title="电气完善性报告" style="padding:10px;" >
+				<table class="guding-table" ellspacing="0" cellpadding="0">
+				<thead>
+					<tr>
+						<th class="light-blue">ID</th>
+						<th class="light-blue">检查项目</th>
+						<th class="light-blue">检查结果</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>测试仪器：</td>
+						<td><span  ng-bind="reportDetail.report_integrity.checkInstrument"></span></td>
+					</tr>	
+					<tr>
+						<td>2</td>
+						<td>测试电压：</td>
+						<td><span  ng-bind="reportDetail.report_integrity.checkVoltage"></span></td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>测试点数量：</td>
+						<td><span  ng-bind="reportDetail.report_integrity.checkPointNum"></span></td>
+					</tr>
+					<tr>
+					    <td>4</td>
+						<td>网络数量：</td>
+						<td><span  ng-bind="reportDetail.report_integrity.netNum"></span></td>
+					</tr>	
+					<tr>
+						<td>5</td>
+						<td>连通电阻：</td>
+						<td><span  ng-bind="reportDetail.report_integrity.connectedResistance"></span></td>
+					</tr>
+					<tr>
+						<td>6</td>
+						<td>绝缘电阻：</td>
+						<td><span  ng-bind="reportDetail.report_integrity.insulatedResistance"></span></td>
+					</tr>
+					<tr>
+						<td>7</td>
+						<td>相连网络数量：</td>
+						<td><span  ng-bind="reportDetail.report_integrity.connectedNetNum"></span></td>
+					</tr>	
+					<tr>
+						<td>8</td>
+						<td>测试结果：</td>
+						<td><span  ng-bind="reportDetail.report_integrity.result"></span></td>
+					</tr>							
+				</tbody>
+				</table>
+			</div>
+		    <div title="特性阻抗" style="padding:10px;" >
+		    	<table class="guding-table" id="tbListTM" >
+				<thead>
+					<tr>
+						<th class="light-blue">ID</th>
+						<th class="light-blue">项目</th>
+						<th class="light-blue" colspan="2">层数</th>
+					    <th class="light-blue" colspan="2">要求</th>
+						<th class="light-blue">实测</th>
+						<th class="light-blue">判定</th>
+					</tr>
+ 					<tr ng-repeat="x in reportDetail.single_ended_impedances">
+						<td >1</td>
+						<td>单端阻抗</td>
+						<td>{{x.layer}}</td>
+						<td>{{x.layerNum}}</td>
+						<td>{{x.require}}</td>
+						<td>{{x.requireTolerance}}</td>
+						<td>{{x.realCheck}}</td>
+						<td>{{x.judge}}</td>
+					</tr> 
+					<tr ng-repeat="y in reportDetail.differential_characteristic_impedance">
+						<td>2</td>
+						<td >差分阻抗</td>
+						<td>{{y.layer}}</td>
+						<td>{{y.layerNum}}</td>
+						<td>{{y.require}}</td>
+						<td>{{y.requireTolerance}}</td>
+						<td>{{y.realCheck}}</td>
+						<td>{{y.judge}}</td>
+					</tr>		
+				</thead>
+				<tbody>	
+				</tbody>
+				</table>
+			</div>
+			<div title="合格证" style="padding:10px;" >
+				<table class="guding-table"  >
+					<thead>
+						<tr>
+							<div style="text-align: center;font-size: 15px;line-height: 150%;border-top:1px dotted  #ccc;border-left:1px dotted  #ccc;border-right:1px dotted  #ccc;padding: 10px 0;">
+								<span ng-if="reportDetail.companyName=='同步科技'">无锡市同步电子科技有限公司</span>
+							    <span ng-if="reportDetail.companyName=='同步电子'">无锡市同步电子有限公司</span>
+								<br>
+								<span id="min" style="border-bottom: 1px solid black; ">民品印制板</span>
+								<span id="jun" style="border-bottom: 1px solid black; ">军品印制板</span>
+								&nbsp;&nbsp;&nbsp;产品合格证
+							</div>
+							
+						</tr>
+						<tr>
+							<th><span ng-bind="reportDetail.certification.orderNumName"></span></th>
+							<td><span ng-bind="reportDetail.certification.orderNum"></span></td>
+						</tr>
+						<tr>
+							<th>产品名称</th>
+							<td><span ng-bind="reportDetail.certification.boardName"></span></td>
+						</tr>
+						<tr>
+							<th>生产日期</th>
+							<td><span ng-bind="reportDetail.certification.productDate"></span></td>
+						</tr>
+						<tr>
+							<th>检验日期</th>
+							<td><span ng-bind="reportDetail.certification.checkDate"></span></td>
+						</tr>
+						<tr>
+							<th>包装日期</th>
+							<td><span ng-bind="reportDetail.certification.packagingDate"></span></td>
+						</tr>
+						<tr>
+							<th>检验员</th>
+							<td><span ng-bind="reportDetail.certification.inspector"></span></td>
+						</tr>
+						<tr>
+							<th>保质期</th>
+							<td><span ng-bind="reportDetail.certification.expirationDate"></span></td>
+						</tr>
+						<tr>
+							<th>数量</th>
+							<td><span ng-bind="reportDetail.certification.numberPcs"></span></td>
+						</tr>
+						<tr>
+							<th>批号</th>
+							<td><span ng-bind="reportDetail.certification.batchNumber"></span></td>
+						</tr>
+						<tr>
+							<th>规格</th>
+							<td><span ng-bind="reportDetail.certification.size"></span></td>
+						</tr>
+						<tr ng-repeat="z in reportDetail.certification.add" ng-if="reportDetail.certification.add!=''" style="text-align: center;">
+							<td>{{z.key}}</td>
+							<td style="text-align: left;">{{z.value}}</td>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			  	<div style="text-align: center;margin: 20px 0;font-size: 14px;">
+			  	 <span id="add_html"></span>
+		         <a class="easyui-linkbutton excel" iconCls="icon-excel" href="javascript:void(0)"  onclick="btn_export()">导出报告单</a>
+		         <a class="easyui-linkbutton excel" iconCls="icon-excel" href="javascript:void(0)"  onclick="btn_export2()">导出合格证</a>
+         		</div>
+			</div>
+
+		</div>
+	</div>
+	
+	
+	<div data-options="region:'east',title:'基础信息'" ng-controller="ddCtrl"  style="width:400px;">
+		<div title="基础信息" style="overflow:auto;padding: 0 10px;">
+			    <div class="bottom-20">
+			    <span class="xinleft">报告单号：<span ng-bind="reportDetail.baseReportInfo.reportNum"></span></span>
+				<span class="xinright">工单号：<span ng-bind="reportDetail.baseReportInfo.orderNum"></span></span>
+				</div>
+				<div class="bottom-20">
+				<span class="xinleft">板名：<span ng-bind="reportDetail.baseReportInfo.boardName"></span></span>
+				</div>
+				<div class="bottom-20">
+				<span class="xinleft" >客户：<span ng-bind="reportDetail.baseReportInfo.guestName"></span></span>
+				<span class="xinright">生产厂家：<span ng-bind="reportDetail.baseReportInfo.factoryName"></span></span>
+				</div>
+				<div class="bottom-20">
+				<span class="xinleft" >等级：<span ng-bind="reportDetail.baseReportInfo.categoryGrade"></span></span>
+				<span class="xinright">工艺：<span ng-bind="reportDetail.baseReportInfo.craft"></span></span>
+				 </div>
+				<div class="bottom-20">
+				<span class="xinleft" >金相要求：<span ng-bind="reportDetail.baseReportInfo.metallography_require"></span></span>
+				<span class="xinright">投产日期：<span ng-bind="reportDetail.baseReportInfo.productDate"></span></span>
+				 </div>
+				<div class="bottom-20">
+				<span class="xinleft" >生产数量SET：<span ng-bind="reportDetail.baseReportInfo.productionNumSet"></span></span>
+				<span class="xinright">生产数量PCS：<span ng-bind="reportDetail.baseReportInfo.productionNumPcs"></span></span>
+				 </div>
+				<div class="bottom-20">
+				<span class="xinleft" >来料数量（块）：<span ng-bind="reportDetail.baseReportInfo.amountCheckoutPcs"></span></span>
+				<span class="xinright">抽样数量（块）：<span ng-bind="reportDetail.baseReportInfo.spotCheckNumPcs"></span></span>
+				 </div>
+				<div class="bottom-20">
+				<span class="xinleft" >送板人：<span ng-bind="reportDetail.baseReportInfo.deliveryMan"></span></span>
+				<span class="xinright">送板时间：<span ng-bind="reportDetail.baseReportInfo.deliveryDate"></span></span>
+			    </div>
+	        </div>
+	         <div id="down">
+        	<form method="post" id ="export_excel">
+        	</form>
+        </div>
+	  </div> 
+      
+    <script type="text/javascript">
+	var app = angular.module('App', []);
+	app.controller('Ctrl', function ($scope, $http) {    	
+	    $http.get("/pcbmis/roleAuth/getUserDetail",{timeout:8000} ).success(function (response) {
+	    	$scope.systemsUrl = response.systemsUrl;
+	    	$scope.menu = response.menu;
+	    	$scope.roles = response.roles;
+	    	$scope.userName = response.userName;
+	    	$scope.secondMenu = response.menu.secondMenu;
+	    }).error(function(data,status){ 
+	        if(status=='timeout'){
+	        	 window.location.href="/pcbmis/j_spring_cas_security_logout"
+	        }
+	        
+	    });
+	})
+
+	</script>
+</body>
+</html>

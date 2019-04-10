@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0
+}
+
+/* 头部样式 */
+.header {
+    height: 80px;
+    background-image: url(../images/header_bg.jpg);
+    background-repeat: repeat-x;
+}
+#logo {
+    margin-top:20px;
+}
+#login_status {
+    font-size:15px;
+    right: 10px;
+    bottom: 10px;
+    position: absolute;
+    color: #fff;
+}
+#login_status a {
+    text-decoration: none;
+    color: #fff;
+}
+/* 底部样式 */
+.footer {
+    height: 20px;
+    background: #A9FACD;
+    padding-top: 10px;
+    background: #E2EFFE;
+}
+
+/* 导航样式 */
+.nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.nav ul li {
+    padding-bottom: 2px;
+}
+
+.nav ul li a {
+    font: normal 12px Arial;
+    color: black;
+    background: #E2EFFE;
+    display: block;
+    padding: 5px 0;
+    line-height: 17px;
+    padding-left: 20px;
+    text-decoration: none;
+}
+
+.nav ul li a:visited {
+    color: black;
+}
+
+.nav ul li a:hover {
+    color: white;
+    background: #4D70A8;
+}
+
+.expand_table {
+	width: 100%;
+}
+.expand_table tr.total{
+	background: yellow;
+}
+.expand_table tr th{
+	font: normal 12px Arial;
+	width:60px;
+}
+.expand .expand_table td{
+	padding:0 2px;
+}
+.expand .expand_table input,select{
+	width: 100%;
+}
+.expand .mail_check_btn input {
+	width: 100%;
+}
+.errorDialog .expand_table th{
+	font-size: 12px;
+    border: 1px solid #95B8E7;
+    text-align:center;
+}
+.errorDialog .expand_table td{
+	font-size: 12px;
+    border: 1px solid #95B8E7;
+    text-align:center;
+}
+.statisticDialog .expand_table th{
+	font-size: 12px;
+    border: 1px solid #95B8E7;
+    padding: 3px;
+    text-align:center;
+}
+.statisticDialog .expand_table td{
+	font-size: 12px;
+    border: 1px solid #95B8E7;
+    padding: 3px;
+    text-align:center;
+}
+.expand_td1 {
+    min-width: 100px;
+    text-align: right;
+    background-color: RGB(234, 242, 255);
+}
+
+.expand_td2 {
+    width: 100%;
+    text-align: left;
+    text-indent: 5px;
+}
+.nonetable{
+	padding: 20px;
+}
+.nonetable td{
+	line-height: 30px;
+}
+.storage_table td{
+	height: 35px;
+}
+.storage_table{
+	padding: 0 20px;
+}
+#print_content{display: none;}
+@media print{
+	#print_content{display: block;}
+ }
+ .select_label{
+ 	margin-right: 20px;
+ 	vertical-align: middle;
+ }

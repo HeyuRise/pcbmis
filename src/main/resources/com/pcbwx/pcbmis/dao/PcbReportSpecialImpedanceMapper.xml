@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pcbwx.pcbmis.dao.PcbReportSpecialImpedanceMapper" >
+  <resultMap id="BaseResultMap" type="com.pcbwx.pcbmis.model.PcbReportSpecialImpedance" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="report_num" property="reportNum" jdbcType="VARCHAR" />
+    <result column="order_num" property="orderNum" jdbcType="VARCHAR" />
+    <result column="special_id" property="specialId" jdbcType="INTEGER" />
+    <result column="layer" property="layer" jdbcType="VARCHAR" />
+    <result column="layer_num" property="layerNum" jdbcType="VARCHAR" />
+    <result column="check_require" property="checkRequire" jdbcType="VARCHAR" />
+    <result column="check_require_tolerance" property="checkRequireTolerance" jdbcType="VARCHAR" />
+    <result column="real_check" property="realCheck" jdbcType="VARCHAR" />
+    <result column="judge" property="judge" jdbcType="INTEGER" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, report_num, order_num, special_id, layer, layer_num, check_require, check_require_tolerance, 
+    real_check, judge, creat_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pcb_report_special_impedance
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pcb_report_special_impedance
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcbwx.pcbmis.model.PcbReportSpecialImpedance" >
+    insert into pcb_report_special_impedance (id, report_num, order_num, 
+      special_id, layer, layer_num, 
+      check_require, check_require_tolerance, real_check, 
+      judge, creat_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{reportNum,jdbcType=VARCHAR}, #{orderNum,jdbcType=VARCHAR}, 
+      #{specialId,jdbcType=INTEGER}, #{layer,jdbcType=VARCHAR}, #{layerNum,jdbcType=VARCHAR}, 
+      #{checkRequire,jdbcType=VARCHAR}, #{checkRequireTolerance,jdbcType=VARCHAR}, #{realCheck,jdbcType=VARCHAR}, 
+      #{judge,jdbcType=INTEGER}, #{creatTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcbwx.pcbmis.model.PcbReportSpecialImpedance" >
+    insert into pcb_report_special_impedance
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="reportNum != null" >
+        report_num,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="specialId != null" >
+        special_id,
+      </if>
+      <if test="layer != null" >
+        layer,
+      </if>
+      <if test="layerNum != null" >
+        layer_num,
+      </if>
+      <if test="checkRequire != null" >
+        check_require,
+      </if>
+      <if test="checkRequireTolerance != null" >
+        check_require_tolerance,
+      </if>
+      <if test="realCheck != null" >
+        real_check,
+      </if>
+      <if test="judge != null" >
+        judge,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="reportNum != null" >
+        #{reportNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="specialId != null" >
+        #{specialId,jdbcType=INTEGER},
+      </if>
+      <if test="layer != null" >
+        #{layer,jdbcType=VARCHAR},
+      </if>
+      <if test="layerNum != null" >
+        #{layerNum,jdbcType=VARCHAR},
+      </if>
+      <if test="checkRequire != null" >
+        #{checkRequire,jdbcType=VARCHAR},
+      </if>
+      <if test="checkRequireTolerance != null" >
+        #{checkRequireTolerance,jdbcType=VARCHAR},
+      </if>
+      <if test="realCheck != null" >
+        #{realCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="judge != null" >
+        #{judge,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcbwx.pcbmis.model.PcbReportSpecialImpedance" >
+    update pcb_report_special_impedance
+    <set >
+      <if test="reportNum != null" >
+        report_num = #{reportNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="specialId != null" >
+        special_id = #{specialId,jdbcType=INTEGER},
+      </if>
+      <if test="layer != null" >
+        layer = #{layer,jdbcType=VARCHAR},
+      </if>
+      <if test="layerNum != null" >
+        layer_num = #{layerNum,jdbcType=VARCHAR},
+      </if>
+      <if test="checkRequire != null" >
+        check_require = #{checkRequire,jdbcType=VARCHAR},
+      </if>
+      <if test="checkRequireTolerance != null" >
+        check_require_tolerance = #{checkRequireTolerance,jdbcType=VARCHAR},
+      </if>
+      <if test="realCheck != null" >
+        real_check = #{realCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="judge != null" >
+        judge = #{judge,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcbwx.pcbmis.model.PcbReportSpecialImpedance" >
+    update pcb_report_special_impedance
+    set report_num = #{reportNum,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=VARCHAR},
+      special_id = #{specialId,jdbcType=INTEGER},
+      layer = #{layer,jdbcType=VARCHAR},
+      layer_num = #{layerNum,jdbcType=VARCHAR},
+      check_require = #{checkRequire,jdbcType=VARCHAR},
+      check_require_tolerance = #{checkRequireTolerance,jdbcType=VARCHAR},
+      real_check = #{realCheck,jdbcType=VARCHAR},
+      judge = #{judge,jdbcType=INTEGER},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 以下为自定义接口 -->
+  <select id="selectByReportNumAndId" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from pcb_report_special_impedance
+    where 
+    report_num = #{reportNum,jdbcType=VARCHAR}
+    <if test="specialId != null" >
+		and special_id = #{specialId,jdbcType=INTEGER}
+	</if>
+  </select>
+   <delete id="deleteByReportNum" parameterType="map" >
+    delete from pcb_report_special_impedance
+    where report_num = #{reportNum,jdbcType=VARCHAR}
+  </delete>
+</mapper>

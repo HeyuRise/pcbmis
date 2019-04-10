@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pcbwx.pcbmis.dao.PcbUnqualifiedMapper">
+    <resultMap id="BaseResultMap" type="com.pcbwx.pcbmis.model.PcbUnqualified">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="serial_number" property="serialNumber" jdbcType="VARCHAR"/>
+        <result column="revision" property="revision" jdbcType="VARCHAR"/>
+        <result column="document_number" property="documentNumber" jdbcType="VARCHAR"/>
+        <result column="check_num" property="checkNum" jdbcType="VARCHAR"/>
+        <result column="order_number" property="orderNumber" jdbcType="VARCHAR"/>
+        <result column="order_type" property="orderType" jdbcType="VARCHAR"/>
+        <result column="belong_company_id" property="belongCompanyId" jdbcType="INTEGER"/>
+        <result column="board_name" property="boardName" jdbcType="VARCHAR"/>
+        <result column="guest_code" property="guestCode" jdbcType="VARCHAR"/>
+        <result column="unqualified_batch" property="unqualifiedBatch" jdbcType="VARCHAR"/>
+        <result column="unqualified_number" property="unqualifiedNumber" jdbcType="INTEGER"/>
+        <result column="unqualified_desc" property="unqualifiedDesc" jdbcType="VARCHAR"/>
+        <result column="factory_id" property="factoryId" jdbcType="INTEGER"/>
+        <result column="unqualified_source" property="unqualifiedSource" jdbcType="VARCHAR"/>
+        <result column="product_type" property="productType" jdbcType="VARCHAR"/>
+        <result column="product_level" property="productLevel" jdbcType="INTEGER"/>
+        <result column="inspector" property="inspector" jdbcType="VARCHAR"/>
+        <result column="submit_time" property="submitTime" jdbcType="TIMESTAMP"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="adjudicating_opinions" property="adjudicatingOpinions" jdbcType="VARCHAR"/>
+        <result column="disposal_method" property="disposalMethod" jdbcType="VARCHAR"/>
+        <result column="trial_time" property="trialTime" jdbcType="TIMESTAMP"/>
+        <result column="approval_time" property="approvalTime" jdbcType="TIMESTAMP"/>
+        <result column="approval_personnel" property="approvalPersonnel" jdbcType="VARCHAR"/>
+        <result column="trial_personnel" property="trialPersonnel" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="enable" property="enable" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, serial_number, revision, document_number, check_num, order_number, order_type,
+        belong_company_id, board_name, guest_code, unqualified_batch, unqualified_number,
+        unqualified_desc, factory_id, unqualified_source, product_type, product_level, inspector,
+        submit_time, create_time, adjudicating_opinions, disposal_method, trial_time, approval_time,
+        approval_personnel, trial_personnel, update_time, enable, status
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from pcb_unqualified
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        DELETE FROM pcb_unqualified
+        WHERE id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.pcbwx.pcbmis.model.PcbUnqualified" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO pcb_unqualified (id, serial_number, revision,
+                                     document_number, check_num, order_number,
+                                     order_type, belong_company_id, board_name,
+                                     guest_code, unqualified_batch, unqualified_number,
+                                     unqualified_desc, factory_id, unqualified_source,
+                                     product_type, product_level, inspector,
+                                     submit_time, create_time, adjudicating_opinions,
+                                     disposal_method, trial_time, approval_time,
+                                     approval_personnel, trial_personnel, update_time,
+                                     enable, status)
+        VALUES (#{id,jdbcType=INTEGER}, #{serialNumber,jdbcType=VARCHAR}, #{revision,jdbcType=VARCHAR},
+                                        #{documentNumber,jdbcType=VARCHAR}, #{checkNum,jdbcType=VARCHAR},
+                                        #{orderNumber,jdbcType=VARCHAR},
+                                        #{orderType,jdbcType=VARCHAR}, #{belongCompanyId,jdbcType=INTEGER},
+                                        #{boardName,jdbcType=VARCHAR},
+                                        #{guestCode,jdbcType=VARCHAR}, #{unqualifiedBatch,jdbcType=VARCHAR},
+            #{unqualifiedNumber,jdbcType=INTEGER},
+            #{unqualifiedDesc,jdbcType=VARCHAR}, #{factoryId,jdbcType=INTEGER}, #{unqualifiedSource,jdbcType=VARCHAR},
+            #{productType,jdbcType=VARCHAR}, #{productLevel,jdbcType=INTEGER}, #{inspector,jdbcType=VARCHAR},
+            #{submitTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP},
+            #{adjudicatingOpinions,jdbcType=VARCHAR},
+                #{disposalMethod,jdbcType=VARCHAR}, #{trialTime,jdbcType=TIMESTAMP}, #{approvalTime,jdbcType=TIMESTAMP},
+                #{approvalPersonnel,jdbcType=VARCHAR}, #{trialPersonnel,jdbcType=VARCHAR},
+                #{updateTime,jdbcType=TIMESTAMP},
+                #{enable,jdbcType=INTEGER}, #{status,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.pcbwx.pcbmis.model.PcbUnqualified">
+        insert into pcb_unqualified
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="serialNumber != null">
+                serial_number,
+            </if>
+            <if test="revision != null">
+                revision,
+            </if>
+            <if test="documentNumber != null">
+                document_number,
+            </if>
+            <if test="checkNum != null">
+                check_num,
+            </if>
+            <if test="orderNumber != null">
+                order_number,
+            </if>
+            <if test="orderType != null">
+                order_type,
+            </if>
+            <if test="belongCompanyId != null">
+                belong_company_id,
+            </if>
+            <if test="boardName != null">
+                board_name,
+            </if>
+            <if test="guestCode != null">
+                guest_code,
+            </if>
+            <if test="unqualifiedBatch != null">
+                unqualified_batch,
+            </if>
+            <if test="unqualifiedNumber != null">
+                unqualified_number,
+            </if>
+            <if test="unqualifiedDesc != null">
+                unqualified_desc,
+            </if>
+            <if test="factoryId != null">
+                factory_id,
+            </if>
+            <if test="unqualifiedSource != null">
+                unqualified_source,
+            </if>
+            <if test="productType != null">
+                product_type,
+            </if>
+            <if test="productLevel != null">
+                product_level,
+            </if>
+            <if test="inspector != null">
+                inspector,
+            </if>
+            <if test="submitTime != null">
+                submit_time,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="adjudicatingOpinions != null">
+                adjudicating_opinions,
+            </if>
+            <if test="disposalMethod != null">
+                disposal_method,
+            </if>
+            <if test="trialTime != null">
+                trial_time,
+            </if>
+            <if test="approvalTime != null">
+                approval_time,
+            </if>
+            <if test="approvalPersonnel != null">
+                approval_personnel,
+            </if>
+            <if test="trialPersonnel != null">
+                trial_personnel,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="enable != null">
+                enable,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="serialNumber != null">
+                #{serialNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="revision != null">
+                #{revision,jdbcType=VARCHAR},
+            </if>
+            <if test="documentNumber != null">
+                #{documentNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="checkNum != null">
+                #{checkNum,jdbcType=VARCHAR},
+            </if>
+            <if test="orderNumber != null">
+                #{orderNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="orderType != null">
+                #{orderType,jdbcType=VARCHAR},
+            </if>
+            <if test="belongCompanyId != null">
+                #{belongCompanyId,jdbcType=INTEGER},
+            </if>
+            <if test="boardName != null">
+                #{boardName,jdbcType=VARCHAR},
+            </if>
+            <if test="guestCode != null">
+                #{guestCode,jdbcType=VARCHAR},
+            </if>
+            <if test="unqualifiedBatch != null">
+                #{unqualifiedBatch,jdbcType=VARCHAR},
+            </if>
+            <if test="unqualifiedNumber != null">
+                #{unqualifiedNumber,jdbcType=INTEGER},
+            </if>
+            <if test="unqualifiedDesc != null">
+                #{unqualifiedDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="factoryId != null">
+                #{factoryId,jdbcType=INTEGER},
+            </if>
+            <if test="unqualifiedSource != null">
+                #{unqualifiedSource,jdbcType=VARCHAR},
+            </if>
+            <if test="productType != null">
+                #{productType,jdbcType=VARCHAR},
+            </if>
+            <if test="productLevel != null">
+                #{productLevel,jdbcType=INTEGER},
+            </if>
+            <if test="inspector != null">
+                #{inspector,jdbcType=VARCHAR},
+            </if>
+            <if test="submitTime != null">
+                #{submitTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="adjudicatingOpinions != null">
+                #{adjudicatingOpinions,jdbcType=VARCHAR},
+            </if>
+            <if test="disposalMethod != null">
+                #{disposalMethod,jdbcType=VARCHAR},
+            </if>
+            <if test="trialTime != null">
+                #{trialTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="approvalTime != null">
+                #{approvalTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="approvalPersonnel != null">
+                #{approvalPersonnel,jdbcType=VARCHAR},
+            </if>
+            <if test="trialPersonnel != null">
+                #{trialPersonnel,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="enable != null">
+                #{enable,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.pcbwx.pcbmis.model.PcbUnqualified">
+        update pcb_unqualified
+        <set>
+            <if test="serialNumber != null">
+                serial_number = #{serialNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="revision != null">
+                revision = #{revision,jdbcType=VARCHAR},
+            </if>
+            <if test="documentNumber != null">
+                document_number = #{documentNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="checkNum != null">
+                check_num = #{checkNum,jdbcType=VARCHAR},
+            </if>
+            <if test="orderNumber != null">
+                order_number = #{orderNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="orderType != null">
+                order_type = #{orderType,jdbcType=VARCHAR},
+            </if>
+            <if test="belongCompanyId != null">
+                belong_company_id = #{belongCompanyId,jdbcType=INTEGER},
+            </if>
+            <if test="boardName != null">
+                board_name = #{boardName,jdbcType=VARCHAR},
+            </if>
+            <if test="guestCode != null">
+                guest_code = #{guestCode,jdbcType=VARCHAR},
+            </if>
+            <if test="unqualifiedBatch != null">
+                unqualified_batch = #{unqualifiedBatch,jdbcType=VARCHAR},
+            </if>
+            <if test="unqualifiedNumber != null">
+                unqualified_number = #{unqualifiedNumber,jdbcType=INTEGER},
+            </if>
+            <if test="unqualifiedDesc != null">
+                unqualified_desc = #{unqualifiedDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="factoryId != null">
+                factory_id = #{factoryId,jdbcType=INTEGER},
+            </if>
+            <if test="unqualifiedSource != null">
+                unqualified_source = #{unqualifiedSource,jdbcType=VARCHAR},
+            </if>
+            <if test="productType != null">
+                product_type = #{productType,jdbcType=VARCHAR},
+            </if>
+            <if test="productLevel != null">
+                product_level = #{productLevel,jdbcType=INTEGER},
+            </if>
+            <if test="inspector != null">
+                inspector = #{inspector,jdbcType=VARCHAR},
+            </if>
+            <if test="submitTime != null">
+                submit_time = #{submitTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="adjudicatingOpinions != null">
+                adjudicating_opinions = #{adjudicatingOpinions,jdbcType=VARCHAR},
+            </if>
+            <if test="disposalMethod != null">
+                disposal_method = #{disposalMethod,jdbcType=VARCHAR},
+            </if>
+            <if test="trialTime != null">
+                trial_time = #{trialTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="approvalTime != null">
+                approval_time = #{approvalTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="approvalPersonnel != null">
+                approval_personnel = #{approvalPersonnel,jdbcType=VARCHAR},
+            </if>
+            <if test="trialPersonnel != null">
+                trial_personnel = #{trialPersonnel,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="enable != null">
+                enable = #{enable,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.pcbwx.pcbmis.model.PcbUnqualified">
+        UPDATE pcb_unqualified
+        SET serial_number         = #{serialNumber,jdbcType=VARCHAR},
+            revision              = #{revision,jdbcType=VARCHAR},
+            document_number       = #{documentNumber,jdbcType=VARCHAR},
+            check_num             = #{checkNum,jdbcType=VARCHAR},
+            order_number          = #{orderNumber,jdbcType=VARCHAR},
+            order_type            = #{orderType,jdbcType=VARCHAR},
+            belong_company_id     = #{belongCompanyId,jdbcType=INTEGER},
+            board_name            = #{boardName,jdbcType=VARCHAR},
+            guest_code            = #{guestCode,jdbcType=VARCHAR},
+            unqualified_batch     = #{unqualifiedBatch,jdbcType=VARCHAR},
+            unqualified_number    = #{unqualifiedNumber,jdbcType=INTEGER},
+            unqualified_desc      = #{unqualifiedDesc,jdbcType=VARCHAR},
+            factory_id            = #{factoryId,jdbcType=INTEGER},
+            unqualified_source    = #{unqualifiedSource,jdbcType=VARCHAR},
+            product_type          = #{productType,jdbcType=VARCHAR},
+            product_level         = #{productLevel,jdbcType=INTEGER},
+            inspector             = #{inspector,jdbcType=VARCHAR},
+            submit_time           = #{submitTime,jdbcType=TIMESTAMP},
+            create_time           = #{createTime,jdbcType=TIMESTAMP},
+            adjudicating_opinions = #{adjudicatingOpinions,jdbcType=VARCHAR},
+            disposal_method       = #{disposalMethod,jdbcType=VARCHAR},
+            trial_time            = #{trialTime,jdbcType=TIMESTAMP},
+            approval_time         = #{approvalTime,jdbcType=TIMESTAMP},
+            approval_personnel    = #{approvalPersonnel,jdbcType=VARCHAR},
+            trial_personnel       = #{trialPersonnel,jdbcType=VARCHAR},
+            update_time           = #{updateTime,jdbcType=TIMESTAMP},
+            enable                = #{enable,jdbcType=INTEGER},
+            status                = #{status,jdbcType=INTEGER}
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectBySerialNumber" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from pcb_unqualified
+        where serial_number = #{serialNumber,jdbcType=VARCHAR} AND `enable` = 1
+    </select>
+    <select id="selectByCheckNumber" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from pcb_unqualified
+        where check_num = #{checkNumber,jdbcType=VARCHAR} AND `enable` = 1
+    </select>
+    <select id="selectListByQuery" resultType="java.util.HashMap">
+        SELECT
+        t_unqualified.id, serial_number, revision,
+        document_number, t_unqualified.check_num, order_number,storage_number,
+        company_name, board_name, unqualified_batch, unqualified_number,
+        unqualified_desc, factory_name, unqualified_source,
+        product_type, product_level, username,short_name_cn AS guest_name,
+        submit_time, create_time, adjudicating_opinions,
+        disposal_method, trial_time, approval_time,
+        approval_personnel, trial_personnel, update_time,t_unqualified.status
+        FROM
+        pcb_unqualified AS t_unqualified INNER JOIN
+        (
+        SELECT
+        check_num,
+        product_order_num,
+        in_amount_pcs  AS storage_number
+        FROM
+        pcb_check_order
+        ) AS t_check_order INNER JOIN
+        (
+        SELECT
+        guest_code,
+        order_num,
+        belong_company_id
+        FROM
+        product_order
+        ) AS t_order INNER JOIN
+        (
+        SELECT
+        guest_code,
+        short_name_cn
+        FROM
+        eda_guest
+        ) AS t_guest INNER JOIN
+        (
+        SELECT
+        user_code,
+        username
+        FROM
+        wxtb_user
+        ) AS t_user INNER JOIN
+        (
+        SELECT
+        inner_id,
+        company_name
+        FROM
+        company_info
+        ) AS t_company INNER JOIN
+        (
+        SELECT
+        inner_id,
+        factory_name
+        FROM
+        factory_info
+        ) AS t_factory
+        ON
+            t_unqualified.`enable` = 1
+            AND t_unqualified.order_number = t_order.order_num
+            AND t_unqualified.order_number = t_check_order.product_order_num
+            AND t_unqualified.check_num = t_check_order.check_num
+            AND t_guest.guest_code = t_order.guest_code
+            AND t_unqualified.inspector = t_user.user_code
+            AND t_order.belong_company_id = t_company.inner_id
+            AND t_unqualified.factory_id = t_factory.inner_id
+
+            <if test="unqualifiedQueryBean.orderNumber != null and unqualifiedQueryBean.orderNumber != ''">
+                AND t_unqualified.order_number like "%"#{unqualifiedQueryBean.orderNumber,jdbcType=VARCHAR}"%"
+            </if>
+            <if test="unqualifiedQueryBean.boardName != null and unqualifiedQueryBean.boardName != ''">
+                AND t_unqualified.board_name like "%"#{unqualifiedQueryBean.boardName,jdbcType=VARCHAR}"%"
+            </if>
+            <if test="unqualifiedQueryBean.customer !=  null and unqualifiedQueryBean.customer != ''">
+                AND t_guest.short_name_cn like "%"#{unqualifiedQueryBean.customer,jdbcType=VARCHAR}"%"
+            </if>
+            <if test="unqualifiedQueryBean.factoryId !=  null">
+                AND t_unqualified.factory_id = #{unqualifiedQueryBean.factoryId,jdbcType=INTEGER}
+            </if>
+            <if test="unqualifiedQueryBean.productType !=  null">
+                AND t_unqualified.product_type = #{unqualifiedQueryBean.productType,jdbcType=INTEGER}
+            </if>
+            <if test="unqualifiedQueryBean.productLevel !=  null">
+                AND t_unqualified.product_level = #{unqualifiedQueryBean.productLevel,jdbcType=INTEGER}
+            </if>
+            <if test="unqualifiedQueryBean.disposal !=  null and unqualifiedQueryBean.disposal != ''">
+                AND t_unqualified.disposal_method like "%"#{unqualifiedQueryBean.disposal,jdbcType=VARCHAR}"%"
+            </if>
+            <if test="unqualifiedQueryBean.inspector !=  null and unqualifiedQueryBean.inspector != ''">
+                AND t_user.username like "%"#{unqualifiedQueryBean.inspector,jdbcType=VARCHAR}"%"
+            </if>
+            <if test="unqualifiedQueryBean.belongCompanyId !=  null and unqualifiedQueryBean.belongCompanyId != ''">
+                AND t_order.belong_company_id = #{unqualifiedQueryBean.belongCompanyId,jdbcType=INTEGER}
+            </if>
+            <if test="unqualifiedQueryBean.submitStartTime !=  null and  unqualifiedQueryBean.submitStartTime !=''">
+                AND t_unqualified.submit_time >= #{unqualifiedQueryBean.submitStartTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="unqualifiedQueryBean.submitEndTime !=  null and  unqualifiedQueryBean.submitEndTime !=''">
+                AND t_unqualified.submit_time &lt;= #{unqualifiedQueryBean.submitEndTime,jdbcType=TIMESTAMP}
+            </if>
+        order by create_time DESC
+        <if test="startIndex !=  null">
+            LIMIT #{startIndex,jdbcType=INTEGER} , #{size,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="selectListTotalByQuery" resultType="java.lang.Integer">
+        SELECT
+        count(id)
+        FROM
+        pcb_unqualified AS t_unqualified INNER JOIN
+        (
+        SELECT
+        check_num,
+        product_order_num,
+        in_amount_pcs  AS storage_number
+        FROM
+        pcb_check_order
+        ) AS t_check_order INNER JOIN
+        (
+        SELECT
+        guest_code,
+        order_num,
+        belong_company_id
+        FROM
+        product_order
+        ) AS t_order INNER JOIN
+        (
+        SELECT
+        guest_code,
+        short_name_cn
+        FROM
+        eda_guest
+        ) AS t_guest INNER JOIN
+        (
+        SELECT
+        user_code,
+        username
+        FROM
+        wxtb_user
+        ) AS t_user INNER JOIN
+        (
+        SELECT
+        inner_id,
+        company_name
+        FROM
+        company_info
+        ) AS t_company INNER JOIN
+        (
+        SELECT
+        inner_id,
+        factory_name
+        FROM
+        factory_info
+        ) AS t_factory
+        ON
+            t_unqualified.`enable` = 1
+            AND t_unqualified.order_number = t_order.order_num
+            AND t_unqualified.order_number = t_check_order.product_order_num
+            AND t_unqualified.check_num = t_check_order.check_num
+            AND t_guest.guest_code = t_order.guest_code
+            AND t_unqualified.inspector = t_user.user_code
+            AND t_order.belong_company_id = t_company.inner_id
+            AND t_unqualified.factory_id = t_factory.inner_id
+
+            <if test="unqualifiedQueryBean.orderNumber != null and unqualifiedQueryBean.orderNumber != ''">
+                AND t_unqualified.order_number like "%"#{unqualifiedQueryBean.orderNumber,jdbcType=VARCHAR}"%"
+            </if>
+            <if test="unqualifiedQueryBean.boardName != null and unqualifiedQueryBean.boardName != ''">
+                AND t_unqualified.board_name like "%"#{unqualifiedQueryBean.boardName,jdbcType=VARCHAR}"%"
+            </if>
+            <if test="unqualifiedQueryBean.customer !=  null and unqualifiedQueryBean.customer != ''">
+                AND t_guest.short_name_cn like "%"#{unqualifiedQueryBean.customer,jdbcType=VARCHAR}"%"
+            </if>
+            <if test="unqualifiedQueryBean.factoryId !=  null">
+                AND t_unqualified.factory_id = #{unqualifiedQueryBean.factoryId,jdbcType=INTEGER}
+            </if>
+            <if test="unqualifiedQueryBean.productType !=  null">
+                AND t_unqualified.product_type = #{unqualifiedQueryBean.productType,jdbcType=INTEGER}
+            </if>
+            <if test="unqualifiedQueryBean.productLevel !=  null">
+                AND t_unqualified.product_level = #{unqualifiedQueryBean.productLevel,jdbcType=INTEGER}
+            </if>
+            <if test="unqualifiedQueryBean.disposal !=  null and unqualifiedQueryBean.disposal != ''">
+                AND t_unqualified.disposal_method like "%"#{unqualifiedQueryBean.disposal,jdbcType=VARCHAR}"%"
+            </if>
+            <if test="unqualifiedQueryBean.inspector !=  null and unqualifiedQueryBean.inspector != ''">
+                AND t_user.username like "%"#{unqualifiedQueryBean.inspector,jdbcType=VARCHAR}"%"
+            </if>
+            <if test="unqualifiedQueryBean.belongCompanyId !=  null and unqualifiedQueryBean.belongCompanyId != ''">
+                AND t_order.belong_company_id = #{unqualifiedQueryBean.belongCompanyId,jdbcType=INTEGER}
+            </if>
+            <if test="unqualifiedQueryBean.submitStartTime !=  null and  unqualifiedQueryBean.submitStartTime !=''">
+                AND t_unqualified.submit_time >= #{unqualifiedQueryBean.submitStartTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="unqualifiedQueryBean.submitEndTime !=  null and  unqualifiedQueryBean.submitEndTime !=''">
+                AND t_unqualified.submit_time &lt;= #{unqualifiedQueryBean.submitEndTime,jdbcType=TIMESTAMP}
+            </if>
+    </select>
+
+    <select id="selectByUnqualifiedIdAndStatus" resultType="java.util.HashMap">
+        SELECT
+        t_unqualified.id, serial_number, revision,
+        document_number, t_unqualified.check_num, order_number,storage_number,
+        company_name, board_name, unqualified_batch, unqualified_number,
+        unqualified_desc, factory_name, unqualified_source,
+        product_type, product_level, username,guest_name,
+        submit_time, create_time, adjudicating_opinions,
+        disposal_method, trial_time, approval_time,
+        approval_personnel, trial_personnel, update_time,t_unqualified.status
+        FROM
+        pcb_unqualified AS t_unqualified,
+        (
+        SELECT
+        check_num,
+        product_order_num,
+        in_amount_pcs AS storage_number
+        FROM
+        pcb_check_order
+        ) AS t_check_order,
+        (
+        SELECT
+        guest_code,
+        order_num,
+        belong_company_id
+        FROM
+        product_order
+        ) AS t_order,
+        (
+        SELECT
+        guest_code,
+        guest_name
+        FROM
+        eda_guest
+        ) AS t_guest,
+        (
+        SELECT
+        user_code,
+        username
+        FROM
+        wxtb_user
+        ) AS t_user,
+        (
+        SELECT
+        inner_id,
+        company_name
+        FROM
+        company_info
+        ) AS t_company,
+        (
+        SELECT
+        inner_id,
+        factory_name
+        FROM
+        factory_info
+        ) AS t_factory
+        <where>
+            t_unqualified.`enable` = 1
+            AND t_unqualified.order_number = t_order.order_num
+            AND t_unqualified.order_number = t_check_order.product_order_num
+            AND t_unqualified.check_num = t_check_order.check_num
+            AND t_guest.guest_code = t_order.guest_code
+            AND t_unqualified.inspector = t_user.user_code
+            AND t_order.belong_company_id = t_company.inner_id
+            AND t_unqualified.factory_id = t_factory.inner_id
+
+            AND t_unqualified.id  = #{unqualifiedId,jdbcType=VARCHAR}
+
+            AND t_unqualified.status  = #{status,jdbcType=INTEGER}
+        </where>
+    </select>
+	<select id="selectByCheckNums" resultMap="BaseResultMap" parameterType="map">
+		select  
+		<include refid="Base_Column_List"/>
+        from pcb_unqualified
+		where enable = 1
+		and check_num in
+		<foreach collection="checkNums" index="index" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	<update id="updateBoardNameByOrderNumber" parameterType="map">
+        UPDATE pcb_unqualified a INNER JOIN pcb_check_order b INNER JOIN pcb_in_storage_order c 
+		ON a.check_num = b.check_num AND b.order_number = c.order_number 
+		SET a.board_name = #{boardName,jdbcType=VARCHAR}
+		WHERE c.order_number = #{orderNumber,jdbcType=VARCHAR}
+    </update>
+    <select id="selectByCheckNumUnable" resultMap="BaseResultMap" parameterType="map">
+		SELECT  
+		<include refid="Base_Column_List"/>
+        FROM pcb_unqualified
+		WHERE enable = 0
+		AND check_num = #{checkNum,jdbcType=VARCHAR}
+		ORDER BY create_time DESC
+		LIMIT 1
+	</select>
+</mapper>

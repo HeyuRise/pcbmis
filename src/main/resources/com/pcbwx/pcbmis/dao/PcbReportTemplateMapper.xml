@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pcbwx.pcbmis.dao.PcbReportTemplateMapper" >
+  <resultMap id="BaseResultMap" type="com.pcbwx.pcbmis.model.PcbReportTemplate" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="template_id" property="templateId" jdbcType="INTEGER" />
+    <result column="template_name" property="templateName" jdbcType="VARCHAR" />
+    <result column="base_material_appearance" property="baseMaterialAppearance" jdbcType="VARCHAR" />
+    <result column="conductive_pattern" property="conductivePattern" jdbcType="VARCHAR" />
+    <result column="prevent_smt_appearance" property="preventSmtAppearance" jdbcType="VARCHAR" />
+    <result column="character_appearance" property="characterAppearance" jdbcType="VARCHAR" />
+    <result column="external_coating_adhesion" property="externalCoatingAdhesion" jdbcType="VARCHAR" />
+    <result column="prevent_smt_character_adhesion" property="preventSmtCharacterAdhesion" jdbcType="VARCHAR" />
+    <result column="solderability" property="solderability" jdbcType="VARCHAR" />
+    <result column="prevent_smt_type" property="preventSmtType" jdbcType="VARCHAR" />
+    <result column="character_type" property="characterType" jdbcType="VARCHAR" />
+    <result column="aperture" property="aperture" jdbcType="VARCHAR" />
+    <result column="special_dimension" property="specialDimension" jdbcType="VARCHAR" />
+    <result column="circuit" property="circuit" jdbcType="VARCHAR" />
+    <result column="special_impedance" property="specialImpedance" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, template_id, template_name, base_material_appearance, conductive_pattern, prevent_smt_appearance, 
+    character_appearance, external_coating_adhesion, prevent_smt_character_adhesion, 
+    solderability, prevent_smt_type, character_type, aperture, special_dimension, circuit, 
+    special_impedance, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pcb_report_template
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pcb_report_template
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcbwx.pcbmis.model.PcbReportTemplate" >
+    insert into pcb_report_template (id, template_id, template_name, 
+      base_material_appearance, conductive_pattern, 
+      prevent_smt_appearance, character_appearance, 
+      external_coating_adhesion, prevent_smt_character_adhesion, 
+      solderability, prevent_smt_type, character_type, 
+      aperture, special_dimension, circuit, 
+      special_impedance, create_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{templateId,jdbcType=INTEGER}, #{templateName,jdbcType=VARCHAR}, 
+      #{baseMaterialAppearance,jdbcType=VARCHAR}, #{conductivePattern,jdbcType=VARCHAR}, 
+      #{preventSmtAppearance,jdbcType=VARCHAR}, #{characterAppearance,jdbcType=VARCHAR}, 
+      #{externalCoatingAdhesion,jdbcType=VARCHAR}, #{preventSmtCharacterAdhesion,jdbcType=VARCHAR}, 
+      #{solderability,jdbcType=VARCHAR}, #{preventSmtType,jdbcType=VARCHAR}, #{characterType,jdbcType=VARCHAR}, 
+      #{aperture,jdbcType=VARCHAR}, #{specialDimension,jdbcType=VARCHAR}, #{circuit,jdbcType=VARCHAR}, 
+      #{specialImpedance,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcbwx.pcbmis.model.PcbReportTemplate" >
+    insert into pcb_report_template
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="templateId != null" >
+        template_id,
+      </if>
+      <if test="templateName != null" >
+        template_name,
+      </if>
+      <if test="baseMaterialAppearance != null" >
+        base_material_appearance,
+      </if>
+      <if test="conductivePattern != null" >
+        conductive_pattern,
+      </if>
+      <if test="preventSmtAppearance != null" >
+        prevent_smt_appearance,
+      </if>
+      <if test="characterAppearance != null" >
+        character_appearance,
+      </if>
+      <if test="externalCoatingAdhesion != null" >
+        external_coating_adhesion,
+      </if>
+      <if test="preventSmtCharacterAdhesion != null" >
+        prevent_smt_character_adhesion,
+      </if>
+      <if test="solderability != null" >
+        solderability,
+      </if>
+      <if test="preventSmtType != null" >
+        prevent_smt_type,
+      </if>
+      <if test="characterType != null" >
+        character_type,
+      </if>
+      <if test="aperture != null" >
+        aperture,
+      </if>
+      <if test="specialDimension != null" >
+        special_dimension,
+      </if>
+      <if test="circuit != null" >
+        circuit,
+      </if>
+      <if test="specialImpedance != null" >
+        special_impedance,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="templateId != null" >
+        #{templateId,jdbcType=INTEGER},
+      </if>
+      <if test="templateName != null" >
+        #{templateName,jdbcType=VARCHAR},
+      </if>
+      <if test="baseMaterialAppearance != null" >
+        #{baseMaterialAppearance,jdbcType=VARCHAR},
+      </if>
+      <if test="conductivePattern != null" >
+        #{conductivePattern,jdbcType=VARCHAR},
+      </if>
+      <if test="preventSmtAppearance != null" >
+        #{preventSmtAppearance,jdbcType=VARCHAR},
+      </if>
+      <if test="characterAppearance != null" >
+        #{characterAppearance,jdbcType=VARCHAR},
+      </if>
+      <if test="externalCoatingAdhesion != null" >
+        #{externalCoatingAdhesion,jdbcType=VARCHAR},
+      </if>
+      <if test="preventSmtCharacterAdhesion != null" >
+        #{preventSmtCharacterAdhesion,jdbcType=VARCHAR},
+      </if>
+      <if test="solderability != null" >
+        #{solderability,jdbcType=VARCHAR},
+      </if>
+      <if test="preventSmtType != null" >
+        #{preventSmtType,jdbcType=VARCHAR},
+      </if>
+      <if test="characterType != null" >
+        #{characterType,jdbcType=VARCHAR},
+      </if>
+      <if test="aperture != null" >
+        #{aperture,jdbcType=VARCHAR},
+      </if>
+      <if test="specialDimension != null" >
+        #{specialDimension,jdbcType=VARCHAR},
+      </if>
+      <if test="circuit != null" >
+        #{circuit,jdbcType=VARCHAR},
+      </if>
+      <if test="specialImpedance != null" >
+        #{specialImpedance,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcbwx.pcbmis.model.PcbReportTemplate" >
+    update pcb_report_template
+    <set >
+      <if test="templateId != null" >
+        template_id = #{templateId,jdbcType=INTEGER},
+      </if>
+      <if test="templateName != null" >
+        template_name = #{templateName,jdbcType=VARCHAR},
+      </if>
+      <if test="baseMaterialAppearance != null" >
+        base_material_appearance = #{baseMaterialAppearance,jdbcType=VARCHAR},
+      </if>
+      <if test="conductivePattern != null" >
+        conductive_pattern = #{conductivePattern,jdbcType=VARCHAR},
+      </if>
+      <if test="preventSmtAppearance != null" >
+        prevent_smt_appearance = #{preventSmtAppearance,jdbcType=VARCHAR},
+      </if>
+      <if test="characterAppearance != null" >
+        character_appearance = #{characterAppearance,jdbcType=VARCHAR},
+      </if>
+      <if test="externalCoatingAdhesion != null" >
+        external_coating_adhesion = #{externalCoatingAdhesion,jdbcType=VARCHAR},
+      </if>
+      <if test="preventSmtCharacterAdhesion != null" >
+        prevent_smt_character_adhesion = #{preventSmtCharacterAdhesion,jdbcType=VARCHAR},
+      </if>
+      <if test="solderability != null" >
+        solderability = #{solderability,jdbcType=VARCHAR},
+      </if>
+      <if test="preventSmtType != null" >
+        prevent_smt_type = #{preventSmtType,jdbcType=VARCHAR},
+      </if>
+      <if test="characterType != null" >
+        character_type = #{characterType,jdbcType=VARCHAR},
+      </if>
+      <if test="aperture != null" >
+        aperture = #{aperture,jdbcType=VARCHAR},
+      </if>
+      <if test="specialDimension != null" >
+        special_dimension = #{specialDimension,jdbcType=VARCHAR},
+      </if>
+      <if test="circuit != null" >
+        circuit = #{circuit,jdbcType=VARCHAR},
+      </if>
+      <if test="specialImpedance != null" >
+        special_impedance = #{specialImpedance,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcbwx.pcbmis.model.PcbReportTemplate" >
+    update pcb_report_template
+    set template_id = #{templateId,jdbcType=INTEGER},
+      template_name = #{templateName,jdbcType=VARCHAR},
+      base_material_appearance = #{baseMaterialAppearance,jdbcType=VARCHAR},
+      conductive_pattern = #{conductivePattern,jdbcType=VARCHAR},
+      prevent_smt_appearance = #{preventSmtAppearance,jdbcType=VARCHAR},
+      character_appearance = #{characterAppearance,jdbcType=VARCHAR},
+      external_coating_adhesion = #{externalCoatingAdhesion,jdbcType=VARCHAR},
+      prevent_smt_character_adhesion = #{preventSmtCharacterAdhesion,jdbcType=VARCHAR},
+      solderability = #{solderability,jdbcType=VARCHAR},
+      prevent_smt_type = #{preventSmtType,jdbcType=VARCHAR},
+      character_type = #{characterType,jdbcType=VARCHAR},
+      aperture = #{aperture,jdbcType=VARCHAR},
+      special_dimension = #{specialDimension,jdbcType=VARCHAR},
+      circuit = #{circuit,jdbcType=VARCHAR},
+      special_impedance = #{specialImpedance,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 以下为自定义接口 -->
+  <select id="load" resultMap="BaseResultMap" parameterType="map">
+  	select 
+    <include refid="Base_Column_List" />
+    from pcb_report_template
+  </select>
+  <select id="selectByTemplateName" resultMap="BaseResultMap" parameterType="map">
+  	select 
+    <include refid="Base_Column_List" />
+    from pcb_report_template
+    where template_name = #{templateName,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByTemplateId" resultMap="BaseResultMap" parameterType="map">
+  	select 
+    <include refid="Base_Column_List" />
+    from pcb_report_template
+    where template_id = #{templateId,jdbcType=INTEGER}
+  </select>
+</mapper>

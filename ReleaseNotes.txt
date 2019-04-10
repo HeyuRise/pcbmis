@@ -1,0 +1,134 @@
+
+1.pcb_in_storage_order表增加字段board_name
+2.pcb_report_intro表number字段类型改为varchar(255)
+3.pcb_report_integrity表check_point_num、net_num、connection_net_num字段类型改为varchar(255)
+4.pcb_report_special_impedance表layer_num字段类型改为varchar(255)
+---------------------------------------------------------------------------------
+1.pcb_in_storage_order表增加字段 Integer audit_pass; Date bad_record_time
+2.pcb_check_report表增加字段Date innner_create_time
+----------------------------------------------------------------------------------
+pcb_in_storage_order表增加字段serial_number` varchar(255)、revision` varchar(255)、document_number` varchar(255)
+pcb_check_report表增加字段serial_number` varchar(255)、revision` varchar(255)、document_number` varchar(255)
+pcb_report_certification表增加字段order_num_name` varchar(255)
+增加表 pcb_report_template
+
+
+需要配合升级的系统
+pcb
+oiss
+qrgs
+
+==============================================================================================================
+
+1.1版本数据库变化
+1、size_and_warping_degree表board_ply字段后添加lay_height decimal(10,2)、warp_height decimal(10,2)字段
+		ALTER TABLE size_and_warping_degree ADD warp_height decimal(10,2) AFTER board_ply;
+		ALTER TABLE size_and_warping_degree ADD lay_height decimal(10,2) AFTER board_ply;
+2、复制pcb_in_storage_order改名为pcb_check_order
+3、在pcb_check_report的order_num字段后添加order_number varchar(255)字段。
+		ALTER TABLE pcb_check_report ADD order_number varchar(255) AFTER order_num;
+4、在pcb_in_storage_order表中在receive_date后添加receiver varchar(255)字段
+		ALTER TABLE pcb_in_storage_order ADD receiver varchar(255) AFTER receive_date;
+5、在pcb_report_intro表number字段后面添加unit enum('SET','PCS')字段 
+		ALTER TABLE pcb_report_intro ADD unit varchar(255) AFTER number;
+6、删除pcb_in_storage_order表中的check_num,checkState、checkStateId、spotCheckNumPcs、isCheck、
+	inspector、checkDate、auditor、auditDate、auditPass、badRecord、badRecordTime、
+	serialNumber、revision、documentNumber字段
+		ALTER TABLE pcb_in_storage_order DROP check_num;
+		ALTER TABLE pcb_in_storage_order DROP check_state;
+		ALTER TABLE pcb_in_storage_order DROP check_state_id;
+		ALTER TABLE pcb_in_storage_order DROP spot_check_num_pcs;
+		ALTER TABLE pcb_in_storage_order DROP is_check;
+		ALTER TABLE pcb_in_storage_order DROP inspector;
+		ALTER TABLE pcb_in_storage_order DROP check_date;
+		ALTER TABLE pcb_in_storage_order DROP auditor;
+		ALTER TABLE pcb_in_storage_order DROP audit_date;
+		ALTER TABLE pcb_in_storage_order DROP audit_pass;
+		ALTER TABLE pcb_in_storage_order DROP bad_record;
+		ALTER TABLE pcb_in_storage_order DROP bad_record_time;
+		ALTER TABLE pcb_in_storage_order DROP serial_number;
+		ALTER TABLE pcb_in_storage_order DROP revision;
+		ALTER TABLE pcb_in_storage_order DROP document_number;
+7、在pcb_report_aperture_check表check_require字段后添加check_require_tolerance varchar(255)字段。
+		ALTER TABLE pcb_report_aperture_check ADD check_require_tolerance varchar(255) AFTER check_require;
+7、在pcb_report_special_impedance表special_id字段后添加layer varchar(255)字段，在check_require字段后添加check_require_tolerance varchar(255)字段。
+		ALTER TABLE pcb_report_special_impedance ADD layer varchar(255) AFTER special_id;
+		ALTER TABLE pcb_report_special_impedance ADD check_require_tolerance varchar(255) AFTER check_require;
+8、改变pcb_report_integrity的result字段的类型为varchar(255)
+		ALTER TABLE pcb_report_integrity modify column result varchar(255) COMMENT '测试结果';
+9、在pcb_report_detail表check_require字段后添加board_tolerance varchar(255) COMMENT '板长板宽公差'
+		ALTER TABLE pcb_report_detail ADD board_tolerance varchar(255) COMMENT '板长板宽公差' AFTER check_require;
+10、在字典表dictionary添加检验内容数据
+		INSERT INTO `dictionary` VALUES ('', 'check_content', '1', null, '检验', null, null, null, null, null, null, '1', null, null, null, null, '2017-12-19 16:07:49');
+		INSERT INTO `dictionary` VALUES ('', 'check_content', '2', null, '报告', null, null, null, null, null, null, '1', null, null, null, null, '2017-12-19 16:07:50');
+		INSERT INTO `dictionary` VALUES ('', 'check_content', '3', null, '合格证', null, null, null, null, null, null, '1', null, null, null, null, '2017-12-19 16:07:51');
+		INSERT INTO `dictionary` VALUES ('', 'check_content', '4', null, '标签', null, null, null, null, null, null, '1', null, null, null, null, '2017-12-19 16:07:52');
+11、在pcb_check_order表audit_pass字段后添加content_id varchar(255)
+		ALTER TABLE pcb_check_order ADD content_id varchar(255) COMMENT '检验内容id' AFTER audit_pass ;
+12、在product_order表category_grade_id字段后添加`cam_tip` varchar(4096) DEFAULT NULL COMMENT 'cam指示'字段
+		ALTER TABLE product_order ADD cam_tip varchar(4096) COMMENT 'cam指示' AFTER category_grade_id ;
+13、删除pcb_check_order和pcb_check_report表中的免检的单子,没有检验单号的单子
+		DELETE FROM pcb_check_order where check_state_id = 0;
+		DELETE FROM pcb_check_report where status_id = 0;
+		DELETE FROM pcb_check_order where check_num is null;
+14、删除pcb_check_order中的is_check, audit_pass, state; pcb_check_report中的is_report
+		ALTER TABLE pcb_check_order DROP is_check;
+		ALTER TABLE pcb_check_order DROP audit_pass;
+		ALTER TABLE pcb_check_order DROP state;
+		ALTER TABLE pcb_check_report DROP is_report;
+15、新建表pcb_file、pcb_relation_file、pcb_report_special_dimension、pcb_report_vcut、pcb_unqualified、product_note；
+16、修改固定表数据 secondary_menu、auth_menu
+17、修改pcb_report_certification spot_check_num_pcs字段变为number_pcs varchar(255) DEFAULT NULL COMMENT '数量';
+		ALTER TABLE pcb_report_certification CHANGE spot_check_num_pcs number_pcs varchar(255) DEFAULT NULL COMMENT '数量';
+18、更新检验单的检验内容
+		UPDATE pcb_check_order SET content_id = '[1]' WHERE content_id IS null;
+		UPDATE pcb_check_order a, pcb_check_report b SET a.content_id = '[1,2]' WHERE a.check_num = b.check_num;
+		
+1.2版本数据库变化
+-- 1、新建表-接收列表pcb_receive_order
+	DROP TABLE IF EXISTS `pcb_receive_order`;
+	CREATE TABLE `pcb_receive_order` (
+  		`id` int(11) NOT NULL AUTO_INCREMENT,
+  		`order_num` varchar(255) NOT NULL COMMENT '工单号',
+  		`order_number` varchar(255) DEFAULT NULL COMMENT '入库单号',
+  		`check_num` varchar(255) DEFAULT NULL COMMENT '检验单号',
+  		`report_num` varchar(255) DEFAULT NULL COMMENT '报告单号',
+  		`factory_id` int(11) NOT NULL COMMENT '生产厂家id',
+  		`category_grade_id` int(11) DEFAULT NULL COMMENT '等级',
+  		`production_num_set` int(11) DEFAULT NULL COMMENT '生产数量SET',
+  		`production_num_pcs` int(11) DEFAULT NULL COMMENT '生产数量PCS',
+  		`content_id` varchar(255) DEFAULT NULL COMMENT '检验内容',
+  		`spot_check_num_pcs` int(11) DEFAULT NULL COMMENT '接受数量',
+  		`receive_type` int(11) DEFAULT NULL COMMENT '接受类型',
+  		`receive_time` datetime DEFAULT NULL COMMENT '接受时间',
+  		`receiver` varchar(255) DEFAULT NULL COMMENT '接受人',
+  		`create_time` datetime DEFAULT CURRENT_TIMESTAMP,
+  		`update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  		PRIMARY KEY (`id`)
+	)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 2、新建表-合格证额外数据表pcb_report_certification_extra
+	DROP TABLE IF EXISTS `pcb_report_certification_extra`;
+	CREATE TABLE `pcb_report_certification_extra` (
+  		`id` int(11) NOT NULL AUTO_INCREMENT,
+  		`report_num` varchar(255) NOT NULL COMMENT '报告单号',
+  		`order_num` varchar(255) NOT NULL COMMENT '工单号',
+  		`key` varchar(255) DEFAULT NULL COMMENT '新增行名字',
+  		`value` varchar(255) DEFAULT NULL COMMENT '新增行值',
+  		`create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  		`update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  		PRIMARY KEY (`id`),
+  		KEY `index_report_num` (`report_num`) USING BTREE
+	) 	ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- 3、出入库表添加新板名字段
+ALTER TABLE pcb_in_storage_order ADD board_name_new VARCHAR(255) COMMENT '新版名' AFTER board_name;
+-- 4、出入库表默认新板名为旧板名
+UPDATE pcb_in_storage_order SET board_name_new = board_name;
+-- 5、检验单表删除唯一索引index_order_number
+ALTER TABLE pcb_check_order DROP INDEX index_order_number;
+-- 6、检验单表新建普通index_order_number
+ALTER TABLE pcb_check_order ADD INDEX index_order_number(order_number);
+-- 7、检验报告表新建唯一索引index_report_num
+ALTER TABLE pcb_check_report ADD UNIQUE INDEX index_report_num(report_num);
+-- 8、菜单表添加一条数据
+INSERT INTO secondary_menu (main_menu_id, secondary_menu, url, sort, creat_time) VALUES (2, '接收列表', 'productList.html', 3, CURRENT_TIMESTAMP);

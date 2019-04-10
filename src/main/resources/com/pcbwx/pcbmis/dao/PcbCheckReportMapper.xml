@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pcbwx.pcbmis.dao.PcbCheckReportMapper" >
+   <resultMap id="BaseResultMap" type="com.pcbwx.pcbmis.model.PcbCheckReport" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="template_id" property="templateId" jdbcType="INTEGER" />
+    <result column="report_num" property="reportNum" jdbcType="VARCHAR" />
+    <result column="check_num" property="checkNum" jdbcType="VARCHAR" />
+    <result column="order_num" property="orderNum" jdbcType="VARCHAR" />
+    <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="guest_code" property="guestCode" jdbcType="VARCHAR" />
+    <result column="board_name" property="boardName" jdbcType="VARCHAR" />
+    <result column="factory_id" property="factoryId" jdbcType="INTEGER" />
+    <result column="category_grade_id" property="categoryGradeId" jdbcType="INTEGER" />
+    <result column="board_long" property="boardLong" jdbcType="DECIMAL" />
+    <result column="board_wide" property="boardWide" jdbcType="DECIMAL" />
+    <result column="board_ply" property="boardPly" jdbcType="VARCHAR" />
+    <result column="order_type" property="orderType" jdbcType="VARCHAR" />
+    <result column="join_board_order_code" property="joinBoardOrderCode" jdbcType="VARCHAR" />
+    <result column="production_num_pcs" property="productionNumPcs" jdbcType="INTEGER" />
+    <result column="report_maker_code" property="reportMakerCode" jdbcType="VARCHAR" />
+    <result column="make_time" property="makeTime" jdbcType="TIMESTAMP" />
+    <result column="report_auditor_code" property="reportAuditorCode" jdbcType="VARCHAR" />
+    <result column="audit_date" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="status_id" property="statusId" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="inner_create_time" property="innerCreateTime" jdbcType="TIMESTAMP" />
+    <result column="serial_number" property="serialNumber" jdbcType="VARCHAR" />
+    <result column="revision" property="revision" jdbcType="VARCHAR" />
+    <result column="document_number" property="documentNumber" jdbcType="VARCHAR" />
+    <result column="enable" property="enable" jdbcType="BIT" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+    <result column="mistake_note" property="mistakeNote" jdbcType="VARCHAR" />
+    <result column="supplier_mistake_note" property="supplierMistakeNote" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, template_id, report_num, check_num, order_num, order_number, guest_code, board_name, 
+    factory_id, category_grade_id, board_long, board_wide, board_ply, order_type, join_board_order_code, 
+    production_num_pcs, report_maker_code, make_time, report_auditor_code, audit_date, 
+    status_id, status, inner_create_time, serial_number, revision, document_number, enable, 
+    note, mistake_note, supplier_mistake_note, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pcb_check_report
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pcb_check_report
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcbwx.pcbmis.model.PcbCheckReport" >
+    insert into pcb_check_report (id, template_id, report_num, 
+      check_num, order_num, order_number, 
+      guest_code, board_name, factory_id, 
+      category_grade_id, board_long, board_wide, 
+      board_ply, order_type, join_board_order_code, 
+      production_num_pcs, report_maker_code, make_time, 
+      report_auditor_code, audit_date, status_id, 
+      status, inner_create_time, serial_number, 
+      revision, document_number, enable, 
+      note, mistake_note, supplier_mistake_note, 
+      create_time, update_time)
+    values (#{id,jdbcType=INTEGER}, #{templateId,jdbcType=INTEGER}, #{reportNum,jdbcType=VARCHAR}, 
+      #{checkNum,jdbcType=VARCHAR}, #{orderNum,jdbcType=VARCHAR}, #{orderNumber,jdbcType=VARCHAR}, 
+      #{guestCode,jdbcType=VARCHAR}, #{boardName,jdbcType=VARCHAR}, #{factoryId,jdbcType=INTEGER}, 
+      #{categoryGradeId,jdbcType=INTEGER}, #{boardLong,jdbcType=DECIMAL}, #{boardWide,jdbcType=DECIMAL}, 
+      #{boardPly,jdbcType=VARCHAR}, #{orderType,jdbcType=VARCHAR}, #{joinBoardOrderCode,jdbcType=VARCHAR}, 
+      #{productionNumPcs,jdbcType=INTEGER}, #{reportMakerCode,jdbcType=VARCHAR}, #{makeTime,jdbcType=TIMESTAMP}, 
+      #{reportAuditorCode,jdbcType=VARCHAR}, #{auditDate,jdbcType=TIMESTAMP}, #{statusId,jdbcType=INTEGER}, 
+      #{status,jdbcType=VARCHAR}, #{innerCreateTime,jdbcType=TIMESTAMP}, #{serialNumber,jdbcType=VARCHAR}, 
+      #{revision,jdbcType=VARCHAR}, #{documentNumber,jdbcType=VARCHAR}, #{enable,jdbcType=BIT}, 
+      #{note,jdbcType=VARCHAR}, #{mistakeNote,jdbcType=VARCHAR}, #{supplierMistakeNote,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcbwx.pcbmis.model.PcbCheckReport" >
+    insert into pcb_check_report
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="templateId != null" >
+        template_id,
+      </if>
+      <if test="reportNum != null" >
+        report_num,
+      </if>
+      <if test="checkNum != null" >
+        check_num,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
+      </if>
+      <if test="guestCode != null" >
+        guest_code,
+      </if>
+      <if test="boardName != null" >
+        board_name,
+      </if>
+      <if test="factoryId != null" >
+        factory_id,
+      </if>
+      <if test="categoryGradeId != null" >
+        category_grade_id,
+      </if>
+      <if test="boardLong != null" >
+        board_long,
+      </if>
+      <if test="boardWide != null" >
+        board_wide,
+      </if>
+      <if test="boardPly != null" >
+        board_ply,
+      </if>
+      <if test="orderType != null" >
+        order_type,
+      </if>
+      <if test="joinBoardOrderCode != null" >
+        join_board_order_code,
+      </if>
+      <if test="productionNumPcs != null" >
+        production_num_pcs,
+      </if>
+      <if test="reportMakerCode != null" >
+        report_maker_code,
+      </if>
+      <if test="makeTime != null" >
+        make_time,
+      </if>
+      <if test="reportAuditorCode != null" >
+        report_auditor_code,
+      </if>
+      <if test="auditDate != null" >
+        audit_date,
+      </if>
+      <if test="statusId != null" >
+        status_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="innerCreateTime != null" >
+        inner_create_time,
+      </if>
+      <if test="serialNumber != null" >
+        serial_number,
+      </if>
+      <if test="revision != null" >
+        revision,
+      </if>
+      <if test="documentNumber != null" >
+        document_number,
+      </if>
+      <if test="enable != null" >
+        enable,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+      <if test="mistakeNote != null" >
+        mistake_note,
+      </if>
+      <if test="supplierMistakeNote != null" >
+        supplier_mistake_note,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="templateId != null" >
+        #{templateId,jdbcType=INTEGER},
+      </if>
+      <if test="reportNum != null" >
+        #{reportNum,jdbcType=VARCHAR},
+      </if>
+      <if test="checkNum != null" >
+        #{checkNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="guestCode != null" >
+        #{guestCode,jdbcType=VARCHAR},
+      </if>
+      <if test="boardName != null" >
+        #{boardName,jdbcType=VARCHAR},
+      </if>
+      <if test="factoryId != null" >
+        #{factoryId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryGradeId != null" >
+        #{categoryGradeId,jdbcType=INTEGER},
+      </if>
+      <if test="boardLong != null" >
+        #{boardLong,jdbcType=DECIMAL},
+      </if>
+      <if test="boardWide != null" >
+        #{boardWide,jdbcType=DECIMAL},
+      </if>
+      <if test="boardPly != null" >
+        #{boardPly,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="joinBoardOrderCode != null" >
+        #{joinBoardOrderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productionNumPcs != null" >
+        #{productionNumPcs,jdbcType=INTEGER},
+      </if>
+      <if test="reportMakerCode != null" >
+        #{reportMakerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="makeTime != null" >
+        #{makeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reportAuditorCode != null" >
+        #{reportAuditorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null" >
+        #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statusId != null" >
+        #{statusId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="innerCreateTime != null" >
+        #{innerCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serialNumber != null" >
+        #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="revision != null" >
+        #{revision,jdbcType=VARCHAR},
+      </if>
+      <if test="documentNumber != null" >
+        #{documentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="enable != null" >
+        #{enable,jdbcType=BIT},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="mistakeNote != null" >
+        #{mistakeNote,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierMistakeNote != null" >
+        #{supplierMistakeNote,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcbwx.pcbmis.model.PcbCheckReport" >
+    update pcb_check_report
+    <set >
+      <if test="templateId != null" >
+        template_id = #{templateId,jdbcType=INTEGER},
+      </if>
+      <if test="reportNum != null" >
+        report_num = #{reportNum,jdbcType=VARCHAR},
+      </if>
+      <if test="checkNum != null" >
+        check_num = #{checkNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null" >
+        order_number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="guestCode != null" >
+        guest_code = #{guestCode,jdbcType=VARCHAR},
+      </if>
+      <if test="boardName != null" >
+        board_name = #{boardName,jdbcType=VARCHAR},
+      </if>
+      <if test="factoryId != null" >
+        factory_id = #{factoryId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryGradeId != null" >
+        category_grade_id = #{categoryGradeId,jdbcType=INTEGER},
+      </if>
+      <if test="boardLong != null" >
+        board_long = #{boardLong,jdbcType=DECIMAL},
+      </if>
+      <if test="boardWide != null" >
+        board_wide = #{boardWide,jdbcType=DECIMAL},
+      </if>
+      <if test="boardPly != null" >
+        board_ply = #{boardPly,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        order_type = #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="joinBoardOrderCode != null" >
+        join_board_order_code = #{joinBoardOrderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productionNumPcs != null" >
+        production_num_pcs = #{productionNumPcs,jdbcType=INTEGER},
+      </if>
+      <if test="reportMakerCode != null" >
+        report_maker_code = #{reportMakerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="makeTime != null" >
+        make_time = #{makeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reportAuditorCode != null" >
+        report_auditor_code = #{reportAuditorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null" >
+        audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statusId != null" >
+        status_id = #{statusId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="innerCreateTime != null" >
+        inner_create_time = #{innerCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serialNumber != null" >
+        serial_number = #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="revision != null" >
+        revision = #{revision,jdbcType=VARCHAR},
+      </if>
+      <if test="documentNumber != null" >
+        document_number = #{documentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="enable != null" >
+        enable = #{enable,jdbcType=BIT},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="mistakeNote != null" >
+        mistake_note = #{mistakeNote,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierMistakeNote != null" >
+        supplier_mistake_note = #{supplierMistakeNote,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcbwx.pcbmis.model.PcbCheckReport" >
+    update pcb_check_report
+    set template_id = #{templateId,jdbcType=INTEGER},
+      report_num = #{reportNum,jdbcType=VARCHAR},
+      check_num = #{checkNum,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=VARCHAR},
+      order_number = #{orderNumber,jdbcType=VARCHAR},
+      guest_code = #{guestCode,jdbcType=VARCHAR},
+      board_name = #{boardName,jdbcType=VARCHAR},
+      factory_id = #{factoryId,jdbcType=INTEGER},
+      category_grade_id = #{categoryGradeId,jdbcType=INTEGER},
+      board_long = #{boardLong,jdbcType=DECIMAL},
+      board_wide = #{boardWide,jdbcType=DECIMAL},
+      board_ply = #{boardPly,jdbcType=VARCHAR},
+      order_type = #{orderType,jdbcType=VARCHAR},
+      join_board_order_code = #{joinBoardOrderCode,jdbcType=VARCHAR},
+      production_num_pcs = #{productionNumPcs,jdbcType=INTEGER},
+      report_maker_code = #{reportMakerCode,jdbcType=VARCHAR},
+      make_time = #{makeTime,jdbcType=TIMESTAMP},
+      report_auditor_code = #{reportAuditorCode,jdbcType=VARCHAR},
+      audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      status_id = #{statusId,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
+      inner_create_time = #{innerCreateTime,jdbcType=TIMESTAMP},
+      serial_number = #{serialNumber,jdbcType=VARCHAR},
+      revision = #{revision,jdbcType=VARCHAR},
+      document_number = #{documentNumber,jdbcType=VARCHAR},
+      enable = #{enable,jdbcType=BIT},
+      note = #{note,jdbcType=VARCHAR},
+      mistake_note = #{mistakeNote,jdbcType=VARCHAR},
+      supplier_mistake_note = #{supplierMistakeNote,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+   <!-- 以下为自定义接口 -->
+   <select id="selectByCheckNum" resultMap="BaseResultMap" parameterType="map" >
+   	select 
+   	<include refid="Base_Column_List" />
+   	from pcb_check_report
+   	where check_num = #{checkNum,jdbcType=VARCHAR}
+   </select>
+   <select id="listByOrderNum" resultMap="BaseResultMap" parameterType="map" >
+   	select 
+   	<include refid="Base_Column_List" />
+   	from pcb_check_report
+   	where order_num = #{orderNum,jdbcType=VARCHAR}
+   	order by report_num desc
+   </select>
+   <select id="listByJoinOrderNum" resultMap="BaseResultMap" parameterType="map" >
+   	select 
+   	<include refid="Base_Column_List" />
+   	from pcb_check_report
+   	where join_board_order_code = #{joinBoardOrderCode,jdbcType=VARCHAR}
+   	order by report_num desc
+   </select>
+   <select id="selectCheckReportNum" resultType="java.lang.Integer" parameterType="map" >
+    select count(id)
+    from pcb_check_report
+  </select>
+  <select id="selectCheckReport" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from pcb_check_report
+    order by create_time desc 
+    limit #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="selectByParamNum" resultType="java.lang.Integer" parameterType="map" >
+    select count(id)
+    from pcb_check_report
+	where enable = 1
+   <if test="orderNum != null">
+    	and order_num like '%${orderNum}%'
+    </if>
+    <if test="boardName != null">
+    	and board_name like '%${boardName}%'
+    </if>
+	<if test="gradeId != null" >
+	    and category_grade_id = #{gradeId,jdbcType=INTEGER}
+	</if>
+	<if test="factoryId != null">
+		and factory_id = #{factoryId,jdbcType=INTEGER}
+	</if> 
+	<if test="statusId != null">
+		and status_id = #{statusId,jdbcType=INTEGER}
+	</if>
+	<if test="makeTimeStart != null">
+		<![CDATA[and make_time > #{makeTimeStart,jdbcType=TIMESTAMP}]]>
+	</if>
+	<if test="makeTimeEnd != null">
+		<![CDATA[and make_time < #{makeTimeEnd,jdbcType=TIMESTAMP}]]>
+	</if>
+	<if test="auditTimeStart != null">
+		<![CDATA[and audit_date > #{auditTimeStart,jdbcType=TIMESTAMP}]]>
+	</if>
+	<if test="auditTimeEnd != null">
+		<![CDATA[and audit_date < #{auditTimeEnd,jdbcType=TIMESTAMP}]]>
+	</if>
+    <if test="guestCodes != null" >
+		and guest_code in
+		<foreach collection="guestCodes" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</if>
+  </select>
+  <select id="selectByParam" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from pcb_check_report
+    where enable = 1
+    <if test="orderNum != null">
+    	and order_num like '%${orderNum}%'
+    </if>
+    <if test="boardName != null">
+    	and board_name like '%${boardName}%'
+    </if>
+	<if test="gradeId != null" >
+	    and category_grade_id = #{gradeId,jdbcType=INTEGER}
+	</if>
+	<if test="factoryId != null">
+		and factory_id = #{factoryId,jdbcType=INTEGER}
+	</if> 
+	<if test="statusId != null">
+		and status_id = #{statusId,jdbcType=INTEGER}
+	</if>
+	<if test="makeTimeStart != null">
+		<![CDATA[and make_time > #{makeTimeStart,jdbcType=TIMESTAMP}]]>
+	</if>
+	<if test="makeTimeEnd != null">
+		<![CDATA[and make_time < #{makeTimeEnd,jdbcType=TIMESTAMP}]]>
+	</if>
+	<if test="auditTimeStart != null">
+		<![CDATA[and audit_date > #{auditTimeStart,jdbcType=TIMESTAMP}]]>
+	</if>
+	<if test="auditTimeEnd != null">
+		<![CDATA[and audit_date < #{auditTimeEnd,jdbcType=TIMESTAMP}]]>
+	</if>
+    <if test="guestCodes != null" >
+		and guest_code in
+		<foreach collection="guestCodes" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</if>
+	order by create_time desc 
+    limit #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="selectByReportNum" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from pcb_check_report
+    where report_num = #{reportNum,jdbcType=VARCHAR}
+  </select>
+  <select id="getOperatOrAuditReportNum" resultType="java.lang.Integer" parameterType="map" >
+    select count(id)
+    from pcb_check_report
+    where  (status_id = #{toBe,jdbcType=INTEGER}
+    or status_id = #{doing,jdbcType=INTEGER}
+    <if test="reportMaker != null">
+    	and report_maker_code = #{reportMaker,jdbcType=VARCHAR}
+    </if>
+    <if test="auditor != null">
+    	and report_auditor_code = #{auditor,jdbcType=VARCHAR}
+    </if>
+    and 1 = 1)
+    <if test="orderNum != null">
+    	and order_num like '%${orderNum}%'
+    </if>
+    and enable = 1
+  </select>
+  <select id="getOperatOrAuditReport" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from pcb_check_report
+   	where (status_id = #{toBe,jdbcType=INTEGER}
+    or status_id = #{doing,jdbcType=INTEGER}
+    <if test="reportMaker != null">
+    	and report_maker_code = #{reportMaker,jdbcType=VARCHAR}
+    </if>
+    <if test="auditor != null">
+    	and report_auditor_code = #{auditor,jdbcType=VARCHAR}
+    </if>
+    and 1 = 1)
+    <if test="orderNum != null">
+    	and order_num like '%${orderNum}%'
+    </if>
+    and enable = 1
+    order by create_time desc
+    limit #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="selectByOrderNumber" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from pcb_check_report
+   	where order_number = #{orderNumber,jdbcType=VARCHAR}
+  </select>
+  <select id="listByCheckNum" resultMap="BaseResultMap" parameterType="map">
+  	select 
+    <include refid="Base_Column_List" />
+    from pcb_check_report
+   	where enable = 1 and check_num in
+   	<foreach collection="checkNums" index="index" item="item" open="(" separator="," close=")">
+   		#{item}
+   	</foreach>
+  </select>
+  <update id="updatePcbBoardName" parameterType="map">
+    update pcb_check_report
+    set production_num_pcs = #{productionNumPcs,jdbcType=INTEGER},
+    board_name = (CASE order_type WHEN 'ProductOrder' 
+    THEN #{boardName,jdbcType=VARCHAR}
+    ELSE board_name END)
+    where order_num = #{productOrderNum,jdbcType=VARCHAR}
+  </update>
+    <update id="updateJoinBoardName" parameterType="map">
+    update pcb_check_report
+    set board_name = #{boardName,jdbcType=VARCHAR}
+    where join_board_order_code = #{joinBoardOrderCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

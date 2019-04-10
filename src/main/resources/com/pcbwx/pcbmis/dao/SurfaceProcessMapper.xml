@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pcbwx.pcbmis.dao.SurfaceProcessMapper" >
+  <resultMap id="BaseResultMap" type="com.pcbwx.pcbmis.model.SurfaceProcess" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="inner_id" property="innerId" jdbcType="INTEGER" />
+    <result column="process_name" property="processName" jdbcType="VARCHAR" />
+    <result column="enable" property="enable" jdbcType="INTEGER" />
+    <result column="is_gold_plated" property="isGoldPlated" jdbcType="INTEGER" />
+    <result column="position" property="position" jdbcType="INTEGER" />
+    <result column="is_gold_convert" property="isGoldConvert" jdbcType="INTEGER" />
+    <result column="is_add_delivery" property="isAddDelivery" jdbcType="INTEGER" />
+    <result column="inner_create_time" property="innerCreateTime" jdbcType="TIMESTAMP" />
+    <result column="inner_update_time" property="innerUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, inner_id, process_name, enable, is_gold_plated, position, is_gold_convert, is_add_delivery, 
+    inner_create_time, inner_update_time, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from surface_process
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from surface_process
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcbwx.pcbmis.model.SurfaceProcess" >
+    insert into surface_process (id, inner_id, process_name, 
+      enable, is_gold_plated, position, 
+      is_gold_convert, is_add_delivery, inner_create_time, 
+      inner_update_time, create_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{innerId,jdbcType=INTEGER}, #{processName,jdbcType=VARCHAR}, 
+      #{enable,jdbcType=INTEGER}, #{isGoldPlated,jdbcType=INTEGER}, #{position,jdbcType=INTEGER}, 
+      #{isGoldConvert,jdbcType=INTEGER}, #{isAddDelivery,jdbcType=INTEGER}, #{innerCreateTime,jdbcType=TIMESTAMP}, 
+      #{innerUpdateTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcbwx.pcbmis.model.SurfaceProcess" >
+    insert into surface_process
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="innerId != null" >
+        inner_id,
+      </if>
+      <if test="processName != null" >
+        process_name,
+      </if>
+      <if test="enable != null" >
+        enable,
+      </if>
+      <if test="isGoldPlated != null" >
+        is_gold_plated,
+      </if>
+      <if test="position != null" >
+        position,
+      </if>
+      <if test="isGoldConvert != null" >
+        is_gold_convert,
+      </if>
+      <if test="isAddDelivery != null" >
+        is_add_delivery,
+      </if>
+      <if test="innerCreateTime != null" >
+        inner_create_time,
+      </if>
+      <if test="innerUpdateTime != null" >
+        inner_update_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="innerId != null" >
+        #{innerId,jdbcType=INTEGER},
+      </if>
+      <if test="processName != null" >
+        #{processName,jdbcType=VARCHAR},
+      </if>
+      <if test="enable != null" >
+        #{enable,jdbcType=INTEGER},
+      </if>
+      <if test="isGoldPlated != null" >
+        #{isGoldPlated,jdbcType=INTEGER},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=INTEGER},
+      </if>
+      <if test="isGoldConvert != null" >
+        #{isGoldConvert,jdbcType=INTEGER},
+      </if>
+      <if test="isAddDelivery != null" >
+        #{isAddDelivery,jdbcType=INTEGER},
+      </if>
+      <if test="innerCreateTime != null" >
+        #{innerCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="innerUpdateTime != null" >
+        #{innerUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcbwx.pcbmis.model.SurfaceProcess" >
+    update surface_process
+    <set >
+      <if test="innerId != null" >
+        inner_id = #{innerId,jdbcType=INTEGER},
+      </if>
+      <if test="processName != null" >
+        process_name = #{processName,jdbcType=VARCHAR},
+      </if>
+      <if test="enable != null" >
+        enable = #{enable,jdbcType=INTEGER},
+      </if>
+      <if test="isGoldPlated != null" >
+        is_gold_plated = #{isGoldPlated,jdbcType=INTEGER},
+      </if>
+      <if test="position != null" >
+        position = #{position,jdbcType=INTEGER},
+      </if>
+      <if test="isGoldConvert != null" >
+        is_gold_convert = #{isGoldConvert,jdbcType=INTEGER},
+      </if>
+      <if test="isAddDelivery != null" >
+        is_add_delivery = #{isAddDelivery,jdbcType=INTEGER},
+      </if>
+      <if test="innerCreateTime != null" >
+        inner_create_time = #{innerCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="innerUpdateTime != null" >
+        inner_update_time = #{innerUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcbwx.pcbmis.model.SurfaceProcess" >
+    update surface_process
+    set inner_id = #{innerId,jdbcType=INTEGER},
+      process_name = #{processName,jdbcType=VARCHAR},
+      enable = #{enable,jdbcType=INTEGER},
+      is_gold_plated = #{isGoldPlated,jdbcType=INTEGER},
+      position = #{position,jdbcType=INTEGER},
+      is_gold_convert = #{isGoldConvert,jdbcType=INTEGER},
+      is_add_delivery = #{isAddDelivery,jdbcType=INTEGER},
+      inner_create_time = #{innerCreateTime,jdbcType=TIMESTAMP},
+      inner_update_time = #{innerUpdateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 以下为自定义接口 -->
+  <select id="load" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from surface_process
+    <!-- where enable = 1 -->
+  </select>
+  <select id="listByInnerIds" resultMap="BaseResultMap" parameterType="java.util.List" >
+    select 
+    <include refid="Base_Column_List" />
+    from surface_process
+    where inner_id IN
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")">  
+    	#{item}  
+    </foreach>  
+    ORDER BY inner_create_time desc
+  </select>
+</mapper>

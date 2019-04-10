@@ -1,0 +1,23 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+	  	<div id="logo">
+	  		<h1 style="font-size:40px;color:white;font-family:'华文行楷';">PCB检验检测系统</h1>
+	  
+	  	</div>
+		<div id="login_status" >
+			<span style="text-align: right;margin-bottom: 5px;display: block;"><a href="{{systemsUrl}}">请重新选择系统</a>&nbsp;&nbsp;
+			<a target="_blank" href="/pcbmis/oh/help">在线帮助</a></span>
+			<form method="post" id="logoutForm" >
+				问题联系人：连金平&nbsp;&nbsp;&nbsp;
+				用户名：<span id="name" ng-bind="userName"></span>&nbsp;&nbsp;&nbsp;
+				角色：<span   ng-bind="roles"></span>&nbsp;&nbsp;&nbsp;
+				<a href="/pcbmis/j_spring_cas_security_logout">退出系统</a>
+			</form>
+	    </div>
+</body>
+
+</html>

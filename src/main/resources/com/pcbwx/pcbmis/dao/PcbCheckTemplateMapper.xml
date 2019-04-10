@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pcbwx.pcbmis.dao.PcbCheckTemplateMapper" >
+  <resultMap id="BaseResultMap" type="com.pcbwx.pcbmis.model.PcbCheckTemplate" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="template_id" property="templateId" jdbcType="INTEGER" />
+    <result column="template_name" property="templateName" jdbcType="VARCHAR" />
+    <result column="burrs" property="burrs" jdbcType="VARCHAR" />
+    <result column="gap" property="gap" jdbcType="VARCHAR" />
+    <result column="exposed_copper" property="exposedCopper" jdbcType="VARCHAR" />
+    <result column="fabric_texture" property="fabricTexture" jdbcType="VARCHAR" />
+    <result column="pit_void" property="pitVoid" jdbcType="VARCHAR" />
+    <result column="spot_crack" property="spotCrack" jdbcType="VARCHAR" />
+    <result column="delamination_foaming" property="delaminationFoaming" jdbcType="VARCHAR" />
+    <result column="foreign_impurity" property="foreignImpurity" jdbcType="VARCHAR" />
+    <result column="coverage_adhesion" property="coverageAdhesion" jdbcType="VARCHAR" />
+    <result column="coincidence_degree" property="coincidenceDegree" jdbcType="VARCHAR" />
+    <result column="foaming_layering" property="foamingLayering" jdbcType="VARCHAR" />
+    <result column="corrugation" property="corrugation" jdbcType="VARCHAR" />
+    <result column="false_exposed_copper" property="falseExposedCopper" jdbcType="VARCHAR" />
+    <result column="false_bridge_dam" property="falseBridgeDam" jdbcType="VARCHAR" />
+    <result column="chromatic_aberration" property="chromaticAberration" jdbcType="VARCHAR" />
+    <result column="Identification_adhesion" property="identificationAdhesion" jdbcType="VARCHAR" />
+    <result column="nodules_burrs" property="nodulesBurrs" jdbcType="VARCHAR" />
+    <result column="dark_of_hole_tin_lead" property="darkOfHoleTinLead" jdbcType="VARCHAR" />
+    <result column="pad_cocked" property="padCocked" jdbcType="VARCHAR" />
+    <result column="halo_ring" property="haloRing" jdbcType="VARCHAR" />
+    <result column="outer_ring_width" property="outerRingWidth" jdbcType="VARCHAR" />
+    <result column="solder_in_hole" property="solderInHole" jdbcType="VARCHAR" />
+    <result column="clog_hole" property="clogHole" jdbcType="VARCHAR" />
+    <result column="line_width_spacing" property="lineWidthSpacing" jdbcType="VARCHAR" />
+    <result column="printed_board_else" property="printedBoardElse" jdbcType="VARCHAR" />
+    <result column="base_material_else" property="baseMaterialElse" jdbcType="VARCHAR" />
+    <result column="solder_mask_else" property="solderMaskElse" jdbcType="VARCHAR" />
+    <result column="special_board_num" property="specialBoardNum" jdbcType="VARCHAR" />
+    <result column="mark_else" property="markElse" jdbcType="VARCHAR" />
+    <result column="conductive_pattern_else" property="conductivePatternElse" jdbcType="VARCHAR" />
+    <result column="board_long_result" property="boardLongResult" jdbcType="VARCHAR" />
+    <result column="board_wide_result" property="boardWideResult" jdbcType="VARCHAR" />
+    <result column="board_ply_result" property="boardPlyResult" jdbcType="VARCHAR" />
+    <result column="smoothness_result" property="smoothnessResult" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, template_id, template_name, burrs, gap, exposed_copper, fabric_texture, pit_void, 
+    spot_crack, delamination_foaming, foreign_impurity, coverage_adhesion, coincidence_degree, 
+    foaming_layering, corrugation, false_exposed_copper, false_bridge_dam, chromatic_aberration, 
+    Identification_adhesion, nodules_burrs, dark_of_hole_tin_lead, pad_cocked, halo_ring, 
+    outer_ring_width, solder_in_hole, clog_hole, line_width_spacing, printed_board_else, 
+    base_material_else, solder_mask_else, special_board_num, mark_else, conductive_pattern_else, 
+    board_long_result, board_wide_result, board_ply_result, smoothness_result, create_time, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pcb_check_template
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pcb_check_template
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcbwx.pcbmis.model.PcbCheckTemplate" >
+    insert into pcb_check_template (id, template_id, template_name, 
+      burrs, gap, exposed_copper, 
+      fabric_texture, pit_void, spot_crack, 
+      delamination_foaming, foreign_impurity, coverage_adhesion, 
+      coincidence_degree, foaming_layering, corrugation, 
+      false_exposed_copper, false_bridge_dam, chromatic_aberration, 
+      Identification_adhesion, nodules_burrs, dark_of_hole_tin_lead, 
+      pad_cocked, halo_ring, outer_ring_width, 
+      solder_in_hole, clog_hole, line_width_spacing, 
+      printed_board_else, base_material_else, solder_mask_else, 
+      special_board_num, mark_else, conductive_pattern_else, 
+      board_long_result, board_wide_result, board_ply_result, 
+      smoothness_result, create_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{templateId,jdbcType=INTEGER}, #{templateName,jdbcType=VARCHAR}, 
+      #{burrs,jdbcType=VARCHAR}, #{gap,jdbcType=VARCHAR}, #{exposedCopper,jdbcType=VARCHAR}, 
+      #{fabricTexture,jdbcType=VARCHAR}, #{pitVoid,jdbcType=VARCHAR}, #{spotCrack,jdbcType=VARCHAR}, 
+      #{delaminationFoaming,jdbcType=VARCHAR}, #{foreignImpurity,jdbcType=VARCHAR}, #{coverageAdhesion,jdbcType=VARCHAR}, 
+      #{coincidenceDegree,jdbcType=VARCHAR}, #{foamingLayering,jdbcType=VARCHAR}, #{corrugation,jdbcType=VARCHAR}, 
+      #{falseExposedCopper,jdbcType=VARCHAR}, #{falseBridgeDam,jdbcType=VARCHAR}, #{chromaticAberration,jdbcType=VARCHAR}, 
+      #{identificationAdhesion,jdbcType=VARCHAR}, #{nodulesBurrs,jdbcType=VARCHAR}, #{darkOfHoleTinLead,jdbcType=VARCHAR}, 
+      #{padCocked,jdbcType=VARCHAR}, #{haloRing,jdbcType=VARCHAR}, #{outerRingWidth,jdbcType=VARCHAR}, 
+      #{solderInHole,jdbcType=VARCHAR}, #{clogHole,jdbcType=VARCHAR}, #{lineWidthSpacing,jdbcType=VARCHAR}, 
+      #{printedBoardElse,jdbcType=VARCHAR}, #{baseMaterialElse,jdbcType=VARCHAR}, #{solderMaskElse,jdbcType=VARCHAR}, 
+      #{specialBoardNum,jdbcType=VARCHAR}, #{markElse,jdbcType=VARCHAR}, #{conductivePatternElse,jdbcType=VARCHAR}, 
+      #{boardLongResult,jdbcType=VARCHAR}, #{boardWideResult,jdbcType=VARCHAR}, #{boardPlyResult,jdbcType=VARCHAR}, 
+      #{smoothnessResult,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcbwx.pcbmis.model.PcbCheckTemplate" >
+    insert into pcb_check_template
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="templateId != null" >
+        template_id,
+      </if>
+      <if test="templateName != null" >
+        template_name,
+      </if>
+      <if test="burrs != null" >
+        burrs,
+      </if>
+      <if test="gap != null" >
+        gap,
+      </if>
+      <if test="exposedCopper != null" >
+        exposed_copper,
+      </if>
+      <if test="fabricTexture != null" >
+        fabric_texture,
+      </if>
+      <if test="pitVoid != null" >
+        pit_void,
+      </if>
+      <if test="spotCrack != null" >
+        spot_crack,
+      </if>
+      <if test="delaminationFoaming != null" >
+        delamination_foaming,
+      </if>
+      <if test="foreignImpurity != null" >
+        foreign_impurity,
+      </if>
+      <if test="coverageAdhesion != null" >
+        coverage_adhesion,
+      </if>
+      <if test="coincidenceDegree != null" >
+        coincidence_degree,
+      </if>
+      <if test="foamingLayering != null" >
+        foaming_layering,
+      </if>
+      <if test="corrugation != null" >
+        corrugation,
+      </if>
+      <if test="falseExposedCopper != null" >
+        false_exposed_copper,
+      </if>
+      <if test="falseBridgeDam != null" >
+        false_bridge_dam,
+      </if>
+      <if test="chromaticAberration != null" >
+        chromatic_aberration,
+      </if>
+      <if test="identificationAdhesion != null" >
+        Identification_adhesion,
+      </if>
+      <if test="nodulesBurrs != null" >
+        nodules_burrs,
+      </if>
+      <if test="darkOfHoleTinLead != null" >
+        dark_of_hole_tin_lead,
+      </if>
+      <if test="padCocked != null" >
+        pad_cocked,
+      </if>
+      <if test="haloRing != null" >
+        halo_ring,
+      </if>
+      <if test="outerRingWidth != null" >
+        outer_ring_width,
+      </if>
+      <if test="solderInHole != null" >
+        solder_in_hole,
+      </if>
+      <if test="clogHole != null" >
+        clog_hole,
+      </if>
+      <if test="lineWidthSpacing != null" >
+        line_width_spacing,
+      </if>
+      <if test="printedBoardElse != null" >
+        printed_board_else,
+      </if>
+      <if test="baseMaterialElse != null" >
+        base_material_else,
+      </if>
+      <if test="solderMaskElse != null" >
+        solder_mask_else,
+      </if>
+      <if test="specialBoardNum != null" >
+        special_board_num,
+      </if>
+      <if test="markElse != null" >
+        mark_else,
+      </if>
+      <if test="conductivePatternElse != null" >
+        conductive_pattern_else,
+      </if>
+      <if test="boardLongResult != null" >
+        board_long_result,
+      </if>
+      <if test="boardWideResult != null" >
+        board_wide_result,
+      </if>
+      <if test="boardPlyResult != null" >
+        board_ply_result,
+      </if>
+      <if test="smoothnessResult != null" >
+        smoothness_result,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="templateId != null" >
+        #{templateId,jdbcType=INTEGER},
+      </if>
+      <if test="templateName != null" >
+        #{templateName,jdbcType=VARCHAR},
+      </if>
+      <if test="burrs != null" >
+        #{burrs,jdbcType=VARCHAR},
+      </if>
+      <if test="gap != null" >
+        #{gap,jdbcType=VARCHAR},
+      </if>
+      <if test="exposedCopper != null" >
+        #{exposedCopper,jdbcType=VARCHAR},
+      </if>
+      <if test="fabricTexture != null" >
+        #{fabricTexture,jdbcType=VARCHAR},
+      </if>
+      <if test="pitVoid != null" >
+        #{pitVoid,jdbcType=VARCHAR},
+      </if>
+      <if test="spotCrack != null" >
+        #{spotCrack,jdbcType=VARCHAR},
+      </if>
+      <if test="delaminationFoaming != null" >
+        #{delaminationFoaming,jdbcType=VARCHAR},
+      </if>
+      <if test="foreignImpurity != null" >
+        #{foreignImpurity,jdbcType=VARCHAR},
+      </if>
+      <if test="coverageAdhesion != null" >
+        #{coverageAdhesion,jdbcType=VARCHAR},
+      </if>
+      <if test="coincidenceDegree != null" >
+        #{coincidenceDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="foamingLayering != null" >
+        #{foamingLayering,jdbcType=VARCHAR},
+      </if>
+      <if test="corrugation != null" >
+        #{corrugation,jdbcType=VARCHAR},
+      </if>
+      <if test="falseExposedCopper != null" >
+        #{falseExposedCopper,jdbcType=VARCHAR},
+      </if>
+      <if test="falseBridgeDam != null" >
+        #{falseBridgeDam,jdbcType=VARCHAR},
+      </if>
+      <if test="chromaticAberration != null" >
+        #{chromaticAberration,jdbcType=VARCHAR},
+      </if>
+      <if test="identificationAdhesion != null" >
+        #{identificationAdhesion,jdbcType=VARCHAR},
+      </if>
+      <if test="nodulesBurrs != null" >
+        #{nodulesBurrs,jdbcType=VARCHAR},
+      </if>
+      <if test="darkOfHoleTinLead != null" >
+        #{darkOfHoleTinLead,jdbcType=VARCHAR},
+      </if>
+      <if test="padCocked != null" >
+        #{padCocked,jdbcType=VARCHAR},
+      </if>
+      <if test="haloRing != null" >
+        #{haloRing,jdbcType=VARCHAR},
+      </if>
+      <if test="outerRingWidth != null" >
+        #{outerRingWidth,jdbcType=VARCHAR},
+      </if>
+      <if test="solderInHole != null" >
+        #{solderInHole,jdbcType=VARCHAR},
+      </if>
+      <if test="clogHole != null" >
+        #{clogHole,jdbcType=VARCHAR},
+      </if>
+      <if test="lineWidthSpacing != null" >
+        #{lineWidthSpacing,jdbcType=VARCHAR},
+      </if>
+      <if test="printedBoardElse != null" >
+        #{printedBoardElse,jdbcType=VARCHAR},
+      </if>
+      <if test="baseMaterialElse != null" >
+        #{baseMaterialElse,jdbcType=VARCHAR},
+      </if>
+      <if test="solderMaskElse != null" >
+        #{solderMaskElse,jdbcType=VARCHAR},
+      </if>
+      <if test="specialBoardNum != null" >
+        #{specialBoardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="markElse != null" >
+        #{markElse,jdbcType=VARCHAR},
+      </if>
+      <if test="conductivePatternElse != null" >
+        #{conductivePatternElse,jdbcType=VARCHAR},
+      </if>
+      <if test="boardLongResult != null" >
+        #{boardLongResult,jdbcType=VARCHAR},
+      </if>
+      <if test="boardWideResult != null" >
+        #{boardWideResult,jdbcType=VARCHAR},
+      </if>
+      <if test="boardPlyResult != null" >
+        #{boardPlyResult,jdbcType=VARCHAR},
+      </if>
+      <if test="smoothnessResult != null" >
+        #{smoothnessResult,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcbwx.pcbmis.model.PcbCheckTemplate" >
+    update pcb_check_template
+    <set >
+      <if test="templateId != null" >
+        template_id = #{templateId,jdbcType=INTEGER},
+      </if>
+      <if test="templateName != null" >
+        template_name = #{templateName,jdbcType=VARCHAR},
+      </if>
+      <if test="burrs != null" >
+        burrs = #{burrs,jdbcType=VARCHAR},
+      </if>
+      <if test="gap != null" >
+        gap = #{gap,jdbcType=VARCHAR},
+      </if>
+      <if test="exposedCopper != null" >
+        exposed_copper = #{exposedCopper,jdbcType=VARCHAR},
+      </if>
+      <if test="fabricTexture != null" >
+        fabric_texture = #{fabricTexture,jdbcType=VARCHAR},
+      </if>
+      <if test="pitVoid != null" >
+        pit_void = #{pitVoid,jdbcType=VARCHAR},
+      </if>
+      <if test="spotCrack != null" >
+        spot_crack = #{spotCrack,jdbcType=VARCHAR},
+      </if>
+      <if test="delaminationFoaming != null" >
+        delamination_foaming = #{delaminationFoaming,jdbcType=VARCHAR},
+      </if>
+      <if test="foreignImpurity != null" >
+        foreign_impurity = #{foreignImpurity,jdbcType=VARCHAR},
+      </if>
+      <if test="coverageAdhesion != null" >
+        coverage_adhesion = #{coverageAdhesion,jdbcType=VARCHAR},
+      </if>
+      <if test="coincidenceDegree != null" >
+        coincidence_degree = #{coincidenceDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="foamingLayering != null" >
+        foaming_layering = #{foamingLayering,jdbcType=VARCHAR},
+      </if>
+      <if test="corrugation != null" >
+        corrugation = #{corrugation,jdbcType=VARCHAR},
+      </if>
+      <if test="falseExposedCopper != null" >
+        false_exposed_copper = #{falseExposedCopper,jdbcType=VARCHAR},
+      </if>
+      <if test="falseBridgeDam != null" >
+        false_bridge_dam = #{falseBridgeDam,jdbcType=VARCHAR},
+      </if>
+      <if test="chromaticAberration != null" >
+        chromatic_aberration = #{chromaticAberration,jdbcType=VARCHAR},
+      </if>
+      <if test="identificationAdhesion != null" >
+        Identification_adhesion = #{identificationAdhesion,jdbcType=VARCHAR},
+      </if>
+      <if test="nodulesBurrs != null" >
+        nodules_burrs = #{nodulesBurrs,jdbcType=VARCHAR},
+      </if>
+      <if test="darkOfHoleTinLead != null" >
+        dark_of_hole_tin_lead = #{darkOfHoleTinLead,jdbcType=VARCHAR},
+      </if>
+      <if test="padCocked != null" >
+        pad_cocked = #{padCocked,jdbcType=VARCHAR},
+      </if>
+      <if test="haloRing != null" >
+        halo_ring = #{haloRing,jdbcType=VARCHAR},
+      </if>
+      <if test="outerRingWidth != null" >
+        outer_ring_width = #{outerRingWidth,jdbcType=VARCHAR},
+      </if>
+      <if test="solderInHole != null" >
+        solder_in_hole = #{solderInHole,jdbcType=VARCHAR},
+      </if>
+      <if test="clogHole != null" >
+        clog_hole = #{clogHole,jdbcType=VARCHAR},
+      </if>
+      <if test="lineWidthSpacing != null" >
+        line_width_spacing = #{lineWidthSpacing,jdbcType=VARCHAR},
+      </if>
+      <if test="printedBoardElse != null" >
+        printed_board_else = #{printedBoardElse,jdbcType=VARCHAR},
+      </if>
+      <if test="baseMaterialElse != null" >
+        base_material_else = #{baseMaterialElse,jdbcType=VARCHAR},
+      </if>
+      <if test="solderMaskElse != null" >
+        solder_mask_else = #{solderMaskElse,jdbcType=VARCHAR},
+      </if>
+      <if test="specialBoardNum != null" >
+        special_board_num = #{specialBoardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="markElse != null" >
+        mark_else = #{markElse,jdbcType=VARCHAR},
+      </if>
+      <if test="conductivePatternElse != null" >
+        conductive_pattern_else = #{conductivePatternElse,jdbcType=VARCHAR},
+      </if>
+      <if test="boardLongResult != null" >
+        board_long_result = #{boardLongResult,jdbcType=VARCHAR},
+      </if>
+      <if test="boardWideResult != null" >
+        board_wide_result = #{boardWideResult,jdbcType=VARCHAR},
+      </if>
+      <if test="boardPlyResult != null" >
+        board_ply_result = #{boardPlyResult,jdbcType=VARCHAR},
+      </if>
+      <if test="smoothnessResult != null" >
+        smoothness_result = #{smoothnessResult,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcbwx.pcbmis.model.PcbCheckTemplate" >
+    update pcb_check_template
+    set template_id = #{templateId,jdbcType=INTEGER},
+      template_name = #{templateName,jdbcType=VARCHAR},
+      burrs = #{burrs,jdbcType=VARCHAR},
+      gap = #{gap,jdbcType=VARCHAR},
+      exposed_copper = #{exposedCopper,jdbcType=VARCHAR},
+      fabric_texture = #{fabricTexture,jdbcType=VARCHAR},
+      pit_void = #{pitVoid,jdbcType=VARCHAR},
+      spot_crack = #{spotCrack,jdbcType=VARCHAR},
+      delamination_foaming = #{delaminationFoaming,jdbcType=VARCHAR},
+      foreign_impurity = #{foreignImpurity,jdbcType=VARCHAR},
+      coverage_adhesion = #{coverageAdhesion,jdbcType=VARCHAR},
+      coincidence_degree = #{coincidenceDegree,jdbcType=VARCHAR},
+      foaming_layering = #{foamingLayering,jdbcType=VARCHAR},
+      corrugation = #{corrugation,jdbcType=VARCHAR},
+      false_exposed_copper = #{falseExposedCopper,jdbcType=VARCHAR},
+      false_bridge_dam = #{falseBridgeDam,jdbcType=VARCHAR},
+      chromatic_aberration = #{chromaticAberration,jdbcType=VARCHAR},
+      Identification_adhesion = #{identificationAdhesion,jdbcType=VARCHAR},
+      nodules_burrs = #{nodulesBurrs,jdbcType=VARCHAR},
+      dark_of_hole_tin_lead = #{darkOfHoleTinLead,jdbcType=VARCHAR},
+      pad_cocked = #{padCocked,jdbcType=VARCHAR},
+      halo_ring = #{haloRing,jdbcType=VARCHAR},
+      outer_ring_width = #{outerRingWidth,jdbcType=VARCHAR},
+      solder_in_hole = #{solderInHole,jdbcType=VARCHAR},
+      clog_hole = #{clogHole,jdbcType=VARCHAR},
+      line_width_spacing = #{lineWidthSpacing,jdbcType=VARCHAR},
+      printed_board_else = #{printedBoardElse,jdbcType=VARCHAR},
+      base_material_else = #{baseMaterialElse,jdbcType=VARCHAR},
+      solder_mask_else = #{solderMaskElse,jdbcType=VARCHAR},
+      special_board_num = #{specialBoardNum,jdbcType=VARCHAR},
+      mark_else = #{markElse,jdbcType=VARCHAR},
+      conductive_pattern_else = #{conductivePatternElse,jdbcType=VARCHAR},
+      board_long_result = #{boardLongResult,jdbcType=VARCHAR},
+      board_wide_result = #{boardWideResult,jdbcType=VARCHAR},
+      board_ply_result = #{boardPlyResult,jdbcType=VARCHAR},
+      smoothness_result = #{smoothnessResult,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 以下为自定义接口 -->
+  <select id="load" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from pcb_check_template
+  </select>
+   <select id="selectByTemplateId" resultMap="BaseResultMap" parameterType="map" >
+  	 select 
+    <include refid="Base_Column_List" />
+    from pcb_check_template
+    where template_id = #{templateId,jdbcType=INTEGER}
+  </select>
+</mapper>

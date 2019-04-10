@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pcbwx.pcbmis.dao.UserRoleMapper" >
+   <resultMap id="BaseResultMap" type="com.pcbwx.pcbmis.model.UserRole" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    <result column="creator_code" property="creatorCode" jdbcType="VARCHAR" />
+    <result column="updateor_code" property="updateorCode" jdbcType="VARCHAR" />
+    <result column="enable" property="enable" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, role_name, creator_code, updateor_code, enable, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_role
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_role
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcbwx.pcbmis.model.UserRole" >
+    insert into user_role (id, role_name, creator_code, 
+      updateor_code, enable, create_time, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{creatorCode,jdbcType=VARCHAR}, 
+      #{updateorCode,jdbcType=VARCHAR}, #{enable,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcbwx.pcbmis.model.UserRole" >
+    insert into user_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="roleName != null" >
+        role_name,
+      </if>
+      <if test="creatorCode != null" >
+        creator_code,
+      </if>
+      <if test="updateorCode != null" >
+        updateor_code,
+      </if>
+      <if test="enable != null" >
+        enable,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="roleName != null" >
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorCode != null" >
+        #{creatorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="updateorCode != null" >
+        #{updateorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="enable != null" >
+        #{enable,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcbwx.pcbmis.model.UserRole" >
+    update user_role
+    <set >
+      <if test="roleName != null" >
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorCode != null" >
+        creator_code = #{creatorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="updateorCode != null" >
+        updateor_code = #{updateorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="enable != null" >
+        enable = #{enable,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcbwx.pcbmis.model.UserRole" >
+    update user_role
+    set role_name = #{roleName,jdbcType=VARCHAR},
+      creator_code = #{creatorCode,jdbcType=VARCHAR},
+      updateor_code = #{updateorCode,jdbcType=VARCHAR},
+      enable = #{enable,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 以下为自定义接口 -->
+  <select id="load" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_role
+  </select>
+  <select id="getRoles" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    FROM user_role 
+    where enable = 1
+  </select>
+  <select id="getSelectByKeyWordNum" resultType="java.lang.Integer" parameterType="map">
+    select count(id)
+    <include refid="Base_Column_List" />
+    from user_role
+    where role_name != #{roleName,jdbcType=VARCHAR}
+    and (1 = 1
+    <if test="keyWord != null">
+    	and (role_name like '%${keyWord}%')  
+    </if> 
+   	<if test="userCodes != null">
+   		or creator_code in
+   		<foreach collection="userCodes" item="item" index="index" open="(" separator="," close=")">  
+		    	#{item}  
+		</foreach>
+		or updateor_code in
+		<foreach collection="userCodes" item="item" index="index" open="(" separator="," close=")">  
+		    	#{item}  
+		</foreach>
+   	</if>
+   	<if test="roleIds != null">
+   		or id in
+   		<foreach collection="roleIds" item="item" index="index" open="(" separator="," close=")">  
+		    	#{item}  
+		</foreach>
+   	</if>
+   	<if test="enable != null">
+    	or enable = #{enable,jdbcType=INTEGER}
+    </if>)
+  </select>
+  <select id="selectByKeyWord" resultMap="BaseResultMap" parameterType="map">
+    select 
+    <include refid="Base_Column_List" />
+    from user_role
+    where role_name != #{roleName,jdbcType=VARCHAR}
+    and (1 = 1
+    <if test="keyWord != null">
+    	and (role_name like '%${keyWord}%')  
+    </if> 
+   	<if test="userCodes != null">
+   		or creator_code in
+   		<foreach collection="userCodes" item="item" index="index" open="(" separator="," close=")">  
+		    	#{item}  
+		</foreach>
+		or updateor_code in
+		<foreach collection="userCodes" item="item" index="index" open="(" separator="," close=")">  
+		    	#{item}  
+		</foreach>
+   	</if>
+   	<if test="roleIds != null">
+   		or id in
+   		<foreach collection="roleIds" item="item" index="index" open="(" separator="," close=")">  
+		    	#{item}  
+		</foreach>
+   	</if>
+   	<if test="enable != null">
+    	or enable = #{enable,jdbcType=INTEGER}
+    </if>)
+   	order by create_time desc
+    limit #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+</mapper>

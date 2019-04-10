@@ -1,0 +1,695 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pcbwx.pcbmis.dao.PcbCheckOrderMapper" >
+   <resultMap id="BaseResultMap" type="com.pcbwx.pcbmis.model.PcbCheckOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="template_id" property="templateId" jdbcType="INTEGER" />
+    <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="check_num" property="checkNum" jdbcType="VARCHAR" />
+    <result column="product_period" property="productPeriod" jdbcType="INTEGER" />
+    <result column="in_storage_date" property="inStorageDate" jdbcType="TIMESTAMP" />
+    <result column="in_amount_pcs" property="inAmountPcs" jdbcType="INTEGER" />
+    <result column="in_amount_set" property="inAmountSet" jdbcType="INTEGER" />
+    <result column="batch_number" property="batchNumber" jdbcType="VARCHAR" />
+    <result column="board_name" property="boardName" jdbcType="VARCHAR" />
+    <result column="creater_code" property="createrCode" jdbcType="VARCHAR" />
+    <result column="amount_checkout_pcs" property="amountCheckoutPcs" jdbcType="INTEGER" />
+    <result column="amount_checkout_set" property="amountCheckoutSet" jdbcType="INTEGER" />
+    <result column="check_state" property="checkState" jdbcType="VARCHAR" />
+    <result column="check_state_id" property="checkStateId" jdbcType="INTEGER" />
+    <result column="order_type" property="orderType" jdbcType="VARCHAR" />
+    <result column="product_order_num" property="productOrderNum" jdbcType="VARCHAR" />
+    <result column="join_board_order_code" property="joinBoardOrderCode" jdbcType="VARCHAR" />
+    <result column="spot_check_num_pcs" property="spotCheckNumPcs" jdbcType="INTEGER" />
+    <result column="receive_date" property="receiveDate" jdbcType="TIMESTAMP" />
+    <result column="inspector" property="inspector" jdbcType="VARCHAR" />
+    <result column="check_date" property="checkDate" jdbcType="TIMESTAMP" />
+    <result column="auditor" property="auditor" jdbcType="VARCHAR" />
+    <result column="audit_date" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="content_id" property="contentId" jdbcType="VARCHAR" />
+    <result column="bad_record" property="badRecord" jdbcType="INTEGER" />
+    <result column="bad_record_time" property="badRecordTime" jdbcType="TIMESTAMP" />
+    <result column="serial_number" property="serialNumber" jdbcType="VARCHAR" />
+    <result column="revision" property="revision" jdbcType="VARCHAR" />
+    <result column="document_number" property="documentNumber" jdbcType="VARCHAR" />
+    <result column="enable" property="enable" jdbcType="BIT" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+    <result column="mistake_note" property="mistakeNote" jdbcType="VARCHAR" />
+    <result column="inner_create_time" property="innerCreateTime" jdbcType="TIMESTAMP" />
+    <result column="inner_update_time" property="innerUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, template_id, order_number, check_num, product_period, in_storage_date, in_amount_pcs, 
+    in_amount_set, batch_number, board_name, creater_code, amount_checkout_pcs, amount_checkout_set, 
+    check_state, check_state_id, order_type, product_order_num, join_board_order_code, 
+    spot_check_num_pcs, receive_date, inspector, check_date, auditor, audit_date, content_id, 
+    bad_record, bad_record_time, serial_number, revision, document_number, enable, note, 
+    mistake_note, inner_create_time, inner_update_time, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pcb_check_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pcb_check_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcbwx.pcbmis.model.PcbCheckOrder" >
+    insert into pcb_check_order (id, template_id, order_number, 
+      check_num, product_period, in_storage_date, 
+      in_amount_pcs, in_amount_set, batch_number, 
+      board_name, creater_code, amount_checkout_pcs, 
+      amount_checkout_set, check_state, check_state_id, 
+      order_type, product_order_num, join_board_order_code, 
+      spot_check_num_pcs, receive_date, inspector, 
+      check_date, auditor, audit_date, 
+      content_id, bad_record, bad_record_time, 
+      serial_number, revision, document_number, 
+      enable, note, mistake_note, 
+      inner_create_time, inner_update_time, create_time, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{templateId,jdbcType=INTEGER}, #{orderNumber,jdbcType=VARCHAR}, 
+      #{checkNum,jdbcType=VARCHAR}, #{productPeriod,jdbcType=INTEGER}, #{inStorageDate,jdbcType=TIMESTAMP}, 
+      #{inAmountPcs,jdbcType=INTEGER}, #{inAmountSet,jdbcType=INTEGER}, #{batchNumber,jdbcType=VARCHAR}, 
+      #{boardName,jdbcType=VARCHAR}, #{createrCode,jdbcType=VARCHAR}, #{amountCheckoutPcs,jdbcType=INTEGER}, 
+      #{amountCheckoutSet,jdbcType=INTEGER}, #{checkState,jdbcType=VARCHAR}, #{checkStateId,jdbcType=INTEGER}, 
+      #{orderType,jdbcType=VARCHAR}, #{productOrderNum,jdbcType=VARCHAR}, #{joinBoardOrderCode,jdbcType=VARCHAR}, 
+      #{spotCheckNumPcs,jdbcType=INTEGER}, #{receiveDate,jdbcType=TIMESTAMP}, #{inspector,jdbcType=VARCHAR}, 
+      #{checkDate,jdbcType=TIMESTAMP}, #{auditor,jdbcType=VARCHAR}, #{auditDate,jdbcType=TIMESTAMP}, 
+      #{contentId,jdbcType=VARCHAR}, #{badRecord,jdbcType=INTEGER}, #{badRecordTime,jdbcType=TIMESTAMP}, 
+      #{serialNumber,jdbcType=VARCHAR}, #{revision,jdbcType=VARCHAR}, #{documentNumber,jdbcType=VARCHAR}, 
+      #{enable,jdbcType=BIT}, #{note,jdbcType=VARCHAR}, #{mistakeNote,jdbcType=VARCHAR}, 
+      #{innerCreateTime,jdbcType=TIMESTAMP}, #{innerUpdateTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcbwx.pcbmis.model.PcbCheckOrder" >
+    insert into pcb_check_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="templateId != null" >
+        template_id,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
+      </if>
+      <if test="checkNum != null" >
+        check_num,
+      </if>
+      <if test="productPeriod != null" >
+        product_period,
+      </if>
+      <if test="inStorageDate != null" >
+        in_storage_date,
+      </if>
+      <if test="inAmountPcs != null" >
+        in_amount_pcs,
+      </if>
+      <if test="inAmountSet != null" >
+        in_amount_set,
+      </if>
+      <if test="batchNumber != null" >
+        batch_number,
+      </if>
+      <if test="boardName != null" >
+        board_name,
+      </if>
+      <if test="createrCode != null" >
+        creater_code,
+      </if>
+      <if test="amountCheckoutPcs != null" >
+        amount_checkout_pcs,
+      </if>
+      <if test="amountCheckoutSet != null" >
+        amount_checkout_set,
+      </if>
+      <if test="checkState != null" >
+        check_state,
+      </if>
+      <if test="checkStateId != null" >
+        check_state_id,
+      </if>
+      <if test="orderType != null" >
+        order_type,
+      </if>
+      <if test="productOrderNum != null" >
+        product_order_num,
+      </if>
+      <if test="joinBoardOrderCode != null" >
+        join_board_order_code,
+      </if>
+      <if test="spotCheckNumPcs != null" >
+        spot_check_num_pcs,
+      </if>
+      <if test="receiveDate != null" >
+        receive_date,
+      </if>
+      <if test="inspector != null" >
+        inspector,
+      </if>
+      <if test="checkDate != null" >
+        check_date,
+      </if>
+      <if test="auditor != null" >
+        auditor,
+      </if>
+      <if test="auditDate != null" >
+        audit_date,
+      </if>
+      <if test="contentId != null" >
+        content_id,
+      </if>
+      <if test="badRecord != null" >
+        bad_record,
+      </if>
+      <if test="badRecordTime != null" >
+        bad_record_time,
+      </if>
+      <if test="serialNumber != null" >
+        serial_number,
+      </if>
+      <if test="revision != null" >
+        revision,
+      </if>
+      <if test="documentNumber != null" >
+        document_number,
+      </if>
+      <if test="enable != null" >
+        enable,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+      <if test="mistakeNote != null" >
+        mistake_note,
+      </if>
+      <if test="innerCreateTime != null" >
+        inner_create_time,
+      </if>
+      <if test="innerUpdateTime != null" >
+        inner_update_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="templateId != null" >
+        #{templateId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="checkNum != null" >
+        #{checkNum,jdbcType=VARCHAR},
+      </if>
+      <if test="productPeriod != null" >
+        #{productPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="inStorageDate != null" >
+        #{inStorageDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inAmountPcs != null" >
+        #{inAmountPcs,jdbcType=INTEGER},
+      </if>
+      <if test="inAmountSet != null" >
+        #{inAmountSet,jdbcType=INTEGER},
+      </if>
+      <if test="batchNumber != null" >
+        #{batchNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="boardName != null" >
+        #{boardName,jdbcType=VARCHAR},
+      </if>
+      <if test="createrCode != null" >
+        #{createrCode,jdbcType=VARCHAR},
+      </if>
+      <if test="amountCheckoutPcs != null" >
+        #{amountCheckoutPcs,jdbcType=INTEGER},
+      </if>
+      <if test="amountCheckoutSet != null" >
+        #{amountCheckoutSet,jdbcType=INTEGER},
+      </if>
+      <if test="checkState != null" >
+        #{checkState,jdbcType=VARCHAR},
+      </if>
+      <if test="checkStateId != null" >
+        #{checkStateId,jdbcType=INTEGER},
+      </if>
+      <if test="orderType != null" >
+        #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="productOrderNum != null" >
+        #{productOrderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="joinBoardOrderCode != null" >
+        #{joinBoardOrderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="spotCheckNumPcs != null" >
+        #{spotCheckNumPcs,jdbcType=INTEGER},
+      </if>
+      <if test="receiveDate != null" >
+        #{receiveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inspector != null" >
+        #{inspector,jdbcType=VARCHAR},
+      </if>
+      <if test="checkDate != null" >
+        #{checkDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditor != null" >
+        #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null" >
+        #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contentId != null" >
+        #{contentId,jdbcType=VARCHAR},
+      </if>
+      <if test="badRecord != null" >
+        #{badRecord,jdbcType=INTEGER},
+      </if>
+      <if test="badRecordTime != null" >
+        #{badRecordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serialNumber != null" >
+        #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="revision != null" >
+        #{revision,jdbcType=VARCHAR},
+      </if>
+      <if test="documentNumber != null" >
+        #{documentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="enable != null" >
+        #{enable,jdbcType=BIT},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="mistakeNote != null" >
+        #{mistakeNote,jdbcType=VARCHAR},
+      </if>
+      <if test="innerCreateTime != null" >
+        #{innerCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="innerUpdateTime != null" >
+        #{innerUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcbwx.pcbmis.model.PcbCheckOrder" >
+    update pcb_check_order
+    <set >
+      <if test="templateId != null" >
+        template_id = #{templateId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNumber != null" >
+        order_number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="checkNum != null" >
+        check_num = #{checkNum,jdbcType=VARCHAR},
+      </if>
+      <if test="productPeriod != null" >
+        product_period = #{productPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="inStorageDate != null" >
+        in_storage_date = #{inStorageDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inAmountPcs != null" >
+        in_amount_pcs = #{inAmountPcs,jdbcType=INTEGER},
+      </if>
+      <if test="inAmountSet != null" >
+        in_amount_set = #{inAmountSet,jdbcType=INTEGER},
+      </if>
+      <if test="batchNumber != null" >
+        batch_number = #{batchNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="boardName != null" >
+        board_name = #{boardName,jdbcType=VARCHAR},
+      </if>
+      <if test="createrCode != null" >
+        creater_code = #{createrCode,jdbcType=VARCHAR},
+      </if>
+      <if test="amountCheckoutPcs != null" >
+        amount_checkout_pcs = #{amountCheckoutPcs,jdbcType=INTEGER},
+      </if>
+      <if test="amountCheckoutSet != null" >
+        amount_checkout_set = #{amountCheckoutSet,jdbcType=INTEGER},
+      </if>
+      <if test="checkState != null" >
+        check_state = #{checkState,jdbcType=VARCHAR},
+      </if>
+      <if test="checkStateId != null" >
+        check_state_id = #{checkStateId,jdbcType=INTEGER},
+      </if>
+      <if test="orderType != null" >
+        order_type = #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="productOrderNum != null" >
+        product_order_num = #{productOrderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="joinBoardOrderCode != null" >
+        join_board_order_code = #{joinBoardOrderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="spotCheckNumPcs != null" >
+        spot_check_num_pcs = #{spotCheckNumPcs,jdbcType=INTEGER},
+      </if>
+      <if test="receiveDate != null" >
+        receive_date = #{receiveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inspector != null" >
+        inspector = #{inspector,jdbcType=VARCHAR},
+      </if>
+      <if test="checkDate != null" >
+        check_date = #{checkDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditor != null" >
+        auditor = #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null" >
+        audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contentId != null" >
+        content_id = #{contentId,jdbcType=VARCHAR},
+      </if>
+      <if test="badRecord != null" >
+        bad_record = #{badRecord,jdbcType=INTEGER},
+      </if>
+      <if test="badRecordTime != null" >
+        bad_record_time = #{badRecordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serialNumber != null" >
+        serial_number = #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="revision != null" >
+        revision = #{revision,jdbcType=VARCHAR},
+      </if>
+      <if test="documentNumber != null" >
+        document_number = #{documentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="enable != null" >
+        enable = #{enable,jdbcType=BIT},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="mistakeNote != null" >
+        mistake_note = #{mistakeNote,jdbcType=VARCHAR},
+      </if>
+      <if test="innerCreateTime != null" >
+        inner_create_time = #{innerCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="innerUpdateTime != null" >
+        inner_update_time = #{innerUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcbwx.pcbmis.model.PcbCheckOrder" >
+    update pcb_check_order
+    set template_id = #{templateId,jdbcType=INTEGER},
+      order_number = #{orderNumber,jdbcType=VARCHAR},
+      check_num = #{checkNum,jdbcType=VARCHAR},
+      product_period = #{productPeriod,jdbcType=INTEGER},
+      in_storage_date = #{inStorageDate,jdbcType=TIMESTAMP},
+      in_amount_pcs = #{inAmountPcs,jdbcType=INTEGER},
+      in_amount_set = #{inAmountSet,jdbcType=INTEGER},
+      batch_number = #{batchNumber,jdbcType=VARCHAR},
+      board_name = #{boardName,jdbcType=VARCHAR},
+      creater_code = #{createrCode,jdbcType=VARCHAR},
+      amount_checkout_pcs = #{amountCheckoutPcs,jdbcType=INTEGER},
+      amount_checkout_set = #{amountCheckoutSet,jdbcType=INTEGER},
+      check_state = #{checkState,jdbcType=VARCHAR},
+      check_state_id = #{checkStateId,jdbcType=INTEGER},
+      order_type = #{orderType,jdbcType=VARCHAR},
+      product_order_num = #{productOrderNum,jdbcType=VARCHAR},
+      join_board_order_code = #{joinBoardOrderCode,jdbcType=VARCHAR},
+      spot_check_num_pcs = #{spotCheckNumPcs,jdbcType=INTEGER},
+      receive_date = #{receiveDate,jdbcType=TIMESTAMP},
+      inspector = #{inspector,jdbcType=VARCHAR},
+      check_date = #{checkDate,jdbcType=TIMESTAMP},
+      auditor = #{auditor,jdbcType=VARCHAR},
+      audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      content_id = #{contentId,jdbcType=VARCHAR},
+      bad_record = #{badRecord,jdbcType=INTEGER},
+      bad_record_time = #{badRecordTime,jdbcType=TIMESTAMP},
+      serial_number = #{serialNumber,jdbcType=VARCHAR},
+      revision = #{revision,jdbcType=VARCHAR},
+      document_number = #{documentNumber,jdbcType=VARCHAR},
+      enable = #{enable,jdbcType=BIT},
+      note = #{note,jdbcType=VARCHAR},
+      mistake_note = #{mistakeNote,jdbcType=VARCHAR},
+      inner_create_time = #{innerCreateTime,jdbcType=TIMESTAMP},
+      inner_update_time = #{innerUpdateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 以下为自定义接口 -->
+  <select id="listCheckOrderByProductOrder" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from pcb_check_order
+    where 
+    product_order_num = #{productOrderNum,jdbcType=VARCHAR}
+    and in_amount_pcs > 0
+    order by check_num desc
+  </select>
+  <select id="listCheckOrderByJoinOrder" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from pcb_check_order
+    where 
+    join_board_order_code = #{joinBoardOrderCode,jdbcType=VARCHAR}
+    and in_amount_pcs > 0
+    order by check_num desc
+  </select>
+  <select id="selectByCheckNum" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from pcb_check_order
+    where check_num = #{checkNum,jdbcType=VARCHAR}
+  </select>
+  <select id="selectCheckListByKeyWordNums" resultType="java.lang.Integer" parameterType="map" >
+    select count(id)
+    from pcb_check_order
+    where 
+    <if test="keyWord != null" >
+		(check_num like '%${keyWord}%' or product_order_num like '%${keyWord}%') 
+	</if>
+  </select>
+  <select id="getSelectByKeyWordAndOrderNumsNum" resultType="java.lang.Integer" parameterType="map" >
+   	select count(a.id)
+    from pcb_check_order a,product_order b
+    where a.product_order_num = b.order_num
+    and check_num is not null
+    and enable = 1
+    <if test="orderNum != null">
+    	and a.product_order_num like '%${orderNum}%'
+    </if>
+    <if test="content != null">
+    	and a.content_id like '%${content}%'
+    </if>
+    <if test="boardName != null">
+    	and a.board_name like '%${boardName}%'
+    </if>
+     <if test="factoryId != null">
+    	and b.factory_id = #{factoryId,jdbcType=INTEGER}
+    </if>
+    <if test="statusId != null">
+    	and a.check_state_id = #{statusId,jdbcType=INTEGER}
+    </if>
+    <if test="gradeId != null">
+    	and b.category_grade_id = #{gradeId,jdbcType=INTEGER}
+    </if>
+     <if test="guestCodes != null">
+    	and b.guest_code in
+    	<foreach collection="guestCodes" item="item" index="index" open="(" separator="," close=")">  
+		    	#{item}  
+     	</foreach>
+    </if>
+    <if test="checkStart != null">
+    	<![CDATA[and a.check_date >= #{checkStart,jdbcType=TIMESTAMP}]]>
+    </if>
+    <if test="checkEnd != null">
+    	<![CDATA[and a.check_date <= #{checkEnd,jdbcType=TIMESTAMP}]]>
+    </if>
+    <if test="auditStart != null">
+    	<![CDATA[and a.audit_date >= #{auditStart,jdbcType=TIMESTAMP}]]>
+    </if>
+    <if test="auditEnd != null">
+    	<![CDATA[and a.audit_date <= #{auditEnd,jdbcType=TIMESTAMP}]]>
+    </if>
+  </select>
+  <select id="selectByKeyWordAndOrderNums" resultMap="BaseResultMap" parameterType="map" >
+    select a.*
+    from pcb_check_order a,product_order b
+    where a.product_order_num = b.order_num
+    and check_num is not null
+    and enable = 1
+    <if test="orderNum != null">
+    	and a.product_order_num like '%${orderNum}%'
+    </if>
+    <if test="content != null">
+    	and a.content_id like '%${content}%'
+    </if>
+    <if test="boardName != null">
+    	and a.board_name like '%${boardName}%'
+    </if>
+     <if test="factoryId != null">
+    	and b.factory_id = #{factoryId,jdbcType=INTEGER}
+    </if>
+    <if test="statusId != null">
+    	and a.check_state_id = #{statusId,jdbcType=INTEGER}
+    </if>
+    <if test="gradeId != null">
+    	and b.category_grade_id = #{gradeId,jdbcType=INTEGER}
+    </if>
+     <if test="guestCodes != null">
+    	and b.guest_code in
+    	<foreach collection="guestCodes" item="item" index="index" open="(" separator="," close=")">  
+		    	#{item}  
+     	</foreach>
+    </if>
+    <if test="checkStart != null">
+    	<![CDATA[and a.check_date >= #{checkStart,jdbcType=TIMESTAMP}]]>
+    </if>
+    <if test="checkEnd != null">
+    	<![CDATA[and a.check_date <= #{checkEnd,jdbcType=TIMESTAMP}]]>
+    </if>
+    <if test="auditStart != null">
+    	<![CDATA[and a.audit_date >= #{auditStart,jdbcType=TIMESTAMP}]]>
+    </if>
+    <if test="auditEnd != null">
+    	<![CDATA[and a.audit_date <= #{auditEnd,jdbcType=TIMESTAMP}]]>
+    </if>
+    ORDER BY a.create_time desc
+    <if test="start != null and pageSize != null" >
+    	limit #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+<!--   <select id="selectByKeyWordAndOrderNumsNum" resultMap="BaseResultMap" parameterType="map" >
+    select
+	<include refid="Base_Column_List" />
+    from pcb_check_order
+    where 1 = 1
+    and check_num is not null and check_state = "已检验"
+    <if test="keyWord != null">
+    	and (check_num like '%${keyWord}%' or product_order_num like '%${keyWord}%')
+    </if>
+    <if test=" orderNums != null">
+    	or product_order_num in
+			<foreach collection="orderNums" item="item" index="index" open="(" separator="," close=")">  
+		    	#{item}  
+     		</foreach>
+    </if>
+    ORDER BY create_time desc
+  </select> -->
+  <select id="selectPreCheckNum" resultType="java.lang.Integer" parameterType="map">
+  	select count(id) 
+    from pcb_check_order
+  	where (check_state_id = #{toBe,jdbcType=INTEGER}
+  	or check_state_id = #{doing,jdbcType=INTEGER}
+  	<if test="inspector != null">
+  		and inspector = #{inspector,jdbcType=VARCHAR}
+  	</if> 
+  	<if test="auditor != null">
+  		and auditor = #{auditor,jdbcType=VARCHAR}
+  	</if> )
+  	<if test="orderNum != null">
+  		and product_order_num like '%${orderNum}%'
+  	</if>
+  	and spot_check_num_pcs is not null
+  	and enable = 1
+  </select>
+  <select id="selectPreCheck" resultMap="BaseResultMap" parameterType="map">
+  	 select 
+    <include refid="Base_Column_List" />
+    from pcb_check_order
+  	where (check_state_id = #{toBe,jdbcType=INTEGER}
+  	or check_state_id = #{doing,jdbcType=INTEGER}
+  	<if test="inspector != null">
+  		and inspector = #{inspector,jdbcType=VARCHAR}
+  	</if> 
+  	<if test="auditor != null">
+  		and auditor = #{auditor,jdbcType=VARCHAR}
+  	</if> )
+  	
+  	<if test="orderNum != null">
+  		and product_order_num like '%${orderNum}%'
+  	</if>
+  	and spot_check_num_pcs is not null
+  	and enable = 1
+  	order by create_time desc
+  	limit #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="selectByCheckNums" resultMap="BaseResultMap" parameterType="map">
+  	select 
+    <include refid="Base_Column_List" />
+    from pcb_check_order
+    where enable = 1 and check_num in
+    <foreach collection="checkNums" item="item" index="index" open="(" separator="," close=")">
+    	#{item}
+    </foreach>
+  </select>
+  <select id="selectByOrderNumer" resultMap="BaseResultMap" parameterType="map">
+  	select 
+    <include refid="Base_Column_List" />
+    from pcb_check_order
+    where enable = 1
+    and order_number = #{orderNumber,jdbcType=VARCHAR}
+  </select>
+  <update id="updatePcbBoardName" parameterType="map">
+    update pcb_check_order
+    set board_name = #{boardName,jdbcType=VARCHAR}
+    where product_order_num = #{productOrderNum,jdbcType=VARCHAR}
+    and (join_board_order_code = '' or join_board_order_code is null)
+  </update>
+    <update id="updateJoinBoardName" parameterType="map">
+    update pcb_check_order
+    set board_name = #{boardName,jdbcType=VARCHAR}
+    where join_board_order_code = #{joinBoardOrderCode,jdbcType=VARCHAR}
+  </update>
+<!--   <update id="updateInStorageInfo" parameterType="map">
+    update pcb_check_order
+    set product_period = #{productPeriod,jdbcType=INTEGER},
+    in_storage_date = #{inStorageDate,jdbcType=TIMESTAMP},
+    in_amount_pcs = #{inAmountPcs,jdbcType=INTEGER}
+    where order_number = #{orderNumber,jdbcType=VARCHAR}
+  </update> -->
+  <select id="listCheckOrderByInstorageNum" resultMap="BaseResultMap" parameterType="map">
+  	select order_number, content_id 
+    from pcb_check_order
+    where enable = 1 and (1=0
+    <if test="instorageNums != null">
+    	or order_number in
+    	<foreach collection="instorageNums" item="item" index="index" open="(" separator="," close=")">
+    		#{item}
+    	</foreach>
+    </if>)
+  </select>
+</mapper>

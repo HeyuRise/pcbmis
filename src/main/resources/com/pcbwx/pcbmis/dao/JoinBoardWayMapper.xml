@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pcbwx.pcbmis.dao.JoinBoardWayMapper" >
+  <resultMap id="BaseResultMap" type="com.pcbwx.pcbmis.model.JoinBoardWay" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="inner_id" property="innerId" jdbcType="INTEGER" />
+    <result column="enable" property="enable" jdbcType="INTEGER" />
+    <result column="join_name" property="joinName" jdbcType="VARCHAR" />
+    <result column="order_type_num" property="orderTypeNum" jdbcType="INTEGER" />
+    <result column="inner_create_time" property="innerCreateTime" jdbcType="TIMESTAMP" />
+    <result column="inner_update_time" property="innerUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, inner_id, enable, join_name, order_type_num, inner_create_time, inner_update_time, 
+    create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from join_board_way
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from join_board_way
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcbwx.pcbmis.model.JoinBoardWay" >
+    insert into join_board_way (id, inner_id, enable, 
+      join_name, order_type_num, inner_create_time, 
+      inner_update_time, create_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{innerId,jdbcType=INTEGER}, #{enable,jdbcType=INTEGER}, 
+      #{joinName,jdbcType=VARCHAR}, #{orderTypeNum,jdbcType=INTEGER}, #{innerCreateTime,jdbcType=TIMESTAMP}, 
+      #{innerUpdateTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcbwx.pcbmis.model.JoinBoardWay" >
+    insert into join_board_way
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="innerId != null" >
+        inner_id,
+      </if>
+      <if test="enable != null" >
+        enable,
+      </if>
+      <if test="joinName != null" >
+        join_name,
+      </if>
+      <if test="orderTypeNum != null" >
+        order_type_num,
+      </if>
+      <if test="innerCreateTime != null" >
+        inner_create_time,
+      </if>
+      <if test="innerUpdateTime != null" >
+        inner_update_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="innerId != null" >
+        #{innerId,jdbcType=INTEGER},
+      </if>
+      <if test="enable != null" >
+        #{enable,jdbcType=INTEGER},
+      </if>
+      <if test="joinName != null" >
+        #{joinName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTypeNum != null" >
+        #{orderTypeNum,jdbcType=INTEGER},
+      </if>
+      <if test="innerCreateTime != null" >
+        #{innerCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="innerUpdateTime != null" >
+        #{innerUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcbwx.pcbmis.model.JoinBoardWay" >
+    update join_board_way
+    <set >
+      <if test="innerId != null" >
+        inner_id = #{innerId,jdbcType=INTEGER},
+      </if>
+      <if test="enable != null" >
+        enable = #{enable,jdbcType=INTEGER},
+      </if>
+      <if test="joinName != null" >
+        join_name = #{joinName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTypeNum != null" >
+        order_type_num = #{orderTypeNum,jdbcType=INTEGER},
+      </if>
+      <if test="innerCreateTime != null" >
+        inner_create_time = #{innerCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="innerUpdateTime != null" >
+        inner_update_time = #{innerUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcbwx.pcbmis.model.JoinBoardWay" >
+    update join_board_way
+    set inner_id = #{innerId,jdbcType=INTEGER},
+      enable = #{enable,jdbcType=INTEGER},
+      join_name = #{joinName,jdbcType=VARCHAR},
+      order_type_num = #{orderTypeNum,jdbcType=INTEGER},
+      inner_create_time = #{innerCreateTime,jdbcType=TIMESTAMP},
+      inner_update_time = #{innerUpdateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 以下为自定义接口 -->
+  <select id="load" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from join_board_way
+    where enable = 1
+  </select>
+  <select id="listByInnerIds" resultMap="BaseResultMap" parameterType="java.util.List" >
+    select 
+    <include refid="Base_Column_List" />
+    from join_board_way
+    where inner_id IN
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")">  
+    	#{item}  
+    </foreach>  
+    ORDER BY inner_create_time desc
+  </select>
+</mapper>

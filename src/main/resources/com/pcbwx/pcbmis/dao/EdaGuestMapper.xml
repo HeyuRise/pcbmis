@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pcbwx.pcbmis.dao.EdaGuestMapper" >
+  <resultMap id="BaseResultMap" type="com.pcbwx.pcbmis.model.EdaGuest" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="inner_id" property="innerId" jdbcType="INTEGER" />
+    <result column="guest_code" property="guestCode" jdbcType="VARCHAR" />
+    <result column="guest_name" property="guestName" jdbcType="VARCHAR" />
+    <result column="short_name_cn" property="shortNameCn" jdbcType="VARCHAR" />
+    <result column="short_name_en" property="shortNameEn" jdbcType="VARCHAR" />
+    <result column="sell_depart" property="sellDepart" jdbcType="VARCHAR" />
+    <result column="seller_code" property="sellerCode" jdbcType="VARCHAR" />
+    <result column="seller_email" property="sellerEmail" jdbcType="VARCHAR" />
+    <result column="place" property="place" jdbcType="VARCHAR" />
+    <result column="sell_company" property="sellCompany" jdbcType="VARCHAR" />
+    <result column="guest_type" property="guestType" jdbcType="VARCHAR" />
+    <result column="guest_state" property="guestState" jdbcType="INTEGER" />
+    <result column="cs_code" property="csCode" jdbcType="VARCHAR" />
+    <result column="check_type" property="checkType" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="inner_create_time" property="innerCreateTime" jdbcType="TIMESTAMP" />
+    <result column="inner_update_time" property="innerUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, inner_id, guest_code, guest_name, short_name_cn, short_name_en, sell_depart, 
+    seller_code, seller_email, place, sell_company, guest_type, guest_state, cs_code, 
+    check_type, create_time, inner_create_time, inner_update_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from eda_guest
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from eda_guest
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcbwx.pcbmis.model.EdaGuest" >
+    insert into eda_guest (id, inner_id, guest_code, 
+      guest_name, short_name_cn, short_name_en, 
+      sell_depart, seller_code, seller_email, 
+      place, sell_company, guest_type, 
+      guest_state, cs_code, check_type, 
+      create_time, inner_create_time, inner_update_time, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{innerId,jdbcType=INTEGER}, #{guestCode,jdbcType=VARCHAR}, 
+      #{guestName,jdbcType=VARCHAR}, #{shortNameCn,jdbcType=VARCHAR}, #{shortNameEn,jdbcType=VARCHAR}, 
+      #{sellDepart,jdbcType=VARCHAR}, #{sellerCode,jdbcType=VARCHAR}, #{sellerEmail,jdbcType=VARCHAR}, 
+      #{place,jdbcType=VARCHAR}, #{sellCompany,jdbcType=VARCHAR}, #{guestType,jdbcType=VARCHAR}, 
+      #{guestState,jdbcType=INTEGER}, #{csCode,jdbcType=VARCHAR}, #{checkType,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{innerCreateTime,jdbcType=TIMESTAMP}, #{innerUpdateTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcbwx.pcbmis.model.EdaGuest" >
+    insert into eda_guest
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="innerId != null" >
+        inner_id,
+      </if>
+      <if test="guestCode != null" >
+        guest_code,
+      </if>
+      <if test="guestName != null" >
+        guest_name,
+      </if>
+      <if test="shortNameCn != null" >
+        short_name_cn,
+      </if>
+      <if test="shortNameEn != null" >
+        short_name_en,
+      </if>
+      <if test="sellDepart != null" >
+        sell_depart,
+      </if>
+      <if test="sellerCode != null" >
+        seller_code,
+      </if>
+      <if test="sellerEmail != null" >
+        seller_email,
+      </if>
+      <if test="place != null" >
+        place,
+      </if>
+      <if test="sellCompany != null" >
+        sell_company,
+      </if>
+      <if test="guestType != null" >
+        guest_type,
+      </if>
+      <if test="guestState != null" >
+        guest_state,
+      </if>
+      <if test="csCode != null" >
+        cs_code,
+      </if>
+      <if test="checkType != null" >
+        check_type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="innerCreateTime != null" >
+        inner_create_time,
+      </if>
+      <if test="innerUpdateTime != null" >
+        inner_update_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="innerId != null" >
+        #{innerId,jdbcType=INTEGER},
+      </if>
+      <if test="guestCode != null" >
+        #{guestCode,jdbcType=VARCHAR},
+      </if>
+      <if test="guestName != null" >
+        #{guestName,jdbcType=VARCHAR},
+      </if>
+      <if test="shortNameCn != null" >
+        #{shortNameCn,jdbcType=VARCHAR},
+      </if>
+      <if test="shortNameEn != null" >
+        #{shortNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="sellDepart != null" >
+        #{sellDepart,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerCode != null" >
+        #{sellerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerEmail != null" >
+        #{sellerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null" >
+        #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="sellCompany != null" >
+        #{sellCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="guestType != null" >
+        #{guestType,jdbcType=VARCHAR},
+      </if>
+      <if test="guestState != null" >
+        #{guestState,jdbcType=INTEGER},
+      </if>
+      <if test="csCode != null" >
+        #{csCode,jdbcType=VARCHAR},
+      </if>
+      <if test="checkType != null" >
+        #{checkType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="innerCreateTime != null" >
+        #{innerCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="innerUpdateTime != null" >
+        #{innerUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcbwx.pcbmis.model.EdaGuest" >
+    update eda_guest
+    <set >
+      <if test="innerId != null" >
+        inner_id = #{innerId,jdbcType=INTEGER},
+      </if>
+      <if test="guestCode != null" >
+        guest_code = #{guestCode,jdbcType=VARCHAR},
+      </if>
+      <if test="guestName != null" >
+        guest_name = #{guestName,jdbcType=VARCHAR},
+      </if>
+      <if test="shortNameCn != null" >
+        short_name_cn = #{shortNameCn,jdbcType=VARCHAR},
+      </if>
+      <if test="shortNameEn != null" >
+        short_name_en = #{shortNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="sellDepart != null" >
+        sell_depart = #{sellDepart,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerCode != null" >
+        seller_code = #{sellerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerEmail != null" >
+        seller_email = #{sellerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null" >
+        place = #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="sellCompany != null" >
+        sell_company = #{sellCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="guestType != null" >
+        guest_type = #{guestType,jdbcType=VARCHAR},
+      </if>
+      <if test="guestState != null" >
+        guest_state = #{guestState,jdbcType=INTEGER},
+      </if>
+      <if test="csCode != null" >
+        cs_code = #{csCode,jdbcType=VARCHAR},
+      </if>
+      <if test="checkType != null" >
+        check_type = #{checkType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="innerCreateTime != null" >
+        inner_create_time = #{innerCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="innerUpdateTime != null" >
+        inner_update_time = #{innerUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcbwx.pcbmis.model.EdaGuest" >
+    update eda_guest
+    set inner_id = #{innerId,jdbcType=INTEGER},
+      guest_code = #{guestCode,jdbcType=VARCHAR},
+      guest_name = #{guestName,jdbcType=VARCHAR},
+      short_name_cn = #{shortNameCn,jdbcType=VARCHAR},
+      short_name_en = #{shortNameEn,jdbcType=VARCHAR},
+      sell_depart = #{sellDepart,jdbcType=VARCHAR},
+      seller_code = #{sellerCode,jdbcType=VARCHAR},
+      seller_email = #{sellerEmail,jdbcType=VARCHAR},
+      place = #{place,jdbcType=VARCHAR},
+      sell_company = #{sellCompany,jdbcType=VARCHAR},
+      guest_type = #{guestType,jdbcType=VARCHAR},
+      guest_state = #{guestState,jdbcType=INTEGER},
+      cs_code = #{csCode,jdbcType=VARCHAR},
+      check_type = #{checkType,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      inner_create_time = #{innerCreateTime,jdbcType=TIMESTAMP},
+      inner_update_time = #{innerUpdateTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 以下为自定义接口 -->
+  <select id="load" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from eda_guest
+  </select>
+  <select id="selectByShortName" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from eda_guest
+    where short_name_cn like '%${shortName}%'
+  </select>
+  <select id="listByCodes" resultMap="BaseResultMap" parameterType="java.util.List" >
+    select 
+    <include refid="Base_Column_List" />
+    from eda_guest
+    where guest_code IN
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")">  
+    	#{item}  
+    </foreach>  
+    ORDER BY inner_create_time desc
+  </select>
+  <select id="listByInnerIds" resultMap="BaseResultMap" parameterType="java.util.List" >
+    select 
+    <include refid="Base_Column_List" />
+    from eda_guest
+    where inner_id IN
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")">  
+    	#{item}  
+    </foreach>  
+    ORDER BY inner_create_time desc
+  </select>
+</mapper>

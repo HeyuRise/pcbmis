@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pcbwx.pcbmis.dao.BoardToleranceMapper" >
+   <resultMap id="BaseResultMap" type="com.pcbwx.pcbmis.model.BoardTolerance" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="check_num" property="checkNum" jdbcType="VARCHAR" />
+    <result column="order_num" property="orderNum" jdbcType="VARCHAR" />
+    <result column="min_boardLong_tolerance" property="minBoardlongTolerance" jdbcType="VARCHAR" />
+    <result column="max_boardLong_tolerance" property="maxBoardlongTolerance" jdbcType="VARCHAR" />
+    <result column="min_boardWide_tolerance" property="minBoardwideTolerance" jdbcType="VARCHAR" />
+    <result column="max_boardWide_tolerance" property="maxBoardwideTolerance" jdbcType="VARCHAR" />
+    <result column="min_boardPly_tolerance" property="minBoardplyTolerance" jdbcType="VARCHAR" />
+    <result column="max_boardPly_tolerance" property="maxBoardplyTolerance" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, check_num, order_num, min_boardLong_tolerance, max_boardLong_tolerance, min_boardWide_tolerance, 
+    max_boardWide_tolerance, min_boardPly_tolerance, max_boardPly_tolerance, create_time, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from board_tolerance
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from board_tolerance
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcbwx.pcbmis.model.BoardTolerance" >
+    insert into board_tolerance (id, check_num, order_num, 
+      min_boardLong_tolerance, max_boardLong_tolerance, 
+      min_boardWide_tolerance, max_boardWide_tolerance, 
+      min_boardPly_tolerance, max_boardPly_tolerance, 
+      create_time, update_time)
+    values (#{id,jdbcType=INTEGER}, #{checkNum,jdbcType=VARCHAR}, #{orderNum,jdbcType=VARCHAR}, 
+      #{minBoardlongTolerance,jdbcType=VARCHAR}, #{maxBoardlongTolerance,jdbcType=VARCHAR}, 
+      #{minBoardwideTolerance,jdbcType=VARCHAR}, #{maxBoardwideTolerance,jdbcType=VARCHAR}, 
+      #{minBoardplyTolerance,jdbcType=VARCHAR}, #{maxBoardplyTolerance,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcbwx.pcbmis.model.BoardTolerance" >
+    insert into board_tolerance
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="checkNum != null" >
+        check_num,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="minBoardlongTolerance != null" >
+        min_boardLong_tolerance,
+      </if>
+      <if test="maxBoardlongTolerance != null" >
+        max_boardLong_tolerance,
+      </if>
+      <if test="minBoardwideTolerance != null" >
+        min_boardWide_tolerance,
+      </if>
+      <if test="maxBoardwideTolerance != null" >
+        max_boardWide_tolerance,
+      </if>
+      <if test="minBoardplyTolerance != null" >
+        min_boardPly_tolerance,
+      </if>
+      <if test="maxBoardplyTolerance != null" >
+        max_boardPly_tolerance,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="checkNum != null" >
+        #{checkNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="minBoardlongTolerance != null" >
+        #{minBoardlongTolerance,jdbcType=VARCHAR},
+      </if>
+      <if test="maxBoardlongTolerance != null" >
+        #{maxBoardlongTolerance,jdbcType=VARCHAR},
+      </if>
+      <if test="minBoardwideTolerance != null" >
+        #{minBoardwideTolerance,jdbcType=VARCHAR},
+      </if>
+      <if test="maxBoardwideTolerance != null" >
+        #{maxBoardwideTolerance,jdbcType=VARCHAR},
+      </if>
+      <if test="minBoardplyTolerance != null" >
+        #{minBoardplyTolerance,jdbcType=VARCHAR},
+      </if>
+      <if test="maxBoardplyTolerance != null" >
+        #{maxBoardplyTolerance,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcbwx.pcbmis.model.BoardTolerance" >
+    update board_tolerance
+    <set >
+      <if test="checkNum != null" >
+        check_num = #{checkNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="minBoardlongTolerance != null" >
+        min_boardLong_tolerance = #{minBoardlongTolerance,jdbcType=VARCHAR},
+      </if>
+      <if test="maxBoardlongTolerance != null" >
+        max_boardLong_tolerance = #{maxBoardlongTolerance,jdbcType=VARCHAR},
+      </if>
+      <if test="minBoardwideTolerance != null" >
+        min_boardWide_tolerance = #{minBoardwideTolerance,jdbcType=VARCHAR},
+      </if>
+      <if test="maxBoardwideTolerance != null" >
+        max_boardWide_tolerance = #{maxBoardwideTolerance,jdbcType=VARCHAR},
+      </if>
+      <if test="minBoardplyTolerance != null" >
+        min_boardPly_tolerance = #{minBoardplyTolerance,jdbcType=VARCHAR},
+      </if>
+      <if test="maxBoardplyTolerance != null" >
+        max_boardPly_tolerance = #{maxBoardplyTolerance,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcbwx.pcbmis.model.BoardTolerance" >
+    update board_tolerance
+    set check_num = #{checkNum,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=VARCHAR},
+      min_boardLong_tolerance = #{minBoardlongTolerance,jdbcType=VARCHAR},
+      max_boardLong_tolerance = #{maxBoardlongTolerance,jdbcType=VARCHAR},
+      min_boardWide_tolerance = #{minBoardwideTolerance,jdbcType=VARCHAR},
+      max_boardWide_tolerance = #{maxBoardwideTolerance,jdbcType=VARCHAR},
+      min_boardPly_tolerance = #{minBoardplyTolerance,jdbcType=VARCHAR},
+      max_boardPly_tolerance = #{maxBoardplyTolerance,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 以下为自定义接口 -->
+  <select id="selectByCheckNum" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from board_tolerance
+    where check_num = #{checkNum,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByCheckNum" parameterType="map">
+  	delete from board_tolerance
+    where check_num = #{checkNum,jdbcType=VARCHAR}
+  </delete>
+</mapper>

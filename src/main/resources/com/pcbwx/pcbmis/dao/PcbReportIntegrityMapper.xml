@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pcbwx.pcbmis.dao.PcbReportIntegrityMapper" >
+  <resultMap id="BaseResultMap" type="com.pcbwx.pcbmis.model.PcbReportIntegrity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="report_num" property="reportNum" jdbcType="VARCHAR" />
+    <result column="order_num" property="orderNum" jdbcType="VARCHAR" />
+    <result column="check_instrument" property="checkInstrument" jdbcType="VARCHAR" />
+    <result column="check_voltage" property="checkVoltage" jdbcType="VARCHAR" />
+    <result column="check_point_num" property="checkPointNum" jdbcType="VARCHAR" />
+    <result column="net_num" property="netNum" jdbcType="VARCHAR" />
+    <result column="connected_resistance" property="connectedResistance" jdbcType="VARCHAR" />
+    <result column="insulated_resistance" property="insulatedResistance" jdbcType="VARCHAR" />
+    <result column="connected_net_num" property="connectedNetNum" jdbcType="VARCHAR" />
+    <result column="result" property="result" jdbcType="VARCHAR" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, report_num, order_num, check_instrument, check_voltage, check_point_num, net_num, 
+    connected_resistance, insulated_resistance, connected_net_num, result, creat_time, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pcb_report_integrity
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pcb_report_integrity
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcbwx.pcbmis.model.PcbReportIntegrity" >
+    insert into pcb_report_integrity (id, report_num, order_num, 
+      check_instrument, check_voltage, check_point_num, 
+      net_num, connected_resistance, insulated_resistance, 
+      connected_net_num, result, creat_time, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{reportNum,jdbcType=VARCHAR}, #{orderNum,jdbcType=VARCHAR}, 
+      #{checkInstrument,jdbcType=VARCHAR}, #{checkVoltage,jdbcType=VARCHAR}, #{checkPointNum,jdbcType=VARCHAR}, 
+      #{netNum,jdbcType=VARCHAR}, #{connectedResistance,jdbcType=VARCHAR}, #{insulatedResistance,jdbcType=VARCHAR}, 
+      #{connectedNetNum,jdbcType=VARCHAR}, #{result,jdbcType=VARCHAR}, #{creatTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcbwx.pcbmis.model.PcbReportIntegrity" >
+    insert into pcb_report_integrity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="reportNum != null" >
+        report_num,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="checkInstrument != null" >
+        check_instrument,
+      </if>
+      <if test="checkVoltage != null" >
+        check_voltage,
+      </if>
+      <if test="checkPointNum != null" >
+        check_point_num,
+      </if>
+      <if test="netNum != null" >
+        net_num,
+      </if>
+      <if test="connectedResistance != null" >
+        connected_resistance,
+      </if>
+      <if test="insulatedResistance != null" >
+        insulated_resistance,
+      </if>
+      <if test="connectedNetNum != null" >
+        connected_net_num,
+      </if>
+      <if test="result != null" >
+        result,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="reportNum != null" >
+        #{reportNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="checkInstrument != null" >
+        #{checkInstrument,jdbcType=VARCHAR},
+      </if>
+      <if test="checkVoltage != null" >
+        #{checkVoltage,jdbcType=VARCHAR},
+      </if>
+      <if test="checkPointNum != null" >
+        #{checkPointNum,jdbcType=VARCHAR},
+      </if>
+      <if test="netNum != null" >
+        #{netNum,jdbcType=VARCHAR},
+      </if>
+      <if test="connectedResistance != null" >
+        #{connectedResistance,jdbcType=VARCHAR},
+      </if>
+      <if test="insulatedResistance != null" >
+        #{insulatedResistance,jdbcType=VARCHAR},
+      </if>
+      <if test="connectedNetNum != null" >
+        #{connectedNetNum,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcbwx.pcbmis.model.PcbReportIntegrity" >
+    update pcb_report_integrity
+    <set >
+      <if test="reportNum != null" >
+        report_num = #{reportNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="checkInstrument != null" >
+        check_instrument = #{checkInstrument,jdbcType=VARCHAR},
+      </if>
+      <if test="checkVoltage != null" >
+        check_voltage = #{checkVoltage,jdbcType=VARCHAR},
+      </if>
+      <if test="checkPointNum != null" >
+        check_point_num = #{checkPointNum,jdbcType=VARCHAR},
+      </if>
+      <if test="netNum != null" >
+        net_num = #{netNum,jdbcType=VARCHAR},
+      </if>
+      <if test="connectedResistance != null" >
+        connected_resistance = #{connectedResistance,jdbcType=VARCHAR},
+      </if>
+      <if test="insulatedResistance != null" >
+        insulated_resistance = #{insulatedResistance,jdbcType=VARCHAR},
+      </if>
+      <if test="connectedNetNum != null" >
+        connected_net_num = #{connectedNetNum,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null" >
+        result = #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcbwx.pcbmis.model.PcbReportIntegrity" >
+    update pcb_report_integrity
+    set report_num = #{reportNum,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=VARCHAR},
+      check_instrument = #{checkInstrument,jdbcType=VARCHAR},
+      check_voltage = #{checkVoltage,jdbcType=VARCHAR},
+      check_point_num = #{checkPointNum,jdbcType=VARCHAR},
+      net_num = #{netNum,jdbcType=VARCHAR},
+      connected_resistance = #{connectedResistance,jdbcType=VARCHAR},
+      insulated_resistance = #{insulatedResistance,jdbcType=VARCHAR},
+      connected_net_num = #{connectedNetNum,jdbcType=VARCHAR},
+      result = #{result,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+<!-- 以下为自定义接口 -->
+  <select id="selectByReportNum" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from pcb_report_integrity
+    where 
+    report_num = #{reportNum,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByReportNum" parameterType="map" >
+    delete from pcb_report_integrity
+    where report_num = #{reportNum,jdbcType=VARCHAR}
+  </delete>
+</mapper>

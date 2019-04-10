@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pcbwx.pcbmis.dao.PcbReceiveOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.pcbwx.pcbmis.model.PcbReceiveOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_num" property="orderNum" jdbcType="VARCHAR" />
+    <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="check_num" property="checkNum" jdbcType="VARCHAR" />
+    <result column="report_num" property="reportNum" jdbcType="VARCHAR" />
+    <result column="factory_id" property="factoryId" jdbcType="INTEGER" />
+    <result column="category_grade_id" property="categoryGradeId" jdbcType="INTEGER" />
+    <result column="production_num_set" property="productionNumSet" jdbcType="INTEGER" />
+    <result column="production_num_pcs" property="productionNumPcs" jdbcType="INTEGER" />
+    <result column="content_id" property="contentId" jdbcType="VARCHAR" />
+    <result column="spot_check_num_pcs" property="spotCheckNumPcs" jdbcType="INTEGER" />
+    <result column="receive_type" property="receiveType" jdbcType="INTEGER" />
+    <result column="receive_time" property="receiveTime" jdbcType="TIMESTAMP" />
+    <result column="receiver" property="receiver" jdbcType="VARCHAR" />
+    <result column="enable" property="enable" jdbcType="BIT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_num, order_number, check_num, report_num, factory_id, category_grade_id, 
+    production_num_set, production_num_pcs, content_id, spot_check_num_pcs, receive_type, 
+    receive_time, receiver, enable, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pcb_receive_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pcb_receive_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcbwx.pcbmis.model.PcbReceiveOrder" >
+    insert into pcb_receive_order (id, order_num, order_number, 
+      check_num, report_num, factory_id, 
+      category_grade_id, production_num_set, production_num_pcs, 
+      content_id, spot_check_num_pcs, receive_type, 
+      receive_time, receiver, enable, 
+      create_time, update_time)
+    values (#{id,jdbcType=INTEGER}, #{orderNum,jdbcType=VARCHAR}, #{orderNumber,jdbcType=VARCHAR}, 
+      #{checkNum,jdbcType=VARCHAR}, #{reportNum,jdbcType=VARCHAR}, #{factoryId,jdbcType=INTEGER}, 
+      #{categoryGradeId,jdbcType=INTEGER}, #{productionNumSet,jdbcType=INTEGER}, #{productionNumPcs,jdbcType=INTEGER}, 
+      #{contentId,jdbcType=VARCHAR}, #{spotCheckNumPcs,jdbcType=INTEGER}, #{receiveType,jdbcType=INTEGER}, 
+      #{receiveTime,jdbcType=TIMESTAMP}, #{receiver,jdbcType=VARCHAR}, #{enable,jdbcType=BIT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcbwx.pcbmis.model.PcbReceiveOrder" >
+    insert into pcb_receive_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
+      </if>
+      <if test="checkNum != null" >
+        check_num,
+      </if>
+      <if test="reportNum != null" >
+        report_num,
+      </if>
+      <if test="factoryId != null" >
+        factory_id,
+      </if>
+      <if test="categoryGradeId != null" >
+        category_grade_id,
+      </if>
+      <if test="productionNumSet != null" >
+        production_num_set,
+      </if>
+      <if test="productionNumPcs != null" >
+        production_num_pcs,
+      </if>
+      <if test="contentId != null" >
+        content_id,
+      </if>
+      <if test="spotCheckNumPcs != null" >
+        spot_check_num_pcs,
+      </if>
+      <if test="receiveType != null" >
+        receive_type,
+      </if>
+      <if test="receiveTime != null" >
+        receive_time,
+      </if>
+      <if test="receiver != null" >
+        receiver,
+      </if>
+      <if test="enable != null" >
+        enable,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="checkNum != null" >
+        #{checkNum,jdbcType=VARCHAR},
+      </if>
+      <if test="reportNum != null" >
+        #{reportNum,jdbcType=VARCHAR},
+      </if>
+      <if test="factoryId != null" >
+        #{factoryId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryGradeId != null" >
+        #{categoryGradeId,jdbcType=INTEGER},
+      </if>
+      <if test="productionNumSet != null" >
+        #{productionNumSet,jdbcType=INTEGER},
+      </if>
+      <if test="productionNumPcs != null" >
+        #{productionNumPcs,jdbcType=INTEGER},
+      </if>
+      <if test="contentId != null" >
+        #{contentId,jdbcType=VARCHAR},
+      </if>
+      <if test="spotCheckNumPcs != null" >
+        #{spotCheckNumPcs,jdbcType=INTEGER},
+      </if>
+      <if test="receiveType != null" >
+        #{receiveType,jdbcType=INTEGER},
+      </if>
+      <if test="receiveTime != null" >
+        #{receiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiver != null" >
+        #{receiver,jdbcType=VARCHAR},
+      </if>
+      <if test="enable != null" >
+        #{enable,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcbwx.pcbmis.model.PcbReceiveOrder" >
+    update pcb_receive_order
+    <set >
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null" >
+        order_number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="checkNum != null" >
+        check_num = #{checkNum,jdbcType=VARCHAR},
+      </if>
+      <if test="reportNum != null" >
+        report_num = #{reportNum,jdbcType=VARCHAR},
+      </if>
+      <if test="factoryId != null" >
+        factory_id = #{factoryId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryGradeId != null" >
+        category_grade_id = #{categoryGradeId,jdbcType=INTEGER},
+      </if>
+      <if test="productionNumSet != null" >
+        production_num_set = #{productionNumSet,jdbcType=INTEGER},
+      </if>
+      <if test="productionNumPcs != null" >
+        production_num_pcs = #{productionNumPcs,jdbcType=INTEGER},
+      </if>
+      <if test="contentId != null" >
+        content_id = #{contentId,jdbcType=VARCHAR},
+      </if>
+      <if test="spotCheckNumPcs != null" >
+        spot_check_num_pcs = #{spotCheckNumPcs,jdbcType=INTEGER},
+      </if>
+      <if test="receiveType != null" >
+        receive_type = #{receiveType,jdbcType=INTEGER},
+      </if>
+      <if test="receiveTime != null" >
+        receive_time = #{receiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiver != null" >
+        receiver = #{receiver,jdbcType=VARCHAR},
+      </if>
+      <if test="enable != null" >
+        enable = #{enable,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcbwx.pcbmis.model.PcbReceiveOrder" >
+    update pcb_receive_order
+    set order_num = #{orderNum,jdbcType=VARCHAR},
+      order_number = #{orderNumber,jdbcType=VARCHAR},
+      check_num = #{checkNum,jdbcType=VARCHAR},
+      report_num = #{reportNum,jdbcType=VARCHAR},
+      factory_id = #{factoryId,jdbcType=INTEGER},
+      category_grade_id = #{categoryGradeId,jdbcType=INTEGER},
+      production_num_set = #{productionNumSet,jdbcType=INTEGER},
+      production_num_pcs = #{productionNumPcs,jdbcType=INTEGER},
+      content_id = #{contentId,jdbcType=VARCHAR},
+      spot_check_num_pcs = #{spotCheckNumPcs,jdbcType=INTEGER},
+      receive_type = #{receiveType,jdbcType=INTEGER},
+      receive_time = #{receiveTime,jdbcType=TIMESTAMP},
+      receiver = #{receiver,jdbcType=VARCHAR},
+      enable = #{enable,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!--   以下为自定义接口 -->
+  <select id="selectByParam" resultMap="BaseResultMap" parameterType="map">
+  	SELECT a.*
+    FROM pcb_receive_order a 
+    INNER JOIN product_order b
+    INNER JOIN wxtb_user c
+    ON a.order_num = b.order_num AND a.receiver = c.user_code
+    WHERE a.enable = 1
+    <if test="orderNum != null">
+    	AND a.order_num LIKE "%"#{orderNum}"%"
+    </if>
+    <if test="guestCodes != null">
+		AND b.guest_code IN
+		<foreach collection="guestCodes" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</if>
+    <if test="factoryId != null">
+    	AND a.factory_id = #{factoryId,jdbcType=INTEGER}
+    </if>
+    <if test="gradeId != null">
+    	AND a.category_grade_id = #{gradeId,jdbcType=INTEGER}
+    </if>
+    <if test="productionNumSet != null">
+    	AND a.production_num_set = #{productionNumSet,jdbcType=INTEGER}
+    </if>
+    <if test="productionNumPcs != null">
+    	AND a.production_num_pcs = #{productionNumPcs,jdbcType=INTEGER}
+    </if>
+    <if test="contentId != null">
+    	AND a.content_id LIKE "%"#{contentId}"%"
+    </if>
+    <if test="receiveNum != null">
+    	AND a.spot_check_num_pcs = #{receiveNum,jdbcType=INTEGER}
+    </if>
+    <if test="receiveType != null">
+    	AND a.receive_type = #{receiveType,jdbcType=INTEGER}
+    </if>
+    <if test="receiveDateStart != null">
+    	<![CDATA[AND a.receive_time >= #{receiveDateStart,jdbcType=TIMESTAMP}]]>
+    </if>
+    <if test="receiveDateEnd != null">
+    	<![CDATA[AND a.receive_time <= #{receiveDateEnd,jdbcType=TIMESTAMP}]]>
+    </if>
+    <if test="userName != null">
+    	and c.username like "%"#{userName}"%"
+    </if>
+    ORDER BY create_time DESC
+    LIMIT #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+  </select>
+  <select id="countByParam" resultType="java.lang.Integer" parameterType="map">
+  	SELECT count(a.id)
+    FROM pcb_receive_order a 
+    INNER JOIN product_order b
+    INNER JOIN wxtb_user c
+    ON a.order_num = b.order_num AND a.receiver = c.user_code
+    WHERE a.enable = 1
+    <if test="orderNum != null">
+    	AND a.order_num LIKE "%"#{orderNum}"%"
+    </if>
+    <if test="guestCodes != null">
+		AND b.guest_code IN
+		<foreach collection="guestCodes" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</if>
+    <if test="factoryId != null">
+    	AND a.factory_id = #{factoryId,jdbcType=INTEGER}
+    </if>
+    <if test="gradeId != null">
+    	AND a.category_grade_id = #{gradeId,jdbcType=INTEGER}
+    </if>
+    <if test="productionNumSet != null">
+    	AND a.production_num_set = #{productionNumSet,jdbcType=INTEGER}
+    </if>
+    <if test="productionNumPcs != null">
+    	AND a.production_num_pcs = #{productionNumPcs,jdbcType=INTEGER}
+    </if>
+    <if test="contentId != null">
+    	AND a.content_id LIKE "%"#{contentId}"%"
+    </if>
+    <if test="receiveNum != null">
+    	AND a.spot_check_num_pcs = #{receiveNum,jdbcType=INTEGER}
+    </if>
+    <if test="receiveType != null">
+    	AND a.receive_type = #{receiveType,jdbcType=INTEGER}
+    </if>
+    <if test="receiveDateStart != null">
+    	<![CDATA[AND a.receive_time >= #{receiveDateStart,jdbcType=TIMESTAMP}]]>
+    </if>
+    <if test="receiveDateEnd != null">
+    	<![CDATA[AND a.receive_time <= #{receiveDateEnd,jdbcType=TIMESTAMP}]]>
+    </if>
+    <if test="userName != null">
+    	and c.username like "%"#{userName}"%"
+    </if>
+  </select>
+  <select id="listByCheckNums" resultMap="BaseResultMap" parameterType="map">
+  	SELECT check_num, receive_type 
+  	FROM pcb_receive_order 
+  	WHERE enable = 1 and check_num in 
+  	<foreach collection="checkNums" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+	</foreach>
+  </select>
+<!--   <select id="selectByReportNum" resultMap="BaseResultMap" parameterType="map">
+  	SELECT 
+  	<include refid="Base_Column_List" />
+  	FROM pcb_receive_order
+  	WHERE report_num = #{reportNum,jdbcType=VARCHAR}
+  	ORDER BY create_time DESC
+  </select> -->
+</mapper>

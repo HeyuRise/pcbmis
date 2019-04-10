@@ -1,0 +1,29 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body >
+
+
+	<div id="nav" class="easyui-accordion nav" > 
+ 	 	<div class="panel" ng-repeat="x in menu" style="overflow:auto;">
+ 	 		<div class="panel-header accordion-header ">
+ 	 			<div class="panel-title">{{x.title}}</div>
+ 	 			<div class="panel-tool">
+<!--  	 				<a class="accordion-collapse accordion-expand" href="javascript:void(0)"></a> -->
+ 	 			</div>
+ 	 		</div>
+ 	 		<div class="panel-body accordion-body">
+ 	 			<ul>
+ 	 				<li ng-repeat="y in x.secondMenu">
+ 	 					<a href="{{y.url}}" dst_url="{{y.url}}" onclick="var url = $(this).attr('dst_url');window.location = url;" >{{y.menuName}}</a> 
+ 	 				</li>
+ 	 			</ul>
+ 	 		</div>
+ 	 	</div>
+     </div>
+
+     
+</body>
+</html>
